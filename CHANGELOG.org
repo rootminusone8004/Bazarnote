@@ -1,0 +1,7 @@
+* Change log
+
+All notable changes to this project are documented in this file.
+
+** [0.0.0] - 02-08-2021
+
+ - initialized the repository

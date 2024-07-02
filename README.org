@@ -1,8 +1,6 @@
-* Bazarnote
+* warning
 
-A simple note taking app that keeps the necessary minimal information during bazaar.
-
-*warning*: Basic functionalities haven't been implemented yet. So cloning is discouraged right now.
+This is just a development branch. It is not guaranteed that the work of this branch will work. Cloning this branch is highly discouraged.
 
 ** what it is
 
@@ -13,7 +11,3 @@ It is a simple application. You don't need to be online for the app being functi
 ** build the app
 
 See [[file:BUILD_INFO.org][BUILD_INFO.org]] file for details.
-
-** license
-
-This project is licensed under GPL v3.0 or later. See the [[file:LICENSE.txt][LICENSE.txt]] file for details.

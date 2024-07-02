@@ -1,0 +1,15 @@
+* todo list
+
+** features
+- [ ] set the base
+- [ ] add the items objects
+- [ ] separate events or notes
+
+** bug fixes
+- blank
+
+** enhancements
+- blank
+
+** miscellaneous
+- blank

@@ -16,9 +16,10 @@ captures/
 *.apk
 output.json
 
-# IntelliJ
+# IntelliJ and IDE
 *.iml
 .idea/
+.vscode/
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml

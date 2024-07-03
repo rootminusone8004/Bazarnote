@@ -1,7 +1,7 @@
 * todo list
 
 ** features
-- [ ] set the base
+- [X] set the base
 - [ ] add the items objects
 - [ ] separate events or notes
 

@@ -7,8 +7,14 @@
 - [X] calculate all the items' prices
 - [ ] release everything as a csv file
 
+** release works
+- [ ] set up the splash screen
+- [ ] set up the icon
+- [ ] release apk
+
 ** bug fixes
-- [ ] checkbox is buggy
+- [ ] checkbox loses state when reopening the app
+- [ ] rotation changes the checkbox status
 
 ** enhancements
 - [ ] use databinding

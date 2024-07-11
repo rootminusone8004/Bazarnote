@@ -4,7 +4,7 @@
 - [X] set the base
 - [X] add the items objects
 - [ ] separate events or notes
-- [ ] calculate all the items' prices
+- [X] calculate all the items' prices
 - [ ] release everything as a csv file
 
 ** bug fixes

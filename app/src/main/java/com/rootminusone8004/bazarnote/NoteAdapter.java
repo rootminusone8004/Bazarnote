@@ -33,8 +33,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         holder.textViewItem.setText(currentNote.getItem());
         holder.textViewQuantity.setText(String.valueOf(currentNote.getQuantity()));
         holder.textViewPrice.setText(String.valueOf(currentNote.getPrice()));
-        float multiple = currentNote.getQuantity() * currentNote.getPrice();
-        holder.textViewMultiple.setText(String.valueOf(multiple));
+        holder.textViewMultiple.setText(String.valueOf(currentNote.getMultiple()));
     }
 
     @Override

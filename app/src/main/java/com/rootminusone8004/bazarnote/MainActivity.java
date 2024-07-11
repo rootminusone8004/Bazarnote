@@ -164,6 +164,18 @@ public class MainActivity extends AppCompatActivity {
             noteViewModel.deleteAllNotes();
             Toast.makeText(MainActivity.this, "All notes have been deleted", Toast.LENGTH_SHORT).show();
             return true;
+        } else if (itemId == R.id.show_summation) {
+            noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+                @Override
+                public void onChanged(List<Note> notes) {
+                    float sum = 0;
+                    for (Note note : notes) {
+                        sum += note.getMultiple();
+                    }
+                    Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+                }
+            });
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }

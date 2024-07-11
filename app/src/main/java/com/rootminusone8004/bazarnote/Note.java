@@ -9,6 +9,7 @@ public class Note {
     private int id;
     private int price;
     private float quantity;
+    private float multiple;
     private String item;
 
     public void setId(int id) {
@@ -21,10 +22,16 @@ public class Note {
 
     public void setQuantity(float quantity) {
         this.quantity = quantity;
+        multiply();
     }
 
     public void setPrice(int price) {
         this.price = price;
+        multiply();
+    }
+
+    public void setMultiple(float multiple) {
+        this.multiple = multiple;
     }
 
     public int getId() {
@@ -41,5 +48,13 @@ public class Note {
 
     public int getPrice() {
         return price;
+    }
+
+    public float getMultiple() {
+        return multiple;
+    }
+
+    private void multiply(){
+        this.multiple = this.quantity * this.price;
     }
 }

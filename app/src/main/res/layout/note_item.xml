@@ -6,37 +6,59 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/text_view_priority"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_view_item"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:layout_weight="0.3"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/text_view_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_view_quantity"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:maxLines="1"
-            android:layout_toStartOf="@+id/text_view_priority"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"/>
+            android:layout_weight="0.2"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:text="quantity"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
 
         <TextView
-            android:id="@+id/text_view_description"
+            android:id="@+id/text_view_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:text="price"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <TextView
+            android:id="@+id/text_view_multiple"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:textSize="16sp"
+            android:textColor="#FF0000"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_title"
-            android:text="Description"/>
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

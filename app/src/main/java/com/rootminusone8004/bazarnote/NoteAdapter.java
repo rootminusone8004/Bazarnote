@@ -1,8 +1,11 @@
 package com.rootminusone8004.bazarnote;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,8 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
     private List<Note> notes = new ArrayList<>();
+    private OnItemClickListener listener;
+    private OnItemCheckListener checker;
 
     @NonNull
     @Override
@@ -25,9 +30,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
         Note currentNote = notes.get(position);
-        holder.textViewTitle.setText(currentNote.getTitle());
-        holder.textViewDescription.setText(currentNote.getDescription());
-        holder.textViewPriority.setText(String.valueOf(currentNote.getPriority()));
+        holder.textViewItem.setText(currentNote.getItem());
+        holder.textViewQuantity.setText(String.valueOf(currentNote.getQuantity()));
+        holder.textViewPrice.setText(String.valueOf(currentNote.getPrice()));
+        float multiple = currentNote.getQuantity() * currentNote.getPrice();
+        holder.textViewMultiple.setText(String.valueOf(multiple));
     }
 
     @Override
@@ -35,25 +42,66 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         return notes.size();
     }
 
-    public void setNotes(List<Note> notes){
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();
     }
 
-    public Note getNoteAt(int position){
+    public Note getNoteAt(int position) {
         return notes.get(position);
     }
 
-    class NoteHolder extends RecyclerView.ViewHolder{
-        private TextView textViewTitle;
-        private TextView textViewDescription;
-        private TextView textViewPriority;
+    class NoteHolder extends RecyclerView.ViewHolder {
+        private TextView textViewItem;
+        private TextView textViewQuantity;
+        private TextView textViewPrice;
+        private TextView textViewMultiple;
+        private CheckBox checkBoxx;
 
-        private NoteHolder(View itemView){
+        private NoteHolder(View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewDescription = itemView.findViewById(R.id.text_view_description);
-            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+            textViewItem = itemView.findViewById(R.id.text_view_item);
+            textViewQuantity = itemView.findViewById(R.id.text_view_quantity);
+            textViewPrice = itemView.findViewById(R.id.text_view_price);
+            textViewMultiple = itemView.findViewById(R.id.text_view_multiple);
+            checkBoxx = itemView.findViewById(R.id.checkbox);
+
+            checkBoxx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        checker.onItemCheck(notes.get(position));
+                        checkBoxx.setEnabled(false);
+                    }
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(notes.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Note note);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemCheckListener{
+        void onItemCheck(Note note);
+    }
+
+    public void setOnItemCheckListener(OnItemCheckListener checker) {
+        this.checker = checker;
     }
 }

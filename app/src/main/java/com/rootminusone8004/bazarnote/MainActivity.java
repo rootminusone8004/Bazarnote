@@ -23,6 +23,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
+    public static final int EDIT_NOTE_REQUEST = 2;
+    public static final int ADD_PRICE_REQUEST = 3;
+
     private NoteViewModel noteViewModel;
 
     @Override
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
                 startActivityForResult(intent, ADD_NOTE_REQUEST);
             }
         });
@@ -65,21 +68,83 @@ public class MainActivity extends AppCompatActivity {
                 noteViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Note note) {
+                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
+                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
+                intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
+                intent.putExtra(AddEditNoteActivity.EXTRA_PRICE, note.getPrice());
+                startActivityForResult(intent, EDIT_NOTE_REQUEST);
+            }
+        });
+
+        adapter.setOnItemCheckListener(new NoteAdapter.OnItemCheckListener() {
+            @Override
+            public void onItemCheck(Note note) {
+                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
+                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
+                intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
+                intent.putExtra(AddEditNoteActivity.EXTRA_PRICE_CHECK, 5);
+                startActivityForResult(intent, ADD_PRICE_REQUEST);
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
-            String title = data.getStringExtra(AddNoteActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddNoteActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(AddNoteActivity.EXTRA_PRIORITY, 1);
+        if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
+            String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+            float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
+            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
-            Note note = new Note(priority, title, description);
+            Note note = new Note();
+            note.setItem(item);
+            note.setQuantity(quantity);
+            note.setPrice(price);
+
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
+            if (id == -1) {
+                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+            float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
+            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
+
+            Note note = new Note();
+            note.setItem(item);
+            note.setQuantity(quantity);
+            note.setPrice(price);
+
+            note.setId(id);
+            noteViewModel.update(note);
+        } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
+            if (id == -1) {
+                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+            float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
+            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
+            Note note = new Note();
+            note.setItem(item);
+            note.setQuantity(quantity);
+            note.setPrice(price);
+            note.setId(id);
+            noteViewModel.update(note);
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }

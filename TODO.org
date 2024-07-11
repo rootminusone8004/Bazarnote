@@ -2,16 +2,16 @@
 
 ** features
 - [X] set the base
-- [-] add the items objects
+- [X] add the items objects
 - [ ] separate events or notes
 - [ ] calculate all the items' prices
 - [ ] release everything as a csv file
 
 ** bug fixes
-- blank
+- [ ] checkbox is buggy
 
 ** enhancements
-- blank
+- [ ] use databinding
 
 ** miscellaneous
 - blank

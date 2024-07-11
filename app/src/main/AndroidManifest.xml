@@ -13,15 +13,15 @@
         android:theme="@style/Theme.Bazarnote"
         tools:targetApi="31">
         <activity
-            android:name=".AddNoteActivity"
-            android:theme="@style/AppTheme"
+            android:name=".AddEditNoteActivity"
+            android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"
+            android:exported="true"
             android:launchMode="singleTop"
-            android:exported="true">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

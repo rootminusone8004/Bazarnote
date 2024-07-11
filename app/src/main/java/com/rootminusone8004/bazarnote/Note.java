@@ -7,32 +7,39 @@ import androidx.room.PrimaryKey;
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int priority;
-    private String title, description;
-
-    public Note(int priority, String title, String description) {
-        this.priority = priority;
-        this.title = title;
-        this.description = description;
-    }
+    private int price;
+    private float quantity;
+    private String item;
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getItem() {
+        return item;
     }
 
-    public String getTitle() {
-        return title;
+    public float getQuantity() {
+        return quantity;
     }
 
-    public String getDescription() {
-        return description;
+    public int getPrice() {
+        return price;
     }
 }

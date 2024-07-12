@@ -9,8 +9,8 @@
 
 ** release works
 - [ ] set up the splash screen
-- [ ] set up the icon
-- [ ] release apk
+- [X] set up the icon
+- [X] release apk *(debug)*
 
 ** bug fixes
 - [ ] checkbox loses state when reopening the app

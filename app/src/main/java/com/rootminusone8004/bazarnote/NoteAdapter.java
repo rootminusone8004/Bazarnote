@@ -1,6 +1,5 @@
 package com.rootminusone8004.bazarnote;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         checker.onItemCheck(notes.get(position));
-                        checkBoxx.setEnabled(false);
                     }
                 }
             });

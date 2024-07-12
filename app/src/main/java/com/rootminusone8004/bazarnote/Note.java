@@ -11,29 +11,31 @@ public class Note {
     private float quantity;
     private float multiple;
     private String item;
+    private boolean checked = false;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setItem(String item) {
+    public Note(String item, float quantity, int price) {
         this.item = item;
-    }
-
-    public void setQuantity(float quantity) {
         this.quantity = quantity;
-        multiply();
-    }
-
-    public void setPrice(int price) {
         this.price = price;
         multiply();
+    }
+
+    // setters
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setMultiple(float multiple) {
         this.multiple = multiple;
     }
 
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    // getters
+    
     public int getId() {
         return id;
     }
@@ -54,6 +56,12 @@ public class Note {
         return multiple;
     }
 
+    public boolean getChecked(){
+        return checked;
+    }
+
+    // other functions
+    
     private void multiply(){
         this.multiple = this.quantity * this.price;
     }

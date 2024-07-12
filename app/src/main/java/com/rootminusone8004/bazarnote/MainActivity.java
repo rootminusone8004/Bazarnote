@@ -103,11 +103,7 @@ public class MainActivity extends AppCompatActivity {
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
             int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
-            Note note = new Note();
-            note.setItem(item);
-            note.setQuantity(quantity);
-            note.setPrice(price);
-
+            Note note = new Note(item, quantity, price);
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
@@ -122,11 +118,7 @@ public class MainActivity extends AppCompatActivity {
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
             int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
-            Note note = new Note();
-            note.setItem(item);
-            note.setQuantity(quantity);
-            note.setPrice(price);
-
+            Note note = new Note(item, quantity, price);
             note.setId(id);
             noteViewModel.update(note);
         } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
@@ -139,10 +131,7 @@ public class MainActivity extends AppCompatActivity {
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
             int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
-            Note note = new Note();
-            note.setItem(item);
-            note.setQuantity(quantity);
-            note.setPrice(price);
+            Note note = new Note(item, quantity, price);
             note.setId(id);
             noteViewModel.update(note);
         } else {

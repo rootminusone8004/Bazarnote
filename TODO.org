@@ -20,4 +20,4 @@
 - [ ] use databinding
 
 ** miscellaneous
-- blank
+- [ ] code documentation

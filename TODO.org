@@ -3,8 +3,9 @@
 ** features
 - [X] set the base
 - [X] add the items objects
-- [ ] separate events or notes
+- [X] separate events or notes
 - [X] calculate all the items' prices
+- [ ] calculate all the sessions' prices
 - [ ] release everything as a csv file
 
 ** release works

@@ -26,12 +26,15 @@ public class MainActivity extends AppCompatActivity {
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
 
+    public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
+
     private NoteViewModel noteViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent sessionIntent = getIntent();
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
-        noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+
+        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
                 adapter.setNotes(notes);
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Intent sessionIntent = getIntent();
 
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
             Note note = new Note(item, quantity, price);
+            note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
@@ -120,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
             Note note = new Note(item, quantity, price);
             note.setId(id);
+            note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note);
         } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
@@ -133,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
             Note note = new Note(item, quantity, price);
             note.setId(id);
+            note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note);
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
@@ -148,13 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent sessionIntent = getIntent();
         int itemId = item.getItemId();
         if (itemId == R.id.delete_all_notes) {
             noteViewModel.deleteAllNotes();
             Toast.makeText(MainActivity.this, "All notes have been deleted", Toast.LENGTH_SHORT).show();
             return true;
         } else if (itemId == R.id.show_summation) {
-            noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {
                 @Override
                 public void onChanged(List<Note> notes) {
                     float sum = 0;

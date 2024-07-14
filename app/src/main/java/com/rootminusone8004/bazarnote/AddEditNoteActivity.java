@@ -70,7 +70,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, item);
         data.putExtra(EXTRA_QUANTITY, quantity);
-
         data.putExtra(EXTRA_PRICE, price);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);

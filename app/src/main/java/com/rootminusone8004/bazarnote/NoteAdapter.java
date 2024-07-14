@@ -67,9 +67,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
             checkBoxx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        checker.onItemCheck(notes.get(position));
+                    if (isChecked) {
+                        int position = getAdapterPosition();
+                        if (listener != null && position != RecyclerView.NO_POSITION) {
+                            checker.onItemCheck(notes.get(position));
+                        }
                     }
                 }
             });
@@ -94,7 +96,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         this.listener = listener;
     }
 
-    public interface OnItemCheckListener{
+    public interface OnItemCheckListener {
         void onItemCheck(Note note);
     }
 

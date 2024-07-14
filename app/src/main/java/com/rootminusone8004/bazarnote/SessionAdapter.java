@@ -27,6 +27,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionH
     public void onBindViewHolder(@NonNull SessionHolder holder, int position) {
         Session currentSession = sessions.get(position);
         holder.textViewSession.setText(currentSession.getName());
+        holder.textViewSessionSum.setText(String.valueOf(currentSession.getPrice()));
     }
 
     @Override
@@ -45,10 +46,12 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionH
 
     class SessionHolder extends RecyclerView.ViewHolder {
         private TextView textViewSession;
+        private TextView textViewSessionSum;
 
         public SessionHolder(@NonNull View itemView) {
             super(itemView);
             textViewSession = itemView.findViewById(R.id.text_view_session_item);
+            textViewSessionSum = itemView.findViewById(R.id.text_view_session_sum);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

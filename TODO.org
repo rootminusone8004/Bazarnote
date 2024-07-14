@@ -5,7 +5,7 @@
 - [X] add the items objects
 - [X] separate events or notes
 - [X] calculate all the items' prices
-- [ ] calculate all the sessions' prices
+- [X] calculate all the sessions' prices
 - [ ] release everything as a csv file
 
 ** release works

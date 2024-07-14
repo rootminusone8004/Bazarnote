@@ -25,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
+    public static final int PASS_PRICE_REQUEST = 6;
 
     public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
+    public static final String EXTRA_SESSION_NAME = "com.rootminusone8004.bazarnote.EXTRA_SESSION_NAME";
+    public static final String EXTRA_SESSION_SUM = "com.rootminusone8004.bazarnote.EXTRA_SESSION_SUM";
 
     private NoteViewModel noteViewModel;
 
@@ -171,6 +174,26 @@ public class MainActivity extends AppCompatActivity {
                         sum += note.getMultiple();
                     }
                     Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+                }
+            });
+            return true;
+        } else if (itemId == R.id.pass_summation) {
+            int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
+            String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
+            noteViewModel.getAllSelectedNotes(id).observe(this, new Observer<List<Note>>() {
+                @Override
+                public void onChanged(List<Note> notes) {
+                    float sum = 0;
+                    for (Note note : notes) {
+                        sum += note.getMultiple();
+                    }
+//                    Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+                    Intent passIntent = new Intent();
+                    passIntent.putExtra(EXTRA_SESSION_SUM, sum);
+                    passIntent.putExtra(EXTRA_SESSION_ID, id);
+                    passIntent.putExtra(EXTRA_SESSION_NAME, name);
+                    setResult(RESULT_OK, passIntent);
+                    finish();
                 }
             });
             return true;

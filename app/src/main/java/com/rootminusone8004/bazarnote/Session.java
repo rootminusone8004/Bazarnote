@@ -8,6 +8,7 @@ public class Session {
     @PrimaryKey(autoGenerate = true)
     private int sessionId;
     private String name;
+    private float price;
 
     public Session(String name){
         this.name = name;
@@ -17,11 +18,19 @@ public class Session {
         this.sessionId = sessionId;
     }
 
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public int getSessionId(){
         return this.sessionId;
     }
 
     public String getName(){
         return this.name;
+    }
+
+    public float getPrice() {
+        return this.price;
     }
 }

@@ -16,6 +16,7 @@
             android:name=".AddSessionActivity"
             android:parentActivityName=".SessionActivity"
             android:exported="false"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".MainActivity"

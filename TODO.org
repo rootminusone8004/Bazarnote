@@ -14,11 +14,11 @@
 - [X] release apk *(debug)*
 
 ** bug fixes
-- [ ] checkbox loses state when reopening the app
-- [ ] rotation changes the checkbox status
+- blank
 
 ** enhancements
 - [ ] use databinding
+- [ ] use state reserved checkbox
 
 ** miscellaneous
 - [ ] code documentation

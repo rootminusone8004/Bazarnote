@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        adapter.setOnItemCheckListener(new NoteAdapter.OnItemCheckListener() {
+        adapter.setOnItemAddPriceListener(new NoteAdapter.OnItemAddPriceListener() {
             @Override
-            public void onItemCheck(Note note) {
+            public void onItemAddPrice(Note note) {
                 Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
                 intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
                 intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             return true;
-        } else if (itemId == R.id.pass_summation) {
+        } else if(itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
             noteViewModel.getAllSelectedNotes(id).observe(this, new Observer<List<Note>>() {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Note note : notes) {
                         sum += note.getMultiple();
                     }
-//                    Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+
                     Intent passIntent = new Intent();
                     passIntent.putExtra(EXTRA_SESSION_SUM, sum);
                     passIntent.putExtra(EXTRA_SESSION_ID, id);

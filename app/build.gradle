@@ -52,7 +52,4 @@ dependencies {
     // room
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-
-    // material theme
-    implementation 'com.google.android.material:material:1.12.0'
 }

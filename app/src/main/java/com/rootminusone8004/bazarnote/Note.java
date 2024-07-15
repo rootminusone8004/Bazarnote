@@ -11,7 +11,6 @@ public class Note {
     private float quantity;
     private float multiple;
     private String item;
-    private boolean checked = false;
 
     public Note(String item, float quantity, int price) {
         this.item = item;
@@ -28,10 +27,6 @@ public class Note {
 
     public void setMultiple(float multiple) {
         this.multiple = multiple;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 
     public void setSessionId(int sessionId) {
@@ -58,10 +53,6 @@ public class Note {
 
     public float getMultiple() {
         return multiple;
-    }
-
-    public boolean getChecked(){
-        return checked;
     }
 
     public int getSessionId() {

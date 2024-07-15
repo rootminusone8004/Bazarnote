@@ -15,6 +15,9 @@
 - minSdkVersion: 24
 - targetSdkVersion: 34
 
+** Gradle
+- agp = "8.5.1"
+
 ** Dependencies
 - blank
 
@@ -44,7 +47,7 @@ _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 #+end_src
 - Open a terminal and clone the project repository:
   #+begin_src bash
- $ git clone "https://codeberg.org/rootminusone8004/Bazarnote"
+ $ git clone -b devel "git@codeberg:rootminusone8004/Bazarnote"
  $ cd Bazarnote
 #+end_src
 *** 3. Open the project in Android Studio

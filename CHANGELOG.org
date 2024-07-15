@@ -2,13 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
-** [0.0.0] - 02-07-2023
+** [0.0.0] - 02-07-2024
 
  - initialized the repository
 
-** [0.1.0] - 02-13-2023
+** [0.1.0] - 13-07-2024
 
 *** Added
 - notes have been added
 - three columns: item, quantity ad price
 - total prize calculation is finished
+
+** [0.2.0] - 16-07-2024
+
+*** Added
+- sessions have been implemented
+- total price of sessions can be calculated
+- fixed the orientation
+
+*** Fixed
+- buttons instead of checkboxes

@@ -9,12 +9,13 @@ import java.util.List;
 
 public class NoteRepository {
     private NoteDao noteDao;
-    private LiveData<List<Note>> allNotes;
+    private LiveData<List<Note>> allSelectedNotes;
+    private LiveData<List<Session>> allSessions;
 
     public NoteRepository(Application application){
         NoteDatabase database = NoteDatabase.getInstance(application);
-        noteDao = database.noteDao();
-        allNotes = noteDao.getAllNotes();
+        this.noteDao = database.noteDao();
+        this.allSessions = noteDao.getAllSessions();
     }
 
     public void insert(Note note){
@@ -33,8 +34,9 @@ public class NoteRepository {
         new DeleteAllNotesAsyncTask(noteDao).execute();
     }
 
-    public LiveData<List<Note>> getAllNotes(){
-        return allNotes;
+    public LiveData<List<Note>> getAllSelectedNotes(int sessionId){
+        this.allSelectedNotes = noteDao.getAllSelectedNotes(sessionId);
+        return allSelectedNotes;
     }
 
     public static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void>{
@@ -89,6 +91,82 @@ public class NoteRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             noteDao.deleteAllNotes();
+            return null;
+        }
+    }
+
+    public void insert(Session session){
+        new InsertSessionAsyncTask(noteDao).execute(session);
+    }
+
+    public void update(Session session){
+        new UpdateSessionAsyncTask(noteDao).execute(session);
+    }
+
+    public void delete(Session session){
+        new DeleteSessionAsyncTask(noteDao).execute(session);
+    }
+
+    public void deleteAllSession(){
+        new DeleteAllNotesAsyncTask(noteDao).execute();
+    }
+
+    public LiveData<List<Session>> getAllSession(){
+        return allSessions;
+    }
+
+    public static class InsertSessionAsyncTask extends AsyncTask<Session, Void, Void>{
+        private NoteDao noteDao;
+
+        private InsertSessionAsyncTask(NoteDao noteDao){
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Session... sessions) {
+            noteDao.insert(sessions[0]);
+            return null;
+        }
+    }
+
+    public static class UpdateSessionAsyncTask extends AsyncTask<Session, Void, Void>{
+        private NoteDao noteDao;
+
+        private UpdateSessionAsyncTask(NoteDao noteDao){
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Session... sessions) {
+            noteDao.update(sessions[0]);
+            return null;
+        }
+    }
+
+    public static class DeleteSessionAsyncTask extends AsyncTask<Session, Void, Void>{
+        private NoteDao noteDao;
+
+        private DeleteSessionAsyncTask(NoteDao noteDao){
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Session... sessions) {
+            noteDao.delete(sessions[0]);
+            return null;
+        }
+    }
+
+    public static class DeleteAllSessionsAsyncTask extends AsyncTask<Void, Void, Void>{
+        private NoteDao noteDao;
+
+        private DeleteAllSessionsAsyncTask(NoteDao noteDao){
+            this.noteDao = noteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            noteDao.deleteAllSessions();
             return null;
         }
     }

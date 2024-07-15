@@ -3,8 +3,7 @@ package com.rootminusone8004.bazarnote;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,7 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
     private List<Note> notes = new ArrayList<>();
     private OnItemClickListener listener;
-    private OnItemCheckListener checker;
+    private OnItemAddPriceListener priceListener;
 
     @NonNull
     @Override
@@ -54,7 +53,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         private TextView textViewQuantity;
         private TextView textViewPrice;
         private TextView textViewMultiple;
-        private CheckBox checkBoxx;
+        private Button priceBtn;
 
         private NoteHolder(View itemView) {
             super(itemView);
@@ -62,14 +61,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
             textViewQuantity = itemView.findViewById(R.id.text_view_quantity);
             textViewPrice = itemView.findViewById(R.id.text_view_price);
             textViewMultiple = itemView.findViewById(R.id.text_view_multiple);
-            checkBoxx = itemView.findViewById(R.id.checkbox);
+            priceBtn = itemView.findViewById(R.id.price_btn);
 
-            checkBoxx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            priceBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        checker.onItemCheck(notes.get(position));
+                        priceListener.onItemAddPrice(notes.get(position));
                     }
                 }
             });
@@ -94,11 +93,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         this.listener = listener;
     }
 
-    public interface OnItemCheckListener{
-        void onItemCheck(Note note);
+    public interface OnItemAddPriceListener {
+        void onItemAddPrice(Note note);
     }
 
-    public void setOnItemCheckListener(OnItemCheckListener checker) {
-        this.checker = checker;
+    public void setOnItemAddPriceListener(OnItemAddPriceListener priceListener){
+        this.priceListener = priceListener;
     }
 }

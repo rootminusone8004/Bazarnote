@@ -7,11 +7,10 @@ import androidx.room.PrimaryKey;
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int price;
+    private int price, sessionId;
     private float quantity;
     private float multiple;
     private String item;
-    private boolean checked = false;
 
     public Note(String item, float quantity, int price) {
         this.item = item;
@@ -30,8 +29,8 @@ public class Note {
         this.multiple = multiple;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
     // getters
@@ -56,8 +55,8 @@ public class Note {
         return multiple;
     }
 
-    public boolean getChecked(){
-        return checked;
+    public int getSessionId() {
+        return sessionId;
     }
 
     // other functions

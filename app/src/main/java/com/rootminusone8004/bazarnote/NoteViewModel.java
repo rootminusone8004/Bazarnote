@@ -9,12 +9,11 @@ import java.util.List;
 
 public class NoteViewModel extends androidx.lifecycle.AndroidViewModel {
     private NoteRepository repository;
-    private LiveData<List<Note>> allNotes;
+    private LiveData<List<Note>> allSelectedNotes;
 
     public NoteViewModel(@NonNull Application application) {
         super(application);
-        repository = new NoteRepository(application);
-        allNotes = repository.getAllNotes();
+        this.repository = new NoteRepository(application);
     }
 
     public void insert(Note note) {
@@ -33,7 +32,8 @@ public class NoteViewModel extends androidx.lifecycle.AndroidViewModel {
         repository.deleteAllNotes();
     }
 
-    public LiveData<List<Note>> getAllNotes(){
-        return allNotes;
+    public LiveData<List<Note>> getAllSelectedNotes(int sessionId){
+        this.allSelectedNotes = repository.getAllSelectedNotes(sessionId);
+        return allSelectedNotes;
     }
 }

@@ -13,12 +13,28 @@
         android:theme="@style/Theme.Bazarnote"
         tools:targetApi="31">
         <activity
+            android:name=".AddSessionActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".SessionActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".SessionActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".AddEditNoteActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SessionActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">

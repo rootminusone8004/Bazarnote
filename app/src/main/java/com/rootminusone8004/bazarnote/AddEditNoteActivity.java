@@ -70,7 +70,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, item);
         data.putExtra(EXTRA_QUANTITY, quantity);
-
         data.putExtra(EXTRA_PRICE, price);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
@@ -92,20 +91,24 @@ public class AddEditNoteActivity extends AppCompatActivity {
             return;
         }
 
-        int price = Integer.parseInt(priceInString);
+        try {
+            int price = Integer.parseInt(priceInString);
 
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, item);
-        data.putExtra(EXTRA_QUANTITY, quantity);
-        data.putExtra(EXTRA_PRICE, price);
+            Intent data = new Intent();
+            data.putExtra(EXTRA_TITLE, item);
+            data.putExtra(EXTRA_QUANTITY, quantity);
+            data.putExtra(EXTRA_PRICE, price);
 
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if (id != -1) {
-            data.putExtra(EXTRA_ID, id);
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id != -1) {
+                data.putExtra(EXTRA_ID, id);
+            }
+
+            setResult(RESULT_OK, data);
+            finish();
+        } catch(Exception e) {
+            Toast.makeText(this, "Please give integer value", Toast.LENGTH_SHORT).show();
         }
-
-        setResult(RESULT_OK, data);
-        finish();
     }
 
     @Override

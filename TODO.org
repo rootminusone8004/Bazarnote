@@ -11,7 +11,7 @@
 ** release works
 - [ ] set up the splash screen
 - [X] set up the icon
-- [X] release apk *(debug)*
+- [X] release apk
 
 ** bug fixes
 - blank

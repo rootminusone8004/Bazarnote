@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/delete_all_sessions"
+        android:title="Delete all sessions"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/show_summation"
         android:title="Show Total Price"
         app:showAsAction="never"/>

@@ -19,6 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@android:color/black"
             android:text="item"/>
 

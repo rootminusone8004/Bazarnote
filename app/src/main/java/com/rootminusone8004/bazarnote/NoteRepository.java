@@ -108,7 +108,7 @@ public class NoteRepository {
     }
 
     public void deleteAllSession(){
-        new DeleteAllNotesAsyncTask(noteDao).execute();
+        new DeleteAllSessionsAsyncTask(noteDao).execute();
     }
 
     public LiveData<List<Session>> getAllSession(){

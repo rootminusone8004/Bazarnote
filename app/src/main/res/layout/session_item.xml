@@ -19,6 +19,9 @@
             android:layout_weight="0.8"
             android:textSize="16sp"
             android:text="session"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@android:color/black" />
 
         <TextView

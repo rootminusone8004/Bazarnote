@@ -6,14 +6,32 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionHolder> {
-    private List<Session> sessions = new ArrayList<>();
+public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionHolder> {
     private OnItemClickListener listener;
+
+    public SessionAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    public static final DiffUtil.ItemCallback<Session> DIFF_CALLBACK = new DiffUtil.ItemCallback<Session>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Session oldItem, @NonNull Session newItem) {
+            return oldItem.getSessionId() == newItem.getSessionId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Session oldItem, @NonNull Session newItem) {
+            return oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.getPrice() == newItem.getPrice();
+        }
+    };
 
     @NonNull
     @Override
@@ -25,23 +43,13 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionH
 
     @Override
     public void onBindViewHolder(@NonNull SessionHolder holder, int position) {
-        Session currentSession = sessions.get(position);
+        Session currentSession = getItem(position);
         holder.textViewSession.setText(currentSession.getName());
         holder.textViewSessionSum.setText(String.valueOf(currentSession.getPrice()));
     }
 
-    @Override
-    public int getItemCount() {
-        return sessions.size();
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-        notifyDataSetChanged();
-    }
-
     public Session getSessionAt(int position) {
-        return sessions.get(position);
+        return getItem(position);
     }
 
     class SessionHolder extends RecyclerView.ViewHolder {
@@ -58,7 +66,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionH
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(sessions.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });

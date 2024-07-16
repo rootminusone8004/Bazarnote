@@ -52,7 +52,7 @@ public class SessionActivity extends AppCompatActivity {
         sessionViewModel.getAllSessions().observe(this, new Observer<List<Session>>() {
             @Override
             public void onChanged(List<Session> sessions) {
-                adapter.setSessions(sessions);
+                adapter.submitList(sessions);
             }
         });
 
@@ -108,9 +108,11 @@ public class SessionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent sessionIntent = getIntent();
         int itemId = item.getItemId();
-        if (itemId == R.id.show_summation) {
+        if (itemId == R.id.delete_all_sessions) {
+            sessionViewModel.deleteAllSessions();    // it will delete all sessions
+            return true;
+        } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, new Observer<List<Session>>() {
                 @Override
                 public void onChanged(List<Session> sessions) {

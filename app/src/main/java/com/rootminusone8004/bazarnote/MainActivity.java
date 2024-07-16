@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent sessionIntent = getIntent();
 
+        String title = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
+        setTitle(title);
+
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
-                adapter.setNotes(notes);
+                adapter.submitList(notes);
             }
         });
 
@@ -112,9 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             Note note = new Note(item, quantity, price);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
-            noteViewModel.insert(note);
-
-            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+            noteViewModel.insert(note);    // this will save notes
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
@@ -161,8 +162,7 @@ public class MainActivity extends AppCompatActivity {
         Intent sessionIntent = getIntent();
         int itemId = item.getItemId();
         if (itemId == R.id.delete_all_notes) {
-            noteViewModel.deleteAllNotes();
-            Toast.makeText(MainActivity.this, "All notes have been deleted", Toast.LENGTH_SHORT).show();
+            noteViewModel.deleteAllNotes();    // delete all the notes
             return true;
         } else if (itemId == R.id.show_summation) {
             noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {

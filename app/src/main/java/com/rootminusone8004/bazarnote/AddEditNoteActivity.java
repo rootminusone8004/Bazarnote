@@ -43,7 +43,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
                 setTitle("Edit Note");
                 editTextItem.setText(intent.getStringExtra(EXTRA_TITLE));
                 editTextQuantity.setText(intent.getStringExtra(EXTRA_QUANTITY));
-                editTextPrice.setText(intent.getStringExtra(EXTRA_PRICE));
+                editTextPrice.setVisibility(View.GONE);
             }
         } else {
             setTitle("Add Note");
@@ -54,11 +54,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
     private void saveNote(boolean updateFlag) {
         String item = editTextItem.getText().toString();
         String quantityInString = editTextQuantity.getText().toString();
-        int price = 0;
-        if (updateFlag) {
-            String priceInString = editTextPrice.getText().toString();
-            price = Integer.parseInt(priceInString);
-        }
+        int price;
 
         if (item.trim().isEmpty() || quantityInString.trim().isEmpty()) {
             Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
@@ -70,6 +66,12 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, item);
         data.putExtra(EXTRA_QUANTITY, quantity);
+
+        if(updateFlag) {
+            price = getIntent().getIntExtra(EXTRA_PRICE, -1);
+        } else {
+            price = 0;
+        }
         data.putExtra(EXTRA_PRICE, price);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);

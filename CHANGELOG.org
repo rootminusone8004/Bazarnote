@@ -31,3 +31,8 @@ All notable changes to this project are documented in this file.
 *** Fixed
 - long text problem solved
 - diffutil implemented
+
+** [0.2.2] - 17-07-2024
+
+*** Fixed
+- "delete all notes" bug removed

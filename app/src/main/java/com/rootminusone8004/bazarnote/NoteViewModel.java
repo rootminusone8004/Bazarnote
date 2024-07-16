@@ -28,8 +28,8 @@ public class NoteViewModel extends androidx.lifecycle.AndroidViewModel {
         repository.delete(note);
     }
 
-    public void deleteAllNotes(){
-        repository.deleteAllNotes();
+    public void deleteAllSelectedNotes(int sessionId){
+        repository.deleteAllSelectedNotes(sessionId);
     }
 
     public LiveData<List<Note>> getAllSelectedNotes(int sessionId){

@@ -30,8 +30,8 @@ public class NoteRepository {
         new DeleteNoteAsyncTask(noteDao).execute(note);
     }
 
-    public void deleteAllNotes(){
-        new DeleteAllNotesAsyncTask(noteDao).execute();
+    public void deleteAllSelectedNotes(int sessionId){
+        new DeleteAllSelectedNotesAsyncTask(noteDao).execute(sessionId);
     }
 
     public LiveData<List<Note>> getAllSelectedNotes(int sessionId){
@@ -81,16 +81,16 @@ public class NoteRepository {
         }
     }
 
-    public static class DeleteAllNotesAsyncTask extends AsyncTask<Void, Void, Void>{
+    public static class DeleteAllSelectedNotesAsyncTask extends AsyncTask<Integer, Void, Void>{
         private NoteDao noteDao;
 
-        private DeleteAllNotesAsyncTask(NoteDao noteDao){
+        private DeleteAllSelectedNotesAsyncTask(NoteDao noteDao){
             this.noteDao = noteDao;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            noteDao.deleteAllNotes();
+        protected Void doInBackground(Integer... integers) {
+            noteDao.deleteAllSelectedNotes(integers[0]);
             return null;
         }
     }

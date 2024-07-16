@@ -162,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
         Intent sessionIntent = getIntent();
         int itemId = item.getItemId();
         if (itemId == R.id.delete_all_notes) {
-            noteViewModel.deleteAllNotes();    // delete all the notes
+            int sessionId = sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1);
+            noteViewModel.deleteAllSelectedNotes(sessionId);    // delete all the notes
             return true;
         } else if (itemId == R.id.show_summation) {
             noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {

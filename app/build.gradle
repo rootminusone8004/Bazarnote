@@ -52,4 +52,7 @@ dependencies {
     // room
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // csv
+    implementation 'com.opencsv:opencsv:5.5.2'
 }

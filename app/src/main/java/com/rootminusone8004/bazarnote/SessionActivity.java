@@ -1,7 +1,11 @@
 package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,8 +24,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.opencsv.CSVWriter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SessionActivity extends AppCompatActivity {
     public static final int ADD_SESSION_REQUEST = 4;
@@ -124,8 +138,75 @@ public class SessionActivity extends AppCompatActivity {
                 }
             });
             return true;
+        } else if (itemId == R.id.session_save_csv_file) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    writeDataToCSV();
+                } else {
+                    requestManageExternalStoragePermission();
+                }
+            } else {
+                if (ContextCompat.checkSelfPermission(SessionActivity.this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    writeDataToCSV();
+                } else {
+                    requestStoragePermission();
+                }
+            }
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void requestManageExternalStoragePermission() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+        startActivity(intent);
+    }
+
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MainActivity.STORAGE_PERMISSION_CODE);
+    }
+
+    private void writeDataToCSV() {
+        sessionViewModel.getAllSessions().observe(SessionActivity.this, new Observer<List<Session>>() {
+            @Override
+            public void onChanged(List<Session> sessions) {
+                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                File subDirectory = new File(mainDirectory, timeStamp);
+
+                if (!subDirectory.exists()) {
+                    subDirectory.mkdirs();
+                }
+
+                String fileName = "Summary.csv";
+                File csvFile = new File(subDirectory, fileName);
+
+                List<String[]> data = new ArrayList<>();
+                int sum = 0;
+                data.add(new String[]{"Session", "Price"});
+                for (Session session : sessions) {
+                    data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
+                    sum += session.getPrice();
+                }
+                data.add(new String[]{"Total Price", String.valueOf(sum)});
+
+                try {
+                    FileWriter writer = new FileWriter(csvFile);
+                    CSVWriter csvWriter = new CSVWriter(writer);
+
+                    for (String[] row : data) {
+                        csvWriter.writeNext(row);
+                    }
+
+                    csvWriter.close();
+                    Toast.makeText(SessionActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SessionActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

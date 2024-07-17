@@ -1,7 +1,11 @@
 package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,20 +15,32 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.opencsv.CSVWriter;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
+    public static final int STORAGE_PERMISSION_CODE = 1;
 
     public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
     public static final String EXTRA_SESSION_NAME = "com.rootminusone8004.bazarnote.EXTRA_SESSION_NAME";
@@ -151,6 +167,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                writeDataToCSV(getSampleData());
+            } else {
+                Toast.makeText(this, "Permission denied to write to external storage", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
@@ -177,7 +205,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             return true;
-        } else if(itemId == android.R.id.home) {
+        } else if (itemId == R.id.save_csv_file) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    writeDataToCSV(sessionIntent);
+                } else {
+                    requestManageExternalStoragePermission();
+                }
+            } else {
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    writeDataToCSV(sessionIntent);
+                } else {
+                    requestStoragePermission();
+                }
+            }
+            return true;
+        } else if (itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
             noteViewModel.getAllSelectedNotes(id).observe(this, new Observer<List<Note>>() {
@@ -200,5 +244,56 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void requestManageExternalStoragePermission() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+        startActivity(intent);
+    }
+
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
+
+    private void writeDataToCSV(Intent sessionIntent) {
+        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1)).observe(MainActivity.this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                File subDirectory = new File(mainDirectory, timeStamp);
+
+                if (!subDirectory.exists()) {
+                    subDirectory.mkdirs();
+                }
+
+                String fileName = sessionIntent.getStringExtra(EXTRA_SESSION_NAME) + ".csv";
+                File csvFile = new File(subDirectory, fileName);
+
+                List<String[]> data = new ArrayList<>();
+                int sum = 0;
+                data.add(new String[]{"Item", "Quantity", "Unit Price", "Actual Price"});
+                for (Note note : notes) {
+                    data.add(new String[]{note.getItem(), String.valueOf(note.getQuantity()), String.valueOf(note.getPrice()), String.valueOf(note.getMultiple())});
+                    sum += note.getMultiple();
+                }
+                data.add(new String[]{"", "", "Total Price", String.valueOf(sum)});
+
+                try {
+                    FileWriter writer = new FileWriter(csvFile);
+                    CSVWriter csvWriter = new CSVWriter(writer);
+
+                    for (String[] row : data) {
+                        csvWriter.writeNext(row);
+                    }
+
+                    csvWriter.close();
+                    Toast.makeText(MainActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

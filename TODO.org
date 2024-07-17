@@ -6,7 +6,7 @@
 - [X] separate events or notes
 - [X] calculate all the items' prices
 - [X] calculate all the sessions' prices
-- [ ] release everything as a csv file
+- [X] release everything as a csv file
 
 ** release works
 - [ ] set up the splash screen

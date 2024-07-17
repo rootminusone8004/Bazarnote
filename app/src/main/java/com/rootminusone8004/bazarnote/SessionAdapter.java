@@ -20,7 +20,7 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
         super(DIFF_CALLBACK);
     }
 
-    public static final DiffUtil.ItemCallback<Session> DIFF_CALLBACK = new DiffUtil.ItemCallback<Session>() {
+    public static final DiffUtil.ItemCallback<Session> DIFF_CALLBACK = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areItemsTheSame(@NonNull Session oldItem, @NonNull Session newItem) {
             return oldItem.getSessionId() == newItem.getSessionId();
@@ -61,13 +61,10 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
             textViewSession = itemView.findViewById(R.id.text_view_session_item);
             textViewSessionSum = itemView.findViewById(R.id.text_view_session_sum);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
-                    }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(getItem(position));
                 }
             });
         }

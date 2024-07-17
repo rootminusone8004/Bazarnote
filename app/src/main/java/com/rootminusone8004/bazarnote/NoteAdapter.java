@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     private OnItemClickListener listener;
     private OnItemAddPriceListener priceListener;
@@ -22,7 +19,7 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
         super(DIFF_CALLBACK);
     }
 
-    private static final DiffUtil.ItemCallback<Note> DIFF_CALLBACK = new DiffUtil.ItemCallback<Note>() {
+    private static final DiffUtil.ItemCallback<Note> DIFF_CALLBACK = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areItemsTheSame(@NonNull Note oldItem, @NonNull Note newItem) {
             return oldItem.getId() == newItem.getId();
@@ -72,23 +69,17 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
             textViewMultiple = itemView.findViewById(R.id.text_view_multiple);
             priceBtn = itemView.findViewById(R.id.price_btn);
 
-            priceBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        priceListener.onItemAddPrice(getItem(position));
-                    }
+            priceBtn.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    priceListener.onItemAddPrice(getItem(position));
                 }
             });
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
-                    }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(getItem(position));
                 }
             });
         }

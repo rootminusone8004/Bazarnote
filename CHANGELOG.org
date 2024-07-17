@@ -36,3 +36,8 @@ All notable changes to this project are documented in this file.
 
 *** Fixed
 - "delete all notes" bug removed
+
+** [0.3.0] - 18-07-2024
+
+*** Added
+- records can be exported via csv files

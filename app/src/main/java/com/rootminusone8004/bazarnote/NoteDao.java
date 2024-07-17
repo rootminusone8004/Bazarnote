@@ -24,7 +24,7 @@ public interface NoteDao {
     @Query("DELETE FROM note_table WHERE sessionId = :sessionId")
     void deleteAllSelectedNotes(int sessionId);
 
-    @Query("SELECT * FROM note_table WHERE sessionId = :sessionId ORDER BY price DESC")
+    @Query("SELECT * FROM note_table WHERE sessionId = :sessionId ORDER BY multiple DESC")
     LiveData<List<Note>> getAllSelectedNotes(int sessionId);
 
     @Insert

@@ -2,24 +2,31 @@ package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.opencsv.CSVWriter;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
@@ -42,12 +49,9 @@ public class MainActivity extends AppCompatActivity {
         setTitle(title);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
-                startActivityForResult(intent, ADD_NOTE_REQUEST);
-            }
+        buttonAddNote.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+            startActivityForResult(intent, ADD_NOTE_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -59,12 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
-        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                adapter.submitList(notes);
-            }
-        });
+        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, notes -> adapter.submitList(notes));
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
@@ -78,28 +77,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Note note) {
-                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
-                intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
-                intent.putExtra(AddEditNoteActivity.EXTRA_PRICE, note.getPrice());
-                startActivityForResult(intent, EDIT_NOTE_REQUEST);
-            }
+        adapter.setOnItemClickListener(note -> {
+            Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+            intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
+            intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
+            intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
+            intent.putExtra(AddEditNoteActivity.EXTRA_PRICE, note.getPrice());
+            startActivityForResult(intent, EDIT_NOTE_REQUEST);
         });
 
-        adapter.setOnItemAddPriceListener(new NoteAdapter.OnItemAddPriceListener() {
-            @Override
-            public void onItemAddPrice(Note note) {
-                Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
-                intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
-                intent.putExtra(AddEditNoteActivity.EXTRA_PRICE_CHECK, 5);
-                startActivityForResult(intent, ADD_PRICE_REQUEST);
-            }
+        adapter.setOnItemAddPriceListener(note -> {
+            Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+            intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
+            intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getItem());
+            intent.putExtra(AddEditNoteActivity.EXTRA_QUANTITY, note.getQuantity());
+            intent.putExtra(AddEditNoteActivity.EXTRA_PRICE_CHECK, 5);
+            startActivityForResult(intent, ADD_PRICE_REQUEST);
         });
     }
 
@@ -166,39 +159,75 @@ public class MainActivity extends AppCompatActivity {
             noteViewModel.deleteAllSelectedNotes(sessionId);    // delete all the notes
             return true;
         } else if (itemId == R.id.show_summation) {
-            noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, new Observer<List<Note>>() {
-                @Override
-                public void onChanged(List<Note> notes) {
-                    float sum = 0;
-                    for (Note note : notes) {
-                        sum += note.getMultiple();
-                    }
-                    Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+            noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1)).observe(this, notes -> {
+                float sum = 0;
+                for (Note note : notes) {
+                    sum += note.getMultiple();
                 }
+                Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
             });
             return true;
-        } else if(itemId == android.R.id.home) {
+        } else if (itemId == R.id.save_csv_file) {
+            writeDataToCSV(sessionIntent);
+            return true;
+        } else if (itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
-            noteViewModel.getAllSelectedNotes(id).observe(this, new Observer<List<Note>>() {
-                @Override
-                public void onChanged(List<Note> notes) {
-                    float sum = 0;
-                    for (Note note : notes) {
-                        sum += note.getMultiple();
-                    }
-
-                    Intent passIntent = new Intent();
-                    passIntent.putExtra(EXTRA_SESSION_SUM, sum);
-                    passIntent.putExtra(EXTRA_SESSION_ID, id);
-                    passIntent.putExtra(EXTRA_SESSION_NAME, name);
-                    setResult(RESULT_OK, passIntent);
-                    finish();
+            noteViewModel.getAllSelectedNotes(id).observe(this, notes -> {
+                float sum = 0;
+                for (Note note : notes) {
+                    sum += note.getMultiple();
                 }
+
+                Intent passIntent = new Intent();
+                passIntent.putExtra(EXTRA_SESSION_SUM, sum);
+                passIntent.putExtra(EXTRA_SESSION_ID, id);
+                passIntent.putExtra(EXTRA_SESSION_NAME, name);
+                setResult(RESULT_OK, passIntent);
+                finish();
             });
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void writeDataToCSV(Intent sessionIntent) {
+        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1)).observe(MainActivity.this, notes -> {
+            File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+            String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+            File subDirectory = new File(mainDirectory, timeStamp);
+
+            if (!subDirectory.exists()) {
+                subDirectory.mkdirs();
+            }
+
+            String fileName = sessionIntent.getStringExtra(EXTRA_SESSION_NAME) + ".csv";
+            File csvFile = new File(subDirectory, fileName);
+
+            List<String[]> data = new ArrayList<>();
+            int sum = 0;
+            data.add(new String[]{"Item", "Quantity", "Unit Price", "Actual Price"});
+            for (Note note : notes) {
+                data.add(new String[]{note.getItem(), String.valueOf(note.getQuantity()), String.valueOf(note.getPrice()), String.valueOf(note.getMultiple())});
+                sum += note.getMultiple();
+            }
+            data.add(new String[]{"", "", "Total Price", String.valueOf(sum)});
+
+            try {
+                FileWriter writer = new FileWriter(csvFile);
+                CSVWriter csvWriter = new CSVWriter(writer);
+
+                for (String[] row : data) {
+                    csvWriter.writeNext(row);
+                }
+
+                csvWriter.close();
+                Toast.makeText(MainActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

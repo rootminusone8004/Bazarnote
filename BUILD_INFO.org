@@ -70,3 +70,7 @@ _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 *** 7. Run the app
 - To run the app on the emulator or connected device, click the green play button in the toolbar.
 - Ensure you have an emulator configured or a device connected via USB with developer mode enabled.
+
+* Pre built apks
+
+The pre-built apks are available in the [[https://codeberg.org/rootminusone8004/Bazarnote/releases][release]] page.

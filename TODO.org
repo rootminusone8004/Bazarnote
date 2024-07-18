@@ -14,7 +14,7 @@
 - [X] release apk
 
 ** bug fixes
-- blank
+- [ ] toast_message.org
 
 ** enhancements
 - [ ] use databinding

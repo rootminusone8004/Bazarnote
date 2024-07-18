@@ -53,12 +53,9 @@ public class SessionActivity extends AppCompatActivity {
         checkAndRequestPermissions();
 
         FloatingActionButton buttonAddSession = findViewById(R.id.button_add_session);
-        buttonAddSession.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SessionActivity.this, AddSessionActivity.class);
-                startActivityForResult(intent, ADD_SESSION_REQUEST);
-            }
+        buttonAddSession.setOnClickListener(v -> {
+            Intent intent = new Intent(SessionActivity.this, AddSessionActivity.class);
+            startActivityForResult(intent, ADD_SESSION_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.session_recycler_view);
@@ -83,14 +80,11 @@ public class SessionActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(new SessionAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Session session) {
-                Intent intent = new Intent(SessionActivity.this, MainActivity.class);
-                intent.putExtra(MainActivity.EXTRA_SESSION_ID, session.getSessionId());
-                intent.putExtra(MainActivity.EXTRA_SESSION_NAME, session.getName());
-                startActivityForResult(intent, NOTE_TRANSFER_REQUEST);
-            }
+        adapter.setOnItemClickListener(session -> {
+            Intent intent = new Intent(SessionActivity.this, MainActivity.class);
+            intent.putExtra(MainActivity.EXTRA_SESSION_ID, session.getSessionId());
+            intent.putExtra(MainActivity.EXTRA_SESSION_NAME, session.getName());
+            startActivityForResult(intent, NOTE_TRANSFER_REQUEST);
         });
     }
 
@@ -138,11 +132,15 @@ public class SessionActivity extends AppCompatActivity {
             return true;
         } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, sessions -> {
-                float sum = 0;
-                for (Session session : sessions) {
-                    sum += session.getPrice();
+                if (sessions.isEmpty()) {
+                    Toast.makeText(SessionActivity.this, "No sessions here", Toast.LENGTH_SHORT).show();
+                } else {
+                    float sum = 0;
+                    for (Session session : sessions) {
+                        sum += session.getPrice();
+                    }
+                    Toast.makeText(SessionActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(SessionActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
@@ -200,39 +198,43 @@ public class SessionActivity extends AppCompatActivity {
 
     private void writeDataToCSV() {
         sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
-            File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
-            String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
-            File subDirectory = new File(mainDirectory, timeStamp);
+            if (sessions.isEmpty()) {
+                Toast.makeText(SessionActivity.this, "No sessions are here", Toast.LENGTH_SHORT).show();
+            } else {
+                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                File subDirectory = new File(mainDirectory, timeStamp);
 
-            if (!subDirectory.exists()) {
-                subDirectory.mkdirs();
-            }
-
-            String fileName = "Summary.csv";
-            File csvFile = new File(subDirectory, fileName);
-
-            List<String[]> data = new ArrayList<>();
-            int sum = 0;
-            data.add(new String[]{"Session", "Price"});
-            for (Session session : sessions) {
-                data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
-                sum += session.getPrice();
-            }
-            data.add(new String[]{"Total Price", String.valueOf(sum)});
-
-            try {
-                FileWriter writer = new FileWriter(csvFile);
-                CSVWriter csvWriter = new CSVWriter(writer);
-
-                for (String[] row : data) {
-                    csvWriter.writeNext(row);
+                if (!subDirectory.exists()) {
+                    subDirectory.mkdirs();
                 }
 
-                csvWriter.close();
-                Toast.makeText(SessionActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(SessionActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                String fileName = "Summary.csv";
+                File csvFile = new File(subDirectory, fileName);
+
+                List<String[]> data = new ArrayList<>();
+                int sum = 0;
+                data.add(new String[]{"Session", "Price"});
+                for (Session session : sessions) {
+                    data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
+                    sum += session.getPrice();
+                }
+                data.add(new String[]{"Total Price", String.valueOf(sum)});
+
+                try {
+                    FileWriter writer = new FileWriter(csvFile);
+                    CSVWriter csvWriter = new CSVWriter(writer);
+
+                    for (String[] row : data) {
+                        csvWriter.writeNext(row);
+                    }
+
+                    csvWriter.close();
+                    Toast.makeText(SessionActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SessionActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

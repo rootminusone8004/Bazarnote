@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/delete_all_notes"
-        android:title="Delete all notes"
+        android:title="Delete All Notes"
         app:showAsAction="never"/>
 
     <item
@@ -13,6 +13,6 @@
 
     <item
         android:id="@+id/save_csv_file"
-        android:title="Save in csv file"
+        android:title="Save in CSV File"
         app:showAsAction="never"/>
 </menu>

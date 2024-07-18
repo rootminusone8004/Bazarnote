@@ -1,0 +1,13 @@
+* Bug Report
+
+** Expected Behaviour
+No unwanted toast messages should appear at all.
+
+** Actual Behaviour
+Unexpected toast messages arrive when pressed when returning to parent activity. Also their relevant functions unexpectedly get executed.
+
+** Steps to Reproduce
+1. Open the app. Make sure there are no sessions.
+2. Click on the "three dot" icon in the menu bar.
+3. Click on "Show Total Price" or "Save in CSV File" button. A toast message will appear.
+4. Add a new session. Give the session name and save it.

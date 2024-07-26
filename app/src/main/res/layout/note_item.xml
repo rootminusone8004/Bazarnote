@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    android:backgroundTint="@color/customCard">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,22 +17,22 @@
         <TextView
             android:id="@+id/text_view_item"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="item"/>
 
         <TextView
             android:id="@+id/text_view_quantity"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="quantity"
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />
@@ -39,10 +40,10 @@
         <TextView
             android:id="@+id/text_view_price"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:text="price"
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />
@@ -50,10 +51,10 @@
         <TextView
             android:id="@+id/text_view_multiple"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:textSize="16sp"
-            android:textColor="#FF0000"
+            android:textColor="@color/customOrange"
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />
 

@@ -19,6 +19,7 @@
 ** enhancements
 - [ ] use databinding
 - [ ] use state reserved checkbox
+- [X] use dark and orange color
 
 ** miscellaneous
 - [ ] code documentation

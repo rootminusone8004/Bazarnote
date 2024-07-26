@@ -22,27 +22,23 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".SessionActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".SessionActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme" />
+            android:launchMode="singleTop" />
         <activity
             android:name=".AddEditNoteActivity"
             android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SessionActivity"
             android:screenOrientation="portrait"
             android:exported="true"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

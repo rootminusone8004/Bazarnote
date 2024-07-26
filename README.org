@@ -2,8 +2,6 @@
 
 A simple note taking app that keeps the necessary minimal information during bazaar.
 
-*warning*: Basic functionalities haven't been implemented yet. So cloning is discouraged right now.
-
 ** what it is
 
 Bazarnote is actually a simple note taking app. It only keeps very minimal information of items being bought in offline marketing. When going to a shop or a bazaar, we need to buy many items. Sometimes it is difficult to track all the items. There Bazarnote may come in handy.

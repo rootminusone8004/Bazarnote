@@ -25,7 +25,21 @@
 - Success: Yes
 
 ** Build Instructions
-*** 1. Install prerequisites
+
+*** Common steps
+**** 1. Clone the repository
+- Make sure [[https://git-scm.com][git]] is installed.
+#+begin_src bash
+  sudo pacman -S git
+#+end_src
+- Open a terminal and clone the project repository:
+  #+begin_src bash
+ $ git clone "https://codeberg.org/rootminusone8004/Bazarnote"
+ $ cd Bazarnote
+#+end_src
+
+*** Android Studio
+**** 1. Install prerequisites
 
 _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 
@@ -40,36 +54,64 @@ _Notice_: The commands given apply for *Arch Linux and its derivatives*.
     #+end_src
   - [[https://gradle.org/install][Gradle]]: It can be installed via Android Studio.
     
-*** 2. Clone the repository
-- Make sure [[https://git-scm.com][git]] is installed.
-#+begin_src bash
-  sudo pacman -S git
-#+end_src
-- Open a terminal and clone the project repository:
-  #+begin_src bash
- $ git clone "https://codeberg.org/rootminusone8004/Bazarnote"
- $ cd Bazarnote
-#+end_src
-*** 3. Open the project in Android Studio
+**** 2. Open the project in Android Studio
 - Launch Android Studio.
 - Select the option of opening an existing project.
 - Navigate to the cloned project repository and select it.
 
-*** 4. Sync project with gradle files
+**** 3. Sync project with gradle files
 - After the project opens, sync it with gradle files.
 - Wait for the sync process to complete.
 
-*** 5. Configure build variants (if any)
+**** 4. Configure build variants (if any)
 - Open the build variants option.
 - Select the desired build variant.
 
-*** 6. Build the project
+**** 5. Build the project
 - To build the APK, click on *Build* in the menu bar.
 - Select Build *Bundle(s) / APK(s)* > *Build APK(s)*.
 
-*** 7. Run the app
+**** 6. Run the app
 - To run the app on the emulator or connected device, click the green play button in the toolbar.
 - Ensure you have an emulator configured or a device connected via USB with developer mode enabled.
+
+*** Terminal
+**** 1. Install prerequisites
+
+_Notice_: The commands given apply for *Arch Linux and its derivatives*.
+
+- Ensure you have the following packages installed:
+  - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used. Make sure that, it is of version *17*.
+    #+begin_src bash
+  sudo pacman -S jdk17-openjdk
+    #+end_src
+  - [[https://gradle.org/install][Gradle]]:
+    #+begin_src bash
+  sudo pacman -S gradle
+    #+end_src
+  - adb:
+    #+begin_src bash
+  sudo pacman -S android-tools
+    #+end_src
+**** 2. Open the project in terminal
+#+begin_src bash
+  cd Bazarnote
+#+end_src
+**** 3. Create necessary files for building
+#+begin_src bash
+  gradle wrapper
+#+end_src
+**** 4. Build the project
+To build the APK, run the following command:
+#+begin_src bash
+  ./gradlew build
+#+end_src
+You will get the apk file in _./app/build/outputs/apk/release_ directory.
+
+**** 5. Install the app
+#+begin_src bash
+  adb install app-release-unsigned.apk
+#+end_src
 
 * Pre built apks
 

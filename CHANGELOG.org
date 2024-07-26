@@ -47,3 +47,8 @@ All notable changes to this project are documented in this file.
 *** Added
 - dark theme implemented
 - dark orange is chosen as app color
+
+** [0.4.1] - 27-07-2024
+
+*** Added
+- build instructions for gradle via terminal

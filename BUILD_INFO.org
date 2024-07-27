@@ -117,6 +117,10 @@ You will get the apk file in _./app/build/outputs/apk/release_ directory.
   adb install app-release-unsigned.apk
 #+end_src
 
-* Pre built apks
+* Download
 
-The pre-built apks are available in the [[https://codeberg.org/rootminusone8004/Bazarnote/releases][release]] page.
+You can get the app from here:
+1. [[https://codeberg.org/rootminusone8004/Bazarnote/releases][Codeberg]]
+2. [[https://apt.izzysoft.de/fdroid/index/apk/com.rootminusone8004.bazarnote][F-Droid]]
+
+*Notice*: [[https://f-droid.org][F-Droid]] is recommended for downloading the app. But for that you must add [[https://apt.izzysoft.de][IzzyOnDroid]] repo. You can add it from [[https://apt.izzysoft.de/fdroid/index.php][here]].

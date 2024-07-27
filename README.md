@@ -18,3 +18,7 @@ See [BUILD_INFO.org](BUILD_INFO.org) file for details.
 ## license
 
 This project is licensed under GPL v3.0 or later. See the [LICENSE.txt](LICENSE.txt) file for details.
+
+<a href="https://apt.izzysoft.de/fdroid/index/apk/com.rootminusone8004.bazarnote/" target="_blank">
+  <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" height="60"/>
+</a>

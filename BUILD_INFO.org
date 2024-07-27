@@ -19,7 +19,11 @@
 - agp = "8.5.1"
 
 ** Dependencies
-- blank
+- androidx.cardview:cardview:1.0.0
+- androidx.lifecycle:lifecycle-livedata:2.8.3
+- androidx.lifecycle:lifecycle-viewmodel:2.8.3
+- androidx.room:room-runtime:2.6.1
+- com.opencsv:opencsv:5.5.2
 
 ** Build Status
 - Success: Yes

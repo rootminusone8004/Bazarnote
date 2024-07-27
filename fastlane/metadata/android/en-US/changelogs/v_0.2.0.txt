@@ -1,0 +1,7 @@
+Added
+- sessions have been implemented
+- total price of sessions can be calculated
+- fixed the orientation
+
+Fixed
+- buttons instead of checkboxes

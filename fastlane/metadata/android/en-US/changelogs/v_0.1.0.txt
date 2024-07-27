@@ -1,0 +1,4 @@
+Added
+- notes have been added
+- three columns: item, quantity ad price
+- total prize calculation is finished

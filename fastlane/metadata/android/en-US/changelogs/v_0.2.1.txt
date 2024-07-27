@@ -1,0 +1,6 @@
+Added
+- "delete all sessions" implemented
+
+Fixed
+- long text problem solved
+- diffutil implemented

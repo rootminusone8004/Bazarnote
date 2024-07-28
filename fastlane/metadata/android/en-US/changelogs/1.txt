@@ -1,0 +1,8 @@
+Added
+- notes have been added
+- three columns: item, quantity and price
+- total prize calculation is finished
+- sessions have been implemented
+- total price of sessions can be calculated
+- "delete all sessions" implemented
+- records can be exported via csv files

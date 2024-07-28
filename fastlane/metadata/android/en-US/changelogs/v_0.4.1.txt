@@ -1,5 +1,0 @@
-Added
-- build instructions for gradle via terminal
-- added fastlane
-- added id in manifest
-- added distributionsum in gradle wrapper

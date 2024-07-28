@@ -1,2 +1,0 @@
-Fixed
-- "delete all notes" bug removed

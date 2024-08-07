@@ -1,0 +1,12 @@
+* Bug Report
+
+** Expected Behavior
+  Duplicate cards should not appear
+
+** Actual Behaviour
+  Duplicate cards appear in both sessions and notes page
+
+** Steps to Reproduce
+  1. Open the app.
+  2. Create a new session. Add some items in it.
+  3. Create a session in the same name again.

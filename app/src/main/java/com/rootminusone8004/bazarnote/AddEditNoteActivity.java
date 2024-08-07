@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.rootminusone8004.bazarnote.EXTRA_ID";
@@ -26,6 +27,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_add_note);
 
         editTextItem = findViewById(R.id.edit_text_item);

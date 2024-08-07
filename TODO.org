@@ -1,25 +1,28 @@
 * todo list
 
 ** features
-- [X] set the base
-- [X] add the items objects
-- [X] separate events or notes
-- [X] calculate all the items' prices
-- [X] calculate all the sessions' prices
-- [X] release everything as a csv file
+  - [X] set the base
+  - [X] add the items objects
+  - [X] separate events or notes
+  - [X] calculate all the items' prices
+  - [X] calculate all the sessions' prices
+  - [X] release everything as a csv file
 
 ** release works
-- [ ] set up the splash screen
-- [X] set up the icon
-- [X] release apk
+  - [ ] set up the splash screen
+  - [X] set up the icon
+  - [X] release apk
 
 ** bug fixes
-- [ ] toast_message.org
+  - toast_message.org
+  - checkbox/first_appearance.org
+  - checkbox/return.org
+  - duplicate_card.org
 
 ** enhancements
-- [ ] use databinding
-- [ ] use state reserved checkbox
-- [X] use dark and orange color
+  - [ ] use databinding
+  - [ ] use state reserved checkbox
+  - [X] use dark and orange color
 
 ** miscellaneous
-- [ ] code documentation
+  - [ ] code documentation

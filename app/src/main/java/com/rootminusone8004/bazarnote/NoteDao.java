@@ -1,5 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -28,7 +30,7 @@ public interface NoteDao {
     LiveData<List<Note>> getAllSelectedNotes(int sessionId);
 
     @Insert
-    void insert(Session session);
+    void insert(Session session) throws SQLiteConstraintException;
 
     @Update
     void update(Session session);

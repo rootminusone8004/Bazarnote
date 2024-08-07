@@ -1,7 +1,9 @@
 package com.rootminusone8004.bazarnote;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -124,7 +126,11 @@ public class NoteRepository {
 
         @Override
         protected Void doInBackground(Session... sessions) {
-            noteDao.insert(sessions[0]);
+            try {
+                noteDao.insert(sessions[0]);
+            } catch (SQLiteConstraintException e) {
+                Log.e("DatabaseError", "Card with this name already exists.", e);
+            }
             return null;
         }
     }

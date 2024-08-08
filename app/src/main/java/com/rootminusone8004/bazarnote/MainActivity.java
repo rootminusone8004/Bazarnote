@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
             Note note = new Note(item, quantity, price);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
-            noteViewModel.insert(note);    // this will save notes
+            noteViewModel.insert(note, MainActivity.this);    // this will save notes
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             Note note = new Note(item, quantity, price);
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
-            noteViewModel.update(note);
+            noteViewModel.update(note, MainActivity.this);
         } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             Note note = new Note(item, quantity, price);
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
-            noteViewModel.update(note);
+            noteViewModel.update(note, MainActivity.this);
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }

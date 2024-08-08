@@ -95,7 +95,7 @@ public class SessionActivity extends AppCompatActivity {
             String sessionName = data.getStringExtra(AddSessionActivity.EXTRA_SESSION);
             Session session = new Session(sessionName);
             session.setPrice(0.0f);
-            sessionViewModel.insert(session);
+            sessionViewModel.insert(session, SessionActivity.this);
         } else if (requestCode == NOTE_TRANSFER_REQUEST && resultCode == RESULT_OK) {
             float sum = data.getFloatExtra(MainActivity.EXTRA_SESSION_SUM, 0.0f);
             int id = data.getIntExtra(MainActivity.EXTRA_SESSION_ID, -1);

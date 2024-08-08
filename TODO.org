@@ -14,10 +14,10 @@
   - [X] release apk
 
 ** bug fixes
-  - toast_message.org
-  - checkbox/first_appearance.org
-  - checkbox/return.org
-  - duplicate_card.org
+  - [ ] toast_message.org
+  - [ ] checkbox/first_appearance.org
+  - [ ] checkbox/return.org
+  - [-] duplicate_note.org
 
 ** enhancements
   - [ ] use databinding

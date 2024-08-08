@@ -15,7 +15,7 @@ import java.util.List;
 public interface NoteDao {
 
     @Insert
-    void insert(Note note);
+    void insert(Note note) throws SQLiteConstraintException;
 
     @Update
     void update(Note note);

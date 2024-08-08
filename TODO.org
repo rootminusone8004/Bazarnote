@@ -9,7 +9,7 @@
   - [X] release everything as a csv file
 
 ** release works
-  - [ ] set up the splash screen
+  - [X] set up the splash screen
   - [X] set up the icon
   - [X] release apk
 

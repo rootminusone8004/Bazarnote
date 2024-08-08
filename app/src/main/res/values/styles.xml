@@ -7,6 +7,10 @@
         <item name="android:background">@drawable/custom_edittext_background</item>
         <item name="android:textColorHint">@color/editTextHintColor</item>
     </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <style name="fab_square" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>

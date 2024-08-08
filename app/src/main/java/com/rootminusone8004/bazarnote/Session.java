@@ -1,13 +1,14 @@
 package com.rootminusone8004.bazarnote;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "session_table")
+@Entity(tableName = "session_table", indices = {@Index(value = "name", unique = true)})
 public class Session {
     @PrimaryKey(autoGenerate = true)
     private int sessionId;
-    private String name;
+    private final String name;
     private float price;
 
     public Session(String name){

@@ -1,11 +1,11 @@
 # Bazarnote
 
-![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-blue.svg)
+![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-004D40.svg)
 
 A simple note taking app that keeps the necessary minimal information during bazaar.
 
-<img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="220">
 <img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="220">
+<img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="220">
 
 ## what it is
 

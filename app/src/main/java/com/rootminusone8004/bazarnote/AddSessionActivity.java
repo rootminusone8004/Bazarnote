@@ -8,12 +8,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class AddSessionActivity extends AppCompatActivity {
     public static final String EXTRA_SESSION = "com.rootminusone8004.bazarnote.EXTRA_SESSION";
@@ -23,6 +20,7 @@ public class AddSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_add_session);
 
         editTextSession = findViewById(R.id.edit_session_item);

@@ -1,7 +1,6 @@
 package com.rootminusone8004.bazarnote;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -11,16 +10,15 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,6 +46,7 @@ public class SessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
 
         checkAndRequestPermissions();
@@ -96,7 +95,7 @@ public class SessionActivity extends AppCompatActivity {
             String sessionName = data.getStringExtra(AddSessionActivity.EXTRA_SESSION);
             Session session = new Session(sessionName);
             session.setPrice(0.0f);
-            sessionViewModel.insert(session);
+            sessionViewModel.insert(session, SessionActivity.this);
         } else if (requestCode == NOTE_TRANSFER_REQUEST && resultCode == RESULT_OK) {
             float sum = data.getFloatExtra(MainActivity.EXTRA_SESSION_SUM, 0.0f);
             int id = data.getIntExtra(MainActivity.EXTRA_SESSION_ID, -1);

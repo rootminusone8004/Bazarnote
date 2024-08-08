@@ -1,7 +1,11 @@
 package com.rootminusone8004.bazarnote;
 
 import android.app.Application;
+import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 
@@ -18,12 +22,12 @@ public class NoteRepository {
         this.allSessions = noteDao.getAllSessions();
     }
 
-    public void insert(Note note){
-        new InsertNoteAsyncTask(noteDao).execute(note);
+    public void insert(Note note, Context context){
+        new InsertNoteAsyncTask(noteDao, context).execute(note);
     }
 
-    public void update(Note note){
-        new UpdateNoteAsyncTask(noteDao).execute(note);
+    public void update(Note note, Context context){
+        new UpdateNoteAsyncTask(noteDao, context).execute(note);
     }
 
     public void delete(Note note){
@@ -39,31 +43,59 @@ public class NoteRepository {
         return allSelectedNotes;
     }
 
-    public static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void>{
+    public static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Boolean>{
         private NoteDao noteDao;
+        private Context context;
 
-        private InsertNoteAsyncTask(NoteDao noteDao){
+        private InsertNoteAsyncTask(NoteDao noteDao, Context context){
             this.noteDao = noteDao;
+            this.context = context;
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            noteDao.insert(notes[0]);
-            return null;
+        protected Boolean doInBackground(Note... notes) {
+            try {
+                noteDao.insert(notes[0]);
+                return true;
+            } catch (SQLiteConstraintException e) {
+                Log.e("DatabaseError", "Card with this name already exists.", e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(!success) {
+                Toast.makeText(context, "Duplicate notes are not allowed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    public static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Void>{
+    public static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Boolean>{
         private NoteDao noteDao;
+        private Context context;
 
-        private UpdateNoteAsyncTask(NoteDao noteDao){
+        private UpdateNoteAsyncTask(NoteDao noteDao, Context context){
             this.noteDao = noteDao;
+            this.context = context;
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            noteDao.update(notes[0]);
-            return null;
+        protected Boolean doInBackground(Note... notes) {
+            try {
+                noteDao.update(notes[0]);
+                return true;
+            } catch (SQLiteConstraintException e) {
+                Log.e("DatabaseError", "Card with this name already exists.", e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(!success) {
+                Toast.makeText(context, "Duplicate notes are not allowed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -95,8 +127,8 @@ public class NoteRepository {
         }
     }
 
-    public void insert(Session session){
-        new InsertSessionAsyncTask(noteDao).execute(session);
+    public void insert(Session session, Context context){
+        new InsertSessionAsyncTask(noteDao, context).execute(session);
     }
 
     public void update(Session session){
@@ -115,17 +147,31 @@ public class NoteRepository {
         return allSessions;
     }
 
-    public static class InsertSessionAsyncTask extends AsyncTask<Session, Void, Void>{
+    public static class InsertSessionAsyncTask extends AsyncTask<Session, Void, Boolean>{
         private NoteDao noteDao;
+        private Context context;
 
-        private InsertSessionAsyncTask(NoteDao noteDao){
+        private InsertSessionAsyncTask(NoteDao noteDao, Context context){
             this.noteDao = noteDao;
+            this.context = context;
         }
 
         @Override
-        protected Void doInBackground(Session... sessions) {
-            noteDao.insert(sessions[0]);
-            return null;
+        protected Boolean doInBackground(Session... sessions) {
+            try {
+                noteDao.insert(sessions[0]);
+                return true;
+            } catch (SQLiteConstraintException e) {
+                Log.e("DatabaseError", "Card with this name already exists.", e);
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if(!success) {
+                Toast.makeText(context, "Duplicate sessions are not allowed", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

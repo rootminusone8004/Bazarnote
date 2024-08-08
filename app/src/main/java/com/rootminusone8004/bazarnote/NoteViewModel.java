@@ -1,6 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -16,12 +17,12 @@ public class NoteViewModel extends androidx.lifecycle.AndroidViewModel {
         this.repository = new NoteRepository(application);
     }
 
-    public void insert(Note note) {
-        repository.insert(note);
+    public void insert(Note note, Context context) {
+        repository.insert(note, context);
     }
 
-    public void update(Note note){
-        repository.update(note);
+    public void update(Note note, Context context){
+        repository.update(note, context);
     }
 
     public void delete(Note note){

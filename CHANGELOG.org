@@ -4,59 +4,68 @@ All notable changes to this project are documented in this file.
 
 ** [0.0.0] - 02-07-2024
 
- - initialized the repository
+  - initialized the repository
 
 ** [0.1.0] - 13-07-2024
 
 *** Added
-- notes have been added
-- three columns: item, quantity ad price
-- total prize calculation is finished
+   - notes have been added
+   - three columns: item, quantity ad price
+   - total prize calculation is finished
 
 ** [0.2.0] - 16-07-2024
 
 *** Added
-- sessions have been implemented
-- total price of sessions can be calculated
-- fixed the orientation
+   - sessions have been implemented
+   - total price of sessions can be calculated
+   - fixed the orientation
 
 *** Fixed
-- buttons instead of checkboxes
+   - buttons instead of checkboxes
 
 ** [0.2.1] - 16-07-2024
 
 *** Added
-- "delete all sessions" implemented
+   - "delete all sessions" implemented
 
 *** Fixed
-- long text problem solved
-- diffutil implemented
+   - long text problem solved
+   - diffutil implemented
 
 ** [0.2.2] - 17-07-2024
 
 *** Fixed
-- "delete all notes" bug removed
+   - "delete all notes" bug removed
 
 ** [0.3.0] - 18-07-2024
 
 *** Added
-- records can be exported via csv files
+   - records can be exported via csv files
 
 ** [0.4.0] - 26-07-2024
 
 *** Added
-- dark theme implemented
-- dark orange is chosen as app color
+   - dark theme implemented
+   - dark orange is chosen as app color
 
 ** [0.4.1] - 27-07-2024
 
 *** Added
-- build instructions for gradle via terminal
-- added fastlane
-- added id in manifest
-- added distributionsum in gradle wrapper
+   - build instructions for gradle via terminal
+   - fastlane added
+   - id in manifest added
+   - distributionsum in gradle wrapper added
 
 ** [0.4.2] - 28-07-2024
 
 *** Fixed
-- completed the requirements mentioned by IzzyOnDroid
+   - completed the requirements mentioned by IzzyOnDroid
+
+** [0.5.0] - 08-08-2024
+
+*** Added
+   - splash screen implemented
+
+*** Fixed
+   - bright mode issue solved
+   - duplicate card bug solved

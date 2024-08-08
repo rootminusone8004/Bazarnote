@@ -1,6 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,8 +19,8 @@ private LiveData<List<Session>> allSessions;
         allSessions = repository.getAllSession();
     }
 
-    public void insert(Session session){
-        repository.insert(session);
+    public void insert(Session session, Context context){
+        repository.insert(session, context);
     }
 
     public void update(Session session){

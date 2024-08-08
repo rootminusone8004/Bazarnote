@@ -1,0 +1,6 @@
+Added
+  - splash screen implemented
+
+Fixed
+  - bright mode issue solved
+  - duplicate card bug solved

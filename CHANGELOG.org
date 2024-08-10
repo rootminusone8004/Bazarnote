@@ -69,3 +69,8 @@ All notable changes to this project are documented in this file.
 *** Fixed
    - bright mode issue solved
    - duplicate card bug solved
+
+** [0.5.1] - 10-08-2024
+
+*** Fixed
+   - bright mode in splash screen issue solved

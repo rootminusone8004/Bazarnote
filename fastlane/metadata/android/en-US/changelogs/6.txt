@@ -1,0 +1,2 @@
+Fixed
+  - bright mode in splash screen issue solved

@@ -1,6 +1,8 @@
 # Bazarnote
 
 ![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-004D40.svg)
+&nbsp;&nbsp;
+![build: success](https://img.shields.io/badge/build-success-brightgreen.svg)
 
 A simple note taking app that keeps the necessary minimal information during bazaar.
 

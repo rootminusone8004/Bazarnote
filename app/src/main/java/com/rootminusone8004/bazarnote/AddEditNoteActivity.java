@@ -59,7 +59,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         int price;
 
         if (item.trim().isEmpty() || quantityInString.trim().isEmpty()) {
-            Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_unfilled_note, Toast.LENGTH_SHORT).show();
             return;
         }
         
@@ -91,7 +91,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         String priceInString = editTextPrice.getText().toString();
 
         if (priceInString.trim().isEmpty()) {
-            Toast.makeText(this, "Please fill up the field", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_field_fill_indicate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -111,7 +111,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
             setResult(RESULT_OK, data);
             finish();
         } catch(Exception e) {
-            Toast.makeText(this, "Please give integer value", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_note_fill_int_indicate, Toast.LENGTH_SHORT).show();
         }
     }
 

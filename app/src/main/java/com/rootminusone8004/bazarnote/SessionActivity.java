@@ -107,9 +107,9 @@ public class SessionActivity extends AppCompatActivity {
         } else if (requestCode == STORAGE_PERMISSION_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Permission Denied. Closing the app.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -132,7 +132,7 @@ public class SessionActivity extends AppCompatActivity {
         } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, sessions -> {
                 if (sessions.isEmpty()) {
-                    Toast.makeText(SessionActivity.this, "No sessions here", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SessionActivity.this, R.string.toast_no_session, Toast.LENGTH_SHORT).show();
                 } else {
                     float sum = 0;
                     for (Session session : sessions) {
@@ -198,7 +198,7 @@ public class SessionActivity extends AppCompatActivity {
     private void writeDataToCSV() {
         sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
             if (sessions.isEmpty()) {
-                Toast.makeText(SessionActivity.this, "No sessions are here", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
             } else {
                 File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
                 String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());

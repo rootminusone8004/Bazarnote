@@ -66,7 +66,7 @@ public class NoteRepository {
         @Override
         protected void onPostExecute(Boolean success) {
             if(!success) {
-                Toast.makeText(context, "Duplicate notes are not allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.toast_note_dumplicate, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -94,7 +94,7 @@ public class NoteRepository {
         @Override
         protected void onPostExecute(Boolean success) {
             if(!success) {
-                Toast.makeText(context, "Duplicate notes are not allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.toast_note_dumplicate, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -170,7 +170,7 @@ public class NoteRepository {
         @Override
         protected void onPostExecute(Boolean success) {
             if(!success) {
-                Toast.makeText(context, "Duplicate sessions are not allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.toast_session_dumplicate, Toast.LENGTH_SHORT).show();
             }
         }
     }

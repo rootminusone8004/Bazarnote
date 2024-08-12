@@ -1,25 +1,27 @@
 # Bazarnote
 
 ![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-004D40.svg)
+&nbsp;&nbsp;
+![build: success](https://img.shields.io/badge/build-success-brightgreen.svg)
 
-A simple note taking app that keeps the necessary minimal information during bazaar.
+A simple offline shopping list app
 
 <img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="220">
 <img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="220">
 
 ## what it is
 
-Bazarnote is actually a simple note taking app. It only keeps very minimal information of items being bought in offline marketing. When going to a shop or a bazaar, we need to buy many items. Sometimes it is difficult to track all the items. There Bazarnote may come in handy.
+Bazarnote is a simple note taking app geared toward shopping lists. It only keeps minimal information about items being bought offline. When going to a shop or bazaar, Bazarnote helps you keep track of all the items on your shopping list.
 
-It is a simple application. You don\'t need to be online for the app being functional. Just open the app, give your necessary information, keep track of your products and that\'s all.
+It is a simple offline application. Just open the app, input your shopping list, keep track of your products, and that's all.
 
 ## build the app
 
-See [BUILD_INFO.org](BUILD_INFO.org) file for details.
+See the [BUILD\_INFO.org](BUILD_INFO.org) file for details.
 
 ## license
 
-Bazarnote - simple note taking app during bazar<br>
+Bazarnote - simple offline shopping list app<br>
 Copyright (C) 2024-present M.H. Rahman Kwoshik
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

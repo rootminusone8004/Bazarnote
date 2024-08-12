@@ -44,7 +44,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
             } else {
                 setTitle("Edit Note");
                 editTextItem.setText(intent.getStringExtra(EXTRA_TITLE));
-                editTextQuantity.setText(intent.getStringExtra(EXTRA_QUANTITY));
+                editTextQuantity.setText(Float.toString(intent.getFloatExtra(EXTRA_QUANTITY, 0.0f)));
                 editTextPrice.setVisibility(View.GONE);
             }
         } else {

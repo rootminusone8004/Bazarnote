@@ -150,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
                 }
             }
-        } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -18,10 +18,6 @@ import androidx.core.content.ContextCompat;
 @FunctionalInterface
 interface CSV {
     void execute(@Nullable Intent intent);
-
-    default void execute(){
-        execute(null);
-    }
 }
 
 public class Permission {

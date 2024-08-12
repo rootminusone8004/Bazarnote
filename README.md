@@ -4,7 +4,7 @@
 &nbsp;&nbsp;
 ![build: success](https://img.shields.io/badge/build-success-brightgreen.svg)
 
-A simple offline shopping list app.
+A simple offline shopping list app
 
 <img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="220">
 <img alt="Bazarnote Screenshots" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="220">

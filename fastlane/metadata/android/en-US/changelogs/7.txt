@@ -1,0 +1,2 @@
+Fixed
+  - blank quantity field bug solved

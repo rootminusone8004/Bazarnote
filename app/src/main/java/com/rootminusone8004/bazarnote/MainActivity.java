@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
         } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_unsaved_note, Toast.LENGTH_SHORT).show();
         }
     }
 

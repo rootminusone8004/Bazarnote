@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Bazarnote</string>
+    <string name="hint_item_name">Item</string>
+    <string name="item_quantity">Quantity</string>
+    <string name="hint_item_prize">Price</string>
+    <string name="hint_session">Session</string>
+    <string name="toast_unsaved_note">Note not saved</string>
 </resources>

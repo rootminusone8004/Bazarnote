@@ -8,27 +8,27 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".AddEditNoteActivity">
-    
+
     <EditText
         android:id="@+id/edit_text_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Item"
-        android:inputType="text"/>
+        android:hint="@string/hint_item_name"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/edit_text_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quantity"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="16dp"/>
-    
+        android:layout_marginTop="16dp"
+        android:hint="@string/item_quantity"
+        android:inputType="numberDecimal" />
+
     <EditText
         android:id="@+id/edit_text_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
-        android:inputType="numberDecimal"/>
+        android:hint="@string/hint_item_prize"
+        android:inputType="numberDecimal" />
         
 </LinearLayout>

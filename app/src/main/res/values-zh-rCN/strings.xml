@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bazarnote</string>
+    <string name="item_quantity">数量</string>
+    <string name="hint_session">新登记会话</string>
+    <string name="hint_item_name">物品</string>
+    <string name="hint_item_prize">价格</string>
+    <string name="toast_unsaved_note">未保存</string>
+</resources>

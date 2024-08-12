@@ -1,1 +1,1 @@
-An app that keeps the necessary information during bazaar.
+A simple offline shopping list app

@@ -33,7 +33,6 @@ import java.util.Locale;
 public class SessionActivity extends AppCompatActivity {
     public static final int ADD_SESSION_REQUEST = 4;
     public static final int NOTE_TRANSFER_REQUEST = 5;
-    public static final int STORAGE_PERMISSION_CODE = 1;
 
     private SessionViewModel sessionViewModel;
 
@@ -96,12 +95,12 @@ public class SessionActivity extends AppCompatActivity {
             session.setPrice(sum);
             session.setSessionId(id);
             sessionViewModel.update(session);
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
+        } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -123,7 +122,7 @@ public class SessionActivity extends AppCompatActivity {
         } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, sessions -> {
                 if (sessions.isEmpty()) {
-                    Toast.makeText(SessionActivity.this, "No sessions here", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
                 } else {
                     float sum = 0;
                     for (Session session : sessions) {
@@ -136,7 +135,7 @@ public class SessionActivity extends AppCompatActivity {
         } else if (itemId == R.id.session_save_csv_file) {
             Permission permission = new Permission(this, this, (@Nullable Intent intent) -> sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
                 if (sessions.isEmpty()) {
-                    Toast.makeText(SessionActivity.this, "No sessions are here", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
                 } else {
                     File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
                     String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
@@ -167,10 +166,10 @@ public class SessionActivity extends AppCompatActivity {
                         }
 
                         csvWriter.close();
-                        Toast.makeText(SessionActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Toast.makeText(SessionActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
             }));

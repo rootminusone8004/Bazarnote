@@ -51,10 +51,10 @@ public class Permission {
 
     private void showPermissionExplanationDialog() {
         new AlertDialog.Builder(context)
-                .setTitle("Permission Needed")
-                .setMessage("This feature needs storage permissions to create and save CSV files. Please grant the required permissions.")
-                .setPositiveButton("OK", (dialog, which) -> requestStoragePermission())
-                .setNegativeButton("Cancel", (dialog, which) -> {
+                .setTitle(R.string.permission_alertbox_title)
+                .setMessage(R.string.permission_alertbox_csv_write_message)
+                .setPositiveButton(R.string.permission_alertbox_positive_button, (dialog, which) -> requestStoragePermission())
+                .setNegativeButton(R.string.permission_alertbox_negative_button, (dialog, which) -> {
                     dialog.dismiss();
                 })
                 .create()

@@ -13,7 +13,7 @@
         android:id="@+id/edit_session_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Session"
-        android:inputType="text"/>
+        android:hint="@string/hint_session"
+        android:inputType="text" />
 
 </LinearLayout>

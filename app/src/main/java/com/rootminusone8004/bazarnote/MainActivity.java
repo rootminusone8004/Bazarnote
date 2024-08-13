@@ -31,10 +31,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int ADD_NOTE_REQUEST = 1;
+    public static final int ADD_NOTE_REQUEST = 6;
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
-    public static final int STORAGE_PERMISSION_CODE = 6;
 
     public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
     public static final String EXTRA_SESSION_NAME = "com.rootminusone8004.bazarnote.EXTRA_SESSION_NAME";
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_note_cant_update, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_note_cant_update, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -142,12 +141,12 @@ public class MainActivity extends AppCompatActivity {
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
+        } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -209,10 +208,10 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         csvWriter.close();
-                        Toast.makeText(MainActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
                     }
                 });
             });

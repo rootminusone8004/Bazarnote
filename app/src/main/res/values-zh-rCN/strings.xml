@@ -18,4 +18,6 @@
     <string name="toast_session_dumplicate">不允许相同的会话存在</string>
     <string name="toast_note_cant_update">该记录无法被更新</string>
     <string name="toast_note_fill_int_indicate">请输入整数值</string>
+    <string name="toast_csv_create_success">CSV文件创建成功</string>
+    <string name="toast_csv_create_failed">CSV文件创建失败</string>
 </resources>

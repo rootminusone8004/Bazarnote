@@ -14,6 +14,7 @@
     <string name="header_edit_note">编辑注释</string>
     <string name="header_add_price">加价</string>
     <string name="toast_no_sessions">无会话</string>
+    <string name="toast_no_notes">没有笔记</string>
     <string name="toast_unfilled_note">请将每一项填入内容</string>
     <string name="toast_note_dumplicate">不允许相同的记录存在</string>
     <string name="toast_field_fill_indicate">请填满此栏</string>

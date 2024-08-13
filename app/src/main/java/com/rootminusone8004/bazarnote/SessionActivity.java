@@ -99,6 +99,7 @@ public class SessionActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
                     Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
+                    writeDataToCSV(null);
                 } else {
                     Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
                 }
@@ -133,50 +134,54 @@ public class SessionActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
-            Permission permission = new Permission(this, this, (@Nullable Intent intent) -> sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
-                if (sessions.isEmpty()) {
-                    Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
-                } else {
-                    File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
-                    String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
-                    File subDirectory = new File(mainDirectory, timeStamp);
-
-                    if (!subDirectory.exists()) {
-                        subDirectory.mkdirs();
-                    }
-
-                    String fileName = "Summary.csv";
-                    File csvFile = new File(subDirectory, fileName);
-
-                    List<String[]> data = new ArrayList<>();
-                    int sum = 0;
-                    data.add(new String[]{"Session", "Price"});
-                    for (Session session : sessions) {
-                        data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
-                        sum += session.getPrice();
-                    }
-                    data.add(new String[]{"Total Price", String.valueOf(sum)});
-
-                    try {
-                        FileWriter writer = new FileWriter(csvFile);
-                        CSVWriter csvWriter = new CSVWriter(writer);
-
-                        for (String[] row : data) {
-                            csvWriter.writeNext(row);
-                        }
-
-                        csvWriter.close();
-                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }));
+            Permission permission = new Permission(this, this, this::writeDataToCSV);
             permission.checkPermissionAndWriteToCSV(null);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void writeDataToCSV(@Nullable Intent intent) {
+        sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
+            if (sessions.isEmpty()) {
+                Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
+            } else {
+                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                File subDirectory = new File(mainDirectory, timeStamp);
+
+                if (!subDirectory.exists()) {
+                    subDirectory.mkdirs();
+                }
+
+                String fileName = "Summary.csv";
+                File csvFile = new File(subDirectory, fileName);
+
+                List<String[]> data = new ArrayList<>();
+                int sum = 0;
+                data.add(new String[]{"Session", "Price"});
+                for (Session session : sessions) {
+                    data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
+                    sum += session.getPrice();
+                }
+                data.add(new String[]{"Total Price", String.valueOf(sum)});
+
+                try {
+                    FileWriter writer = new FileWriter(csvFile);
+                    CSVWriter csvWriter = new CSVWriter(writer);
+
+                    for (String[] row : data) {
+                        csvWriter.writeNext(row);
+                    }
+
+                    csvWriter.close();
+                    Toast.makeText(SessionActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(SessionActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

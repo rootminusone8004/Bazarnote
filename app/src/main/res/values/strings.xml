@@ -14,6 +14,7 @@
     <string name="header_edit_note">Edit Note</string>
     <string name="header_add_price">Add Price</string>
     <string name="toast_no_sessions">No sessions are here</string>
+    <string name="toast_no_notes">No notes are here</string>
     <string name="toast_unfilled_note">Please fill all the fields</string>
     <string name="toast_note_dumplicate">Duplicate notes are not allowed</string>
     <string name="toast_field_fill_indicate">Please fill up the field</string>

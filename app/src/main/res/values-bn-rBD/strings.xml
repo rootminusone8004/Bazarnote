@@ -14,6 +14,7 @@
     <string name="header_edit_note">নোট পরিবর্তন করুন</string>
     <string name="header_add_price">মূল্য যোগ করুন</string>
     <string name="toast_no_sessions">কোনও সেশন নেই</string>
+    <string name="toast_no_notes">কোনও নোট নেই</string>
     <string name="toast_unfilled_note">সকল তথ্য দিন</string>
     <string name="toast_note_dumplicate">একই ধরনের নোট গ্রহণযোগ্য নয়</string>
     <string name="toast_field_fill_indicate">তথ্য দান করুন</string>

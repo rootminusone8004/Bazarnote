@@ -79,3 +79,12 @@ All notable changes to this project are documented in this file.
 
 *** Fixed
    - blank quantity field bug solved
+
+** [0.5.3] - 13-08-2024
+
+*** Added
+   - added Chinese simplified translation
+
+*** Fixed
+   - read permission removed
+   - permission is asked when the feature is chosen

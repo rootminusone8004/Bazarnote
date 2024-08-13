@@ -30,5 +30,5 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_item_prize"
         android:inputType="numberDecimal" />
-        
+
 </LinearLayout>

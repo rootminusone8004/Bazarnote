@@ -26,7 +26,7 @@ public class AddSessionActivity extends AppCompatActivity {
         editTextSession = findViewById(R.id.edit_session_item);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Add Session");
+        setTitle(R.string.header_add_session);
     }
 
     private void saveSession() {

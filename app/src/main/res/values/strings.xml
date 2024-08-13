@@ -6,16 +6,28 @@
     <string name="hint_session">Session</string>
     <string name="toast_unsaved_note">Note not saved</string>
     <string name="menu_del_all_sessions">Delete All Sessions</string>
+    <string name="menu_del_all_notes">Delete All Notes</string>
     <string name="menu_show_summation">Show Total Price</string>
     <string name="menu_save_in_csv_file">Save in CSV File</string>
-    <string name="toast_no_session">No sessions here</string>
+    <string name="header_add_session">Add Session</string>
+    <string name="header_add_note">Add Note</string>
+    <string name="header_edit_note">Edit Note</string>
+    <string name="header_add_price">Add Price</string>
     <string name="toast_no_sessions">No sessions are here</string>
     <string name="toast_unfilled_note">Please fill all the fields</string>
     <string name="toast_note_dumplicate">Duplicate notes are not allowed</string>
     <string name="toast_field_fill_indicate">Please fill up the field</string>
     <string name="toast_permission_granted">Permission Granted</string>
-    <string name="toast_permisson_denied">Permission Denied. Closing the app.</string>
+    <string name="toast_permisson_denied">Permission Denied</string>
     <string name="toast_session_dumplicate">Duplicate sessions are not allowed</string>
     <string name="toast_note_cant_update">Note can\'t be updated</string>
     <string name="toast_note_fill_int_indicate">Please give integer value</string>
+    <string name="toast_csv_create_success">CSV file created successfully</string>
+    <string name="toast_csv_create_failed">Error creating CSV file</string>
+    <string name="permission_alertbox_title">Permission Needed</string>
+    <string name="permission_alertbox_csv_write_message">
+        This feature needs storage permissions to create and save CSV files. Please grant the required permissions.
+    </string>
+    <string name="permission_alertbox_positive_button">OK</string>
+    <string name="permission_alertbox_negative_button">Cancel</string>
 </resources>

@@ -1,12 +1,9 @@
 package com.rootminusone8004.bazarnote;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,7 +33,6 @@ import java.util.Locale;
 public class SessionActivity extends AppCompatActivity {
     public static final int ADD_SESSION_REQUEST = 4;
     public static final int NOTE_TRANSFER_REQUEST = 5;
-    public static final int STORAGE_PERMISSION_CODE = 1;
 
     private SessionViewModel sessionViewModel;
 
@@ -48,8 +41,6 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
-
-        checkAndRequestPermissions();
 
         FloatingActionButton buttonAddSession = findViewById(R.id.button_add_session);
         buttonAddSession.setOnClickListener(v -> {
@@ -104,13 +95,12 @@ public class SessionActivity extends AppCompatActivity {
             session.setPrice(sum);
             session.setSessionId(id);
             sessionViewModel.update(session);
-        } else if (requestCode == STORAGE_PERMISSION_CODE) {
+        } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
                     Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
         }
@@ -132,7 +122,7 @@ public class SessionActivity extends AppCompatActivity {
         } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, sessions -> {
                 if (sessions.isEmpty()) {
-                    Toast.makeText(SessionActivity.this, R.string.toast_no_session, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
                 } else {
                     float sum = 0;
                     for (Session session : sessions) {
@@ -143,98 +133,50 @@ public class SessionActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
-            writeDataToCSV();
+            Permission permission = new Permission(this, this, (@Nullable Intent intent) -> sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
+                if (sessions.isEmpty()) {
+                    Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
+                } else {
+                    File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                    String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                    File subDirectory = new File(mainDirectory, timeStamp);
+
+                    if (!subDirectory.exists()) {
+                        subDirectory.mkdirs();
+                    }
+
+                    String fileName = "Summary.csv";
+                    File csvFile = new File(subDirectory, fileName);
+
+                    List<String[]> data = new ArrayList<>();
+                    int sum = 0;
+                    data.add(new String[]{"Session", "Price"});
+                    for (Session session : sessions) {
+                        data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
+                        sum += session.getPrice();
+                    }
+                    data.add(new String[]{"Total Price", String.valueOf(sum)});
+
+                    try {
+                        FileWriter writer = new FileWriter(csvFile);
+                        CSVWriter csvWriter = new CSVWriter(writer);
+
+                        for (String[] row : data) {
+                            csvWriter.writeNext(row);
+                        }
+
+                        csvWriter.close();
+                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SessionActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }));
+            permission.checkPermissionAndWriteToCSV(null);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void checkAndRequestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                showPermissionExplanationDialog();
-            }
-        } else {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                    ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                showPermissionExplanationDialog();
-            }
-        }
-    }
-
-    private void showPermissionExplanationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Permission Needed")
-                .setMessage("This app needs storage permissions to create and save CSV files. Please grant the required permissions.")
-                .setPositiveButton("OK", (dialog, which) -> requestStoragePermission())
-                .setNegativeButton("Cancel", (dialog, which) -> {
-                    dialog.dismiss();
-                    finish();
-                })
-                .setCancelable(false)
-                .create()
-                .show();
-    }
-
-    private void requestStoragePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            try {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                startActivityForResult(intent, STORAGE_PERMISSION_CODE);
-            } catch (Exception e) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                startActivityForResult(intent, STORAGE_PERMISSION_CODE);
-            }
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            }, STORAGE_PERMISSION_CODE);
-        }
-    }
-
-    private void writeDataToCSV() {
-        sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
-            if (sessions.isEmpty()) {
-                Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
-            } else {
-                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
-                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
-                File subDirectory = new File(mainDirectory, timeStamp);
-
-                if (!subDirectory.exists()) {
-                    subDirectory.mkdirs();
-                }
-
-                String fileName = "Summary.csv";
-                File csvFile = new File(subDirectory, fileName);
-
-                List<String[]> data = new ArrayList<>();
-                int sum = 0;
-                data.add(new String[]{"Session", "Price"});
-                for (Session session : sessions) {
-                    data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
-                    sum += session.getPrice();
-                }
-                data.add(new String[]{"Total Price", String.valueOf(sum)});
-
-                try {
-                    FileWriter writer = new FileWriter(csvFile);
-                    CSVWriter csvWriter = new CSVWriter(writer);
-
-                    for (String[] row : data) {
-                        csvWriter.writeNext(row);
-                    }
-
-                    csvWriter.close();
-                    Toast.makeText(SessionActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(SessionActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

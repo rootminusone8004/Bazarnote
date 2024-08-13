@@ -1,6 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int ADD_NOTE_REQUEST = 1;
+    public static final int ADD_NOTE_REQUEST = 6;
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
 
@@ -140,8 +141,14 @@ public class MainActivity extends AppCompatActivity {
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
-        } else {
-            Toast.makeText(this, R.string.toast_unsaved_note, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
@@ -170,7 +177,45 @@ public class MainActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.save_csv_file) {
-            writeDataToCSV(sessionIntent);
+            Permission permission = new Permission(this, this, (Intent sessionIntent2) -> {
+                noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1)).observe(MainActivity.this, notes -> {
+                    File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
+                    String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
+                    File subDirectory = new File(mainDirectory, timeStamp);
+
+                    if (!subDirectory.exists()) {
+                        subDirectory.mkdirs();
+                    }
+
+                    String fileName = sessionIntent.getStringExtra(EXTRA_SESSION_NAME) + ".csv";
+                    File csvFile = new File(subDirectory, fileName);
+
+                    List<String[]> data = new ArrayList<>();
+                    int sum = 0;
+                    data.add(new String[]{"Item", "Quantity", "Unit Price", "Actual Price"});
+                    for (Note note : notes) {
+                        data.add(new String[]{note.getItem(), String.valueOf(note.getQuantity()), String.valueOf(note.getPrice()), String.valueOf(note.getMultiple())});
+                        sum += note.getMultiple();
+                    }
+                    data.add(new String[]{"", "", "Total Price", String.valueOf(sum)});
+
+                    try {
+                        FileWriter writer = new FileWriter(csvFile);
+                        CSVWriter csvWriter = new CSVWriter(writer);
+
+                        for (String[] row : data) {
+                            csvWriter.writeNext(row);
+                        }
+
+                        csvWriter.close();
+                        Toast.makeText(MainActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+            permission.checkPermissionAndWriteToCSV(sessionIntent);
             return true;
         } else if (itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
@@ -192,44 +237,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void writeDataToCSV(Intent sessionIntent) {
-        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1)).observe(MainActivity.this, notes -> {
-            File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
-            String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
-            File subDirectory = new File(mainDirectory, timeStamp);
-
-            if (!subDirectory.exists()) {
-                subDirectory.mkdirs();
-            }
-
-            String fileName = sessionIntent.getStringExtra(EXTRA_SESSION_NAME) + ".csv";
-            File csvFile = new File(subDirectory, fileName);
-
-            List<String[]> data = new ArrayList<>();
-            int sum = 0;
-            data.add(new String[]{"Item", "Quantity", "Unit Price", "Actual Price"});
-            for (Note note : notes) {
-                data.add(new String[]{note.getItem(), String.valueOf(note.getQuantity()), String.valueOf(note.getPrice()), String.valueOf(note.getMultiple())});
-                sum += note.getMultiple();
-            }
-            data.add(new String[]{"", "", "Total Price", String.valueOf(sum)});
-
-            try {
-                FileWriter writer = new FileWriter(csvFile);
-                CSVWriter csvWriter = new CSVWriter(writer);
-
-                for (String[] row : data) {
-                    csvWriter.writeNext(row);
-                }
-
-                csvWriter.close();
-                Toast.makeText(MainActivity.this, "CSV file created successfully", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(MainActivity.this, "Error creating CSV file", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

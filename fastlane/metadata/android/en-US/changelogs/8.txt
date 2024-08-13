@@ -1,0 +1,6 @@
+Added
+  - added Chinese simplified translation
+
+Fixed
+  - read permission removed
+  - permission is asked when the feature is chosen

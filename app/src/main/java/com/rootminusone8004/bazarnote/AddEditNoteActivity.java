@@ -38,17 +38,17 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
             if (intent.hasExtra(EXTRA_PRICE_CHECK)) {
-                setTitle("Add Price");
+                setTitle(R.string.header_add_price);
                 editTextItem.setVisibility(View.GONE);
                 editTextQuantity.setVisibility(View.GONE);
             } else {
-                setTitle("Edit Note");
+                setTitle(R.string.header_edit_note);
                 editTextItem.setText(intent.getStringExtra(EXTRA_TITLE));
                 editTextQuantity.setText(Float.toString(intent.getFloatExtra(EXTRA_QUANTITY, 0.0f)));
                 editTextPrice.setVisibility(View.GONE);
             }
         } else {
-            setTitle("Add Note");
+            setTitle(R.string.header_add_note);
             editTextPrice.setVisibility(View.GONE);
         }
     }

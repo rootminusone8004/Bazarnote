@@ -1,5 +1,6 @@
 Added
-  - added Chinese simplified translation
+  - Chinese simplified translation
+  - Bangla translation
 
 Fixed
   - read permission removed

@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_note_cant_update, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (requestCode == ADD_PRICE_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(this, "Note can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_note_cant_update, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
         } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_unsaved_note, Toast.LENGTH_SHORT).show();
         }
     }
 

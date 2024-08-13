@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_quantity">数量</string>
+    <string name="hint_session">新登记会话</string>
+    <string name="hint_item_name">物品</string>
+    <string name="hint_item_prize">价格</string>
+    <string name="toast_unsaved_note">未保存</string>
+    <string name="menu_del_all_sessions">删除所有会话</string>
+    <string name="menu_show_summation">显示总价</string>
+    <string name="menu_save_in_csv_file">另存为CSV文件</string>
+    <string name="toast_no_session">无会话</string>
+    <string name="toast_no_sessions">无会话</string>
+    <string name="toast_unfilled_note">请将每一项填入内容</string>
+    <string name="toast_note_dumplicate">不允许相同的记录存在</string>
+    <string name="toast_field_fill_indicate">请填满此栏</string>
+    <string name="toast_permission_granted">已获得权限</string>
+    <string name="toast_permisson_denied">必要权限被拒绝，软件即将关闭</string>
+    <string name="toast_session_dumplicate">不允许相同的会话存在</string>
+    <string name="toast_note_cant_update">该记录无法被更新</string>
+    <string name="toast_note_fill_int_indicate">请输入整数值</string>
+    <string name="toast_csv_create_success">CSV文件创建成功</string>
+    <string name="toast_csv_create_failed">CSV文件创建失败</string>
+</resources>

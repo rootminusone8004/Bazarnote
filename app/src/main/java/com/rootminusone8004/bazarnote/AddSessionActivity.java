@@ -33,7 +33,7 @@ public class AddSessionActivity extends AppCompatActivity {
         String session = editTextSession.getText().toString();
 
         if (session.trim().isEmpty()) {
-            Toast.makeText(this, "Please fill up the field", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_field_fill_indicate, Toast.LENGTH_SHORT).show();
             return;
         }
 

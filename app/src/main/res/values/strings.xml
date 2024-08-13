@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">Bazarnote</string>
+    <string name="app_name" translatable="false">Bazarnote</string>
+    <string name="hint_item_name">Item</string>
+    <string name="item_quantity">Quantity</string>
+    <string name="hint_item_prize">Price</string>
+    <string name="hint_session">Session</string>
+    <string name="toast_unsaved_note">Note not saved</string>
+    <string name="menu_del_all_sessions">Delete All Sessions</string>
+    <string name="menu_show_summation">Show Total Price</string>
+    <string name="menu_save_in_csv_file">Save in CSV File</string>
+    <string name="toast_no_session">No sessions here</string>
+    <string name="toast_no_sessions">No sessions are here</string>
+    <string name="toast_unfilled_note">Please fill all the fields</string>
+    <string name="toast_note_dumplicate">Duplicate notes are not allowed</string>
+    <string name="toast_field_fill_indicate">Please fill up the field</string>
+    <string name="toast_permission_granted">Permission Granted</string>
+    <string name="toast_permisson_denied">Permission Denied. Closing the app.</string>
+    <string name="toast_session_dumplicate">Duplicate sessions are not allowed</string>
+    <string name="toast_note_cant_update">Note can\'t be updated</string>
+    <string name="toast_note_fill_int_indicate">Please give integer value</string>
 </resources>

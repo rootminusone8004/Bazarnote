@@ -11,3 +11,8 @@ It is a simple application. You don't need to be online for the app being functi
 ** build the app
 
 See [[file:BUILD_INFO.org][BUILD_INFO.org]] file for details.
+
+** contributions
+
+  - Add features by making a [[https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/][pull request]].
+  - Help to translate to your language by making a [[https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/][pull request]].

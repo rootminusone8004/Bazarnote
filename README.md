@@ -2,7 +2,9 @@
 
 ![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-004D40.svg)
 &nbsp;&nbsp;
-![build: success](https://img.shields.io/badge/build-success-brightgreen.svg)
+![release: 0.5.3](https://img.shields.io/badge/release-0.5.3-blue.svg)
+
+<img src="fastlane/metadata/android/en-US/images/icon.png" alt="Bazarnote" width="50">
 
 A simple offline shopping list app
 
@@ -18,6 +20,11 @@ It is a simple offline application. Just open the app, input your shopping list,
 ## build the app
 
 See the [BUILD\_INFO.org](BUILD_INFO.org) file for details.
+
+## contributions
+
+  - Add features by making a <a href="https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/" target="_blank">pull request</a>.
+  - Help to translate to your language by making a <a href="https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/" target="_blank">pull request</a>.
 
 ## license
 

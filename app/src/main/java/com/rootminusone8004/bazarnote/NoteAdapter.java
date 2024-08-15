@@ -3,7 +3,7 @@ package com.rootminusone8004.bazarnote;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,7 +59,7 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
         private TextView textViewQuantity;
         private TextView textViewPrice;
         private TextView textViewMultiple;
-        private Button priceBtn;
+        private ImageButton priceBtn;
 
         private NoteHolder(View itemView) {
             super(itemView);

@@ -58,12 +58,13 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/price_btn"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:gravity="center"
-            android:background="@drawable/rounded_button"/>
+            android:background="@color/customCard"
+            android:src="@drawable/radio_button_checked_24"/>
 
     </LinearLayout>
 

@@ -1,1 +1,0 @@
-A simple offline shopping list app

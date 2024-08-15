@@ -1,3 +1,0 @@
-Bazarnote is a simple note taking app geared toward shopping lists. It only keeps minimal information about items being bought offline. When going to a shop or bazaar, Bazarnote helps you keep track of all the items on your shopping list.
-
-It is a simple offline application. Just open the app, input your shopping list, keep track of your products, and that's all.

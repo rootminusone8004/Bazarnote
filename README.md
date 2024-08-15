@@ -21,6 +21,10 @@ It is a simple offline application. Just open the app, input your shopping list,
 
 See the [BUILD\_INFO.org](BUILD_INFO.org) file for details.
 
+## how to use the app
+
+See the [USAGE.org](USAGE.org) file for details.
+
 ## contributions
 
   - Add features by making a <a href="https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/" target="_blank">pull request</a>.

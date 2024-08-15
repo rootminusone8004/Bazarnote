@@ -89,3 +89,8 @@ All notable changes to this project are documented in this file.
 *** Fixed
    - read permission removed
    - permission is asked when the feature is chosen
+
+** [0.6.0] - 15-08-2024
+
+*** Added
+   - changed button with an image button

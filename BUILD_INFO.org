@@ -16,7 +16,7 @@
 - targetSdkVersion: 34
 
 ** Gradle
-- agp = "8.5.1"
+- agp = "8.5.2"
 
 ** Dependencies
 - androidx.cardview:cardview:1.0.0

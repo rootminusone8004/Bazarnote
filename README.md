@@ -2,7 +2,7 @@
 
 ![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-004D40.svg)
 &nbsp;&nbsp;
-![release: 0.6.0](https://img.shields.io/badge/release-0.6.0-blue.svg)
+![release: 0.7.0](https://img.shields.io/badge/release-0.7.0-blue.svg)
 
 <img src="fastlane/metadata/android/en-US/images/icon.png" alt="Bazarnote" width="50">
 

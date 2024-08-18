@@ -1,18 +1,20 @@
 <resources>
-    <string name="app_name" translatable="false">Bazarnote</string>
     <string name="hint_item_name">আইটেম</string>
-    <string name="item_quantity">পরিমাণ</string>
+    <string name="hint_item_quantity">পরিমাণ</string>
     <string name="hint_item_prize">মূল্য</string>
     <string name="hint_session">সেশন</string>
-    <string name="toast_unsaved_note">নোট সংরক্ষণ করা হয়নি</string>
+    <string name="hint_file_name">ফাইলের নাম দিন</string>
+
     <string name="menu_del_all_sessions">সমস্ত সেশন মুছুন</string>
     <string name="menu_del_all_notes">সমস্ত নোট মুছুন</string>
     <string name="menu_show_summation">মোট মূল্য দেখান</string>
     <string name="menu_save_in_csv_file">CSV ফাইলে সংরক্ষণ করুন</string>
+
     <string name="header_add_session">সেশন যোগ করুন</string>
     <string name="header_add_note">নোট যোগ করুন</string>
     <string name="header_edit_note">নোট পরিবর্তন করুন</string>
     <string name="header_add_price">মূল্য যোগ করুন</string>
+
     <string name="toast_no_sessions">কোনও সেশন নেই</string>
     <string name="toast_no_notes">কোনও নোট নেই</string>
     <string name="toast_unfilled_note">সকল তথ্য দিন</string>
@@ -25,10 +27,18 @@
     <string name="toast_note_fill_int_indicate">পূর্ণ সংখ্যায় মান দিন</string>
     <string name="toast_csv_create_success">CSV ফাইল তৈরি করা হয়েছে</string>
     <string name="toast_csv_create_failed">CSV ফাইল তৈরি করা যায়নি</string>
+    <string name="toast_unsaved_note">নোট সংরক্ষণ করা হয়নি</string>
+    <string name="toast_file_name_empty">ফাইলের নাম খালি রাখা যাবে না</string>
+    <string name="toast_something_wrong">কিছু একটা সমস্যা হয়েছে</string>
+
     <string name="permission_alertbox_title">অনুমতি প্রয়োজন</string>
     <string name="permission_alertbox_csv_write_message">
         এই ফিচারটির জন্য স্টোরেজ অ্যাক্সেস অনুমতির প্রয়োজন যেন CSV ফাইল তৈরি ও সংরক্ষণ করা যায়। তাই অনুগ্রহ করে অনুমতি মঞ্জুর করুন।
     </string>
     <string name="permission_alertbox_positive_button">ঠিক আছে</string>
     <string name="permission_alertbox_negative_button">বাতিল</string>
+
+    <string name="file_save_alertbox_title">সংরক্ষণ করুন</string>
+    <string name="file_save_alertbox_positive_button">সংরক্ষণ করুন</string>
+    <string name="file_save_alertbox_negative_button">বাতিল</string>
 </resources>

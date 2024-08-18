@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="item_quantity">数量</string>
-    <string name="hint_session">新登记会话</string>
     <string name="hint_item_name">物品</string>
+    <string name="hint_item_quantity">数量</string>
     <string name="hint_item_prize">价格</string>
-    <string name="toast_unsaved_note">未保存</string>
+    <string name="hint_session">新登记会话</string>
+    <string name="hint_file_name">输入文件名</string>
+
     <string name="menu_del_all_sessions">删除所有会话</string>
     <string name="menu_del_all_notes">删除所有笔记</string>
     <string name="menu_show_summation">显示总价</string>
     <string name="menu_save_in_csv_file">另存为CSV文件</string>
+
     <string name="header_add_session">添加会话</string>
     <string name="header_add_note">添加备注</string>
     <string name="header_edit_note">编辑注释</string>
     <string name="header_add_price">加价</string>
+
     <string name="toast_no_sessions">无会话</string>
     <string name="toast_no_notes">没有笔记</string>
     <string name="toast_unfilled_note">请将每一项填入内容</string>
@@ -25,10 +28,18 @@
     <string name="toast_note_fill_int_indicate">请输入整数值</string>
     <string name="toast_csv_create_success">CSV文件创建成功</string>
     <string name="toast_csv_create_failed">CSV文件创建失败</string>
+    <string name="toast_unsaved_note">未保存</string>
+    <string name="toast_file_name_empty">文件名不能为空</string>
+    <string name="toast_something_wrong">出了点问题</string>
+
     <string name="permission_alertbox_title">需要许可</string>
     <string name="permission_alertbox_csv_write_message">
         此功能需要存储权限来创建和保存CSV文件。 请授予所需的权限。
     </string>
     <string name="permission_alertbox_positive_button">好的</string>
     <string name="permission_alertbox_negative_button">取消</string>
+
+    <string name="file_save_alertbox_title">另存为</string>
+    <string name="file_save_alertbox_positive_button">救</string>
+    <string name="file_save_alertbox_negative_button">取消</string>
 </resources>

@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name" translatable="false">Bazarnote</string>
+
     <string name="hint_item_name">Item</string>
-    <string name="item_quantity">Quantity</string>
+    <string name="hint_item_quantity">Quantity</string>
     <string name="hint_item_prize">Price</string>
     <string name="hint_session">Session</string>
-    <string name="toast_unsaved_note">Note not saved</string>
+    <string name="hint_file_name">Enter file name</string>
+
     <string name="menu_del_all_sessions">Delete All Sessions</string>
     <string name="menu_del_all_notes">Delete All Notes</string>
     <string name="menu_show_summation">Show Total Price</string>
     <string name="menu_save_in_csv_file">Save in CSV File</string>
+
     <string name="header_add_session">Add Session</string>
     <string name="header_add_note">Add Note</string>
     <string name="header_edit_note">Edit Note</string>
     <string name="header_add_price">Add Price</string>
+
     <string name="toast_no_sessions">No sessions are here</string>
     <string name="toast_no_notes">No notes are here</string>
     <string name="toast_unfilled_note">Please fill all the fields</string>
@@ -25,10 +29,18 @@
     <string name="toast_note_fill_int_indicate">Please give integer value</string>
     <string name="toast_csv_create_success">CSV file created successfully</string>
     <string name="toast_csv_create_failed">Error creating CSV file</string>
+    <string name="toast_unsaved_note">Note not saved</string>
+    <string name="toast_file_name_empty">File name cannot be empty</string>
+    <string name="toast_something_wrong">Something went wrong</string>
+
     <string name="permission_alertbox_title">Permission Needed</string>
     <string name="permission_alertbox_csv_write_message">
         This feature needs storage permissions to create and save CSV files. Please grant the required permissions.
     </string>
     <string name="permission_alertbox_positive_button">OK</string>
     <string name="permission_alertbox_negative_button">Cancel</string>
+
+    <string name="file_save_alertbox_title">Save As</string>
+    <string name="file_save_alertbox_positive_button">Save</string>
+    <string name="file_save_alertbox_negative_button">Cancel</string>
 </resources>

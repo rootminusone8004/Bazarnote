@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -91,15 +98,17 @@ public class SessionActivity extends AppCompatActivity {
             float sum = data.getFloatExtra(MainActivity.EXTRA_SESSION_SUM, 0.0f);
             int id = data.getIntExtra(MainActivity.EXTRA_SESSION_ID, -1);
             String name = data.getStringExtra(MainActivity.EXTRA_SESSION_NAME);
+            String jsonInfo = data.getStringExtra(MainActivity.EXTRA_SESSION_JSON);
             Session session = new Session(name);
             session.setPrice(sum);
             session.setSessionId(id);
+            session.setJsonInfo(jsonInfo);
             sessionViewModel.update(session);
         } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) {
                     Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
-                    writeDataToCSV(null);
+                    showSaveAsDialog(null);
                 } else {
                     Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
                 }
@@ -118,7 +127,7 @@ public class SessionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.delete_all_sessions) {
-            sessionViewModel.deleteAllSessions();    // it will delete all sessions
+            sessionViewModel.deleteAllSessions();
             return true;
         } else if (itemId == R.id.show_summation) {
             sessionViewModel.getAllSessions().observe(this, sessions -> {
@@ -134,15 +143,19 @@ public class SessionActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
-            Permission permission = new Permission(this, this, this::writeDataToCSV);
-            permission.checkPermissionAndWriteToCSV(null);
+            Permission permission = new Permission(this, this, this::showSaveAsDialog);
+            try {
+                permission.checkPermissionAndWriteToCSV(null);
+            } catch (Exception e) {
+                Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
+            }
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
-    private void writeDataToCSV(@Nullable Intent intent) {
+    private void writeDataToCSV(String fileName) {
         sessionViewModel.getAllSessions().observe(SessionActivity.this, sessions -> {
             if (sessions.isEmpty()) {
                 Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
@@ -155,17 +168,47 @@ public class SessionActivity extends AppCompatActivity {
                     subDirectory.mkdirs();
                 }
 
-                String fileName = "Summary.csv";
                 File csvFile = new File(subDirectory, fileName);
 
                 List<String[]> data = new ArrayList<>();
-                int sum = 0;
-                data.add(new String[]{"Session", "Price"});
+
+                JsonObject jsonObject = new JsonObject();
                 for (Session session : sessions) {
-                    data.add(new String[]{session.getName(), String.valueOf(session.getPrice())});
-                    sum += session.getPrice();
+                    jsonObject.add(
+                            session.getName(),
+                            JsonParser.parseString(session.getJsonInfo()).getAsJsonArray()
+                    );
                 }
-                data.add(new String[]{"Total Price", String.valueOf(sum)});
+
+                double totalSum = 0.0;
+                for (String category : jsonObject.keySet()) {
+                    data.add(new String[]{"#####", category, "#####"});
+                    data.add(new String[]{"Item", "Quantity", "Unit Price", "Real Price"});
+
+                    JsonArray items = jsonObject.getAsJsonArray(category);
+                    double totalPrice = 0.0;
+
+                    for (int i = 0; i < items.size(); i++) {
+                        JsonObject item = items.get(i).getAsJsonObject();
+                        String itemName = item.get("Item").getAsString();
+                        Double quantity = item.get("Quantity").getAsDouble();
+                        int price = item.get("Price").getAsInt();
+                        Double multiply = quantity * price;
+                        data.add(new String[]{
+                                itemName,
+                                String.valueOf(quantity),
+                                String.valueOf(price),
+                                String.valueOf(multiply)
+                        });
+                        totalPrice += multiply;
+                    }
+
+                    data.add(new String[]{"", "", "Total Price", String.valueOf(totalPrice)});
+                    data.add(new String[]{""});
+                    totalSum += totalPrice;
+                }
+
+                data.add(new String[]{"", "", "Total Sum", String.valueOf(totalSum)});
 
                 try {
                     FileWriter writer = new FileWriter(csvFile);
@@ -183,5 +226,35 @@ public class SessionActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showSaveAsDialog(@Nullable Intent intent) {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_save_as, null);
+
+        final EditText input = dialogView.findViewById(R.id.edit_text_file_name);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.file_save_alertbox_title);
+        builder.setView(dialogView);
+        
+        builder.setPositiveButton(R.string.file_save_alertbox_positive_button, (dialog, which) -> {
+            String fileName = input.getText().toString().trim();
+            if (!fileName.isEmpty()) {
+                if (!fileName.endsWith(".csv")) {
+                    fileName += ".csv";
+                }
+                try {
+                    writeDataToCSV(fileName);
+                } catch (Exception e) {
+                    Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.toast_file_name_empty, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(R.string.permission_alertbox_negative_button, (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
 }

@@ -94,3 +94,10 @@ All notable changes to this project are documented in this file.
 
 *** Added
    - changed button with an image button
+
+** [0.7.0] - 18-08-2024
+
+*** Added
+   - added file name changing option
+   - csv file creating at note taking page is omitted
+   - every session and their respective information can be saved as csv file in the session page

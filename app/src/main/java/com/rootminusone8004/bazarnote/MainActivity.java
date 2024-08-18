@@ -1,9 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,18 +15,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.opencsv.CSVWriter;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 6;
@@ -38,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
     public static final String EXTRA_SESSION_NAME = "com.rootminusone8004.bazarnote.EXTRA_SESSION_NAME";
     public static final String EXTRA_SESSION_SUM = "com.rootminusone8004.bazarnote.EXTRA_SESSION_SUM";
+    public static final String EXTRA_SESSION_JSON = "com.rootminusone8004.bazarnote.EXTRA_SESSION_JSON";
 
     private NoteViewModel noteViewModel;
 
@@ -141,15 +133,6 @@ public class MainActivity extends AppCompatActivity {
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
-        } else if (requestCode == Permission.STORAGE_PERMISSION_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(this, R.string.toast_permission_granted, Toast.LENGTH_SHORT).show();
-                    writeDataToCSV(sessionIntent);
-                } else {
-                    Toast.makeText(this, R.string.toast_permisson_denied, Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
 
@@ -181,23 +164,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             return true;
-        } else if (itemId == R.id.save_csv_file) {
-            Permission permission = new Permission(this, this, this::writeDataToCSV);
-            permission.checkPermissionAndWriteToCSV(sessionIntent);
-            return true;
         } else if (itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
             noteViewModel.getAllSelectedNotes(id).observe(this, notes -> {
+
                 float sum = 0;
+                JsonArray jsonArray = new JsonArray();
                 for (Note note : notes) {
                     sum += note.getMultiple();
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("Item", note.getItem());
+                    jsonObject.addProperty("Quantity", note.getQuantity());
+                    jsonObject.addProperty("Price", note.getPrice());
+                    jsonArray.add(jsonObject);
                 }
+
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(jsonArray);
 
                 Intent passIntent = new Intent();
                 passIntent.putExtra(EXTRA_SESSION_SUM, sum);
                 passIntent.putExtra(EXTRA_SESSION_ID, id);
                 passIntent.putExtra(EXTRA_SESSION_NAME, name);
+                passIntent.putExtra(EXTRA_SESSION_JSON, jsonString);
                 setResult(RESULT_OK, passIntent);
                 finish();
             });
@@ -205,48 +195,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void writeDataToCSV(Intent sessionIntent) {
-        noteViewModel.getAllSelectedNotes(sessionIntent.getIntExtra(EXTRA_SESSION_ID, -1)).observe(MainActivity.this, notes -> {
-            if (notes.isEmpty()) {
-                Toast.makeText(MainActivity.this, R.string.toast_no_notes, Toast.LENGTH_SHORT).show();
-            } else {
-                File mainDirectory = new File(Environment.getExternalStorageDirectory(), "Bazarnote");
-                String timeStamp = new SimpleDateFormat("dd_MM_yyyy", Locale.getDefault()).format(new Date());
-                File subDirectory = new File(mainDirectory, timeStamp);
-
-                if (!subDirectory.exists()) {
-                    subDirectory.mkdirs();
-                }
-
-                String fileName = sessionIntent.getStringExtra(EXTRA_SESSION_NAME) + ".csv";
-                File csvFile = new File(subDirectory, fileName);
-
-                List<String[]> data = new ArrayList<>();
-                int sum = 0;
-                data.add(new String[]{"Item", "Quantity", "Unit Price", "Actual Price"});
-                for (Note note : notes) {
-                    data.add(new String[]{note.getItem(), String.valueOf(note.getQuantity()), String.valueOf(note.getPrice()), String.valueOf(note.getMultiple())});
-                    sum += note.getMultiple();
-                }
-                data.add(new String[]{"", "", "Total Price", String.valueOf(sum)});
-
-                try {
-                    FileWriter writer = new FileWriter(csvFile);
-                    CSVWriter csvWriter = new CSVWriter(writer);
-
-                    for (String[] row : data) {
-                        csvWriter.writeNext(row);
-                    }
-
-                    csvWriter.close();
-                    Toast.makeText(MainActivity.this, R.string.toast_csv_create_success, Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, R.string.toast_csv_create_failed, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

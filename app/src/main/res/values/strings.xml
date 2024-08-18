@@ -31,6 +31,7 @@
     <string name="toast_csv_create_failed">Error creating CSV file</string>
     <string name="toast_unsaved_note">Note not saved</string>
     <string name="toast_file_name_empty">File name cannot be empty</string>
+    <string name="toast_something_wrong">Something went wrong</string>
 
     <string name="permission_alertbox_title">Permission Needed</string>
     <string name="permission_alertbox_csv_write_message">

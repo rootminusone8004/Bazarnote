@@ -9,6 +9,7 @@ public class Session {
     @PrimaryKey(autoGenerate = true)
     private int sessionId;
     private final String name;
+    private String jsonInfo;
     private float price;
 
     public Session(String name){
@@ -23,6 +24,10 @@ public class Session {
         this.price = price;
     }
 
+    public void setJsonInfo(String jsonInfo) {
+        this.jsonInfo = jsonInfo;
+    }
+
     public int getSessionId(){
         return this.sessionId;
     }
@@ -33,5 +38,9 @@ public class Session {
 
     public float getPrice() {
         return this.price;
+    }
+
+    public String getJsonInfo() {
+        return this.jsonInfo;
     }
 }

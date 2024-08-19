@@ -101,3 +101,4 @@ All notable changes to this project are documented in this file.
    - added file name changing option
    - csv file creating at note taking page is omitted
    - every session and their respective information can be saved as csv file in the session page
+   - two digit decimal number is introduced in price

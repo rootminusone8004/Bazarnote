@@ -1,5 +1,8 @@
 package com.rootminusone8004.bazarnote;
 
+import static com.rootminusone8004.bazarnote.Utility.formatDoubleValue;
+import static com.rootminusone8004.bazarnote.Utility.formatFloatValue;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Locale;
 
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     private OnItemClickListener listener;
@@ -45,9 +50,9 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
         Note currentNote = getItem(position);
         holder.textViewItem.setText(currentNote.getItem());
-        holder.textViewQuantity.setText(String.valueOf(currentNote.getQuantity()));
-        holder.textViewPrice.setText(String.valueOf(currentNote.getPrice()));
-        holder.textViewMultiple.setText(String.valueOf(currentNote.getMultiple()));
+        holder.textViewQuantity.setText(formatFloatValue(currentNote.getQuantity()));
+        holder.textViewPrice.setText(formatFloatValue(currentNote.getPrice()));
+        holder.textViewMultiple.setText(formatDoubleValue(currentNote.getMultiple()));
     }
 
     public Note getNoteAt(int position) {

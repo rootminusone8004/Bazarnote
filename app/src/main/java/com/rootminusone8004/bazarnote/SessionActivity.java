@@ -141,7 +141,7 @@ public class SessionActivity extends AppCompatActivity {
                     for (Session session : sessions) {
                         sum += session.getPrice();
                     }
-                    Toast.makeText(SessionActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SessionActivity.this, Utility.formatDoubleValue(sum), Toast.LENGTH_SHORT).show();
                 }
             });
             return true;

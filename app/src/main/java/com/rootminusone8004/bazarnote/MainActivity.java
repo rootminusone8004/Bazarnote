@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Note note : notes) {
                         sum += note.getMultiple();
                     }
-                    Toast.makeText(MainActivity.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, Utility.formatDoubleValue(sum), Toast.LENGTH_SHORT).show();
                 }
             });
             return true;

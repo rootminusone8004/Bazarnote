@@ -1,5 +1,8 @@
 package com.rootminusone8004.bazarnote;
 
+import static com.rootminusone8004.bazarnote.Utility.formatDoubleValue;
+import static com.rootminusone8004.bazarnote.Utility.formatFloatValue;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -95,7 +98,7 @@ public class SessionActivity extends AppCompatActivity {
             session.setPrice(0.0f);
             sessionViewModel.insert(session, SessionActivity.this);
         } else if (requestCode == NOTE_TRANSFER_REQUEST && resultCode == RESULT_OK) {
-            float sum = data.getFloatExtra(MainActivity.EXTRA_SESSION_SUM, 0.0f);
+            double sum = data.getDoubleExtra(MainActivity.EXTRA_SESSION_SUM, 0.0f);
             int id = data.getIntExtra(MainActivity.EXTRA_SESSION_ID, -1);
             String name = data.getStringExtra(MainActivity.EXTRA_SESSION_NAME);
             String jsonInfo = data.getStringExtra(MainActivity.EXTRA_SESSION_JSON);
@@ -134,7 +137,7 @@ public class SessionActivity extends AppCompatActivity {
                 if (sessions.isEmpty()) {
                     Toast.makeText(SessionActivity.this, R.string.toast_no_sessions, Toast.LENGTH_SHORT).show();
                 } else {
-                    float sum = 0;
+                    double sum = 0;
                     for (Session session : sessions) {
                         sum += session.getPrice();
                     }
@@ -169,6 +172,7 @@ public class SessionActivity extends AppCompatActivity {
                 }
 
                 File csvFile = new File(subDirectory, fileName);
+                csvFile = getUniqueFile(csvFile);
 
                 List<String[]> data = new ArrayList<>();
 
@@ -191,24 +195,24 @@ public class SessionActivity extends AppCompatActivity {
                     for (int i = 0; i < items.size(); i++) {
                         JsonObject item = items.get(i).getAsJsonObject();
                         String itemName = item.get("Item").getAsString();
-                        Double quantity = item.get("Quantity").getAsDouble();
-                        int price = item.get("Price").getAsInt();
-                        Double multiply = quantity * price;
+                        float quantity = item.get("Quantity").getAsFloat();
+                        float price = item.get("Price").getAsFloat();
+                        Double multiply = quantity * price * 1.0;
                         data.add(new String[]{
                                 itemName,
-                                String.valueOf(quantity),
-                                String.valueOf(price),
-                                String.valueOf(multiply)
+                                formatFloatValue(quantity),
+                                formatFloatValue(price),
+                                formatDoubleValue(multiply)
                         });
                         totalPrice += multiply;
                     }
 
-                    data.add(new String[]{"", "", "Total Price", String.valueOf(totalPrice)});
+                    data.add(new String[]{"", "", "Total Price", formatDoubleValue(totalPrice)});
                     data.add(new String[]{""});
                     totalSum += totalPrice;
                 }
 
-                data.add(new String[]{"", "", "Total Sum", String.valueOf(totalSum)});
+                data.add(new String[]{"", "", "Total Sum", formatDoubleValue(totalSum)});
 
                 try {
                     FileWriter writer = new FileWriter(csvFile);
@@ -226,6 +230,28 @@ public class SessionActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static File getUniqueFile(File file) {
+        String directoryPath = file.getParent();
+        String fileName = file.getName();
+        String name = fileName;
+        String extension = "";
+
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex != -1) {
+            name = fileName.substring(0, dotIndex);
+            extension = fileName.substring(dotIndex);
+        }
+
+        int count = 1;
+        while (file.exists()) {
+            String newName = name + "_" + count + extension;
+            file = new File(directoryPath, newName);
+            count++;
+        }
+
+        return file;
     }
 
     private void showSaveAsDialog(@Nullable Intent intent) {

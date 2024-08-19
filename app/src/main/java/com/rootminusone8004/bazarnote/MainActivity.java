@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
-            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
+            float price = data.getFloatExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
             Note note = new Note(item, quantity, price);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
-            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
+            float price = data.getFloatExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
 
             Note note = new Note(item, quantity, price);
             note.setId(id);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
             float quantity = data.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0);
-            int price = data.getIntExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
+            float price = data.getFloatExtra(AddEditNoteActivity.EXTRA_PRICE, 0);
             Note note = new Note(item, quantity, price);
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 if (notes.isEmpty()) {
                     Toast.makeText(MainActivity.this, R.string.toast_no_notes, Toast.LENGTH_SHORT).show();
                 } else {
-                    float sum = 0;
+                    double sum = 0;
                     for (Note note : notes) {
                         sum += note.getMultiple();
                     }
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
             noteViewModel.getAllSelectedNotes(id).observe(this, notes -> {
 
-                float sum = 0;
+                double sum = 0;
                 JsonArray jsonArray = new JsonArray();
                 for (Note note : notes) {
                     sum += note.getMultiple();

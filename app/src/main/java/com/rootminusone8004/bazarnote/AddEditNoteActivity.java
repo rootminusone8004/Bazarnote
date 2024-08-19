@@ -56,7 +56,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
     private void saveNote(boolean updateFlag) {
         String item = editTextItem.getText().toString();
         String quantityInString = editTextQuantity.getText().toString();
-        int price;
+        float price;
 
         if (item.trim().isEmpty() || quantityInString.trim().isEmpty()) {
             Toast.makeText(this, R.string.toast_unfilled_note, Toast.LENGTH_SHORT).show();
@@ -70,9 +70,9 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_QUANTITY, quantity);
 
         if(updateFlag) {
-            price = getIntent().getIntExtra(EXTRA_PRICE, -1);
+            price = getIntent().getFloatExtra(EXTRA_PRICE, -1);
         } else {
-            price = 0;
+            price = 0.0f;
         }
         data.putExtra(EXTRA_PRICE, price);
 
@@ -96,7 +96,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         }
 
         try {
-            int price = Integer.parseInt(priceInString);
+            float price = Float.parseFloat(priceInString);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_TITLE, item);

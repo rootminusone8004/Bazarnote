@@ -10,7 +10,7 @@ public class Session {
     private int sessionId;
     private final String name;
     private String jsonInfo;
-    private float price;
+    private double price;
 
     public Session(String name){
         this.name = name;
@@ -20,7 +20,7 @@ public class Session {
         this.sessionId = sessionId;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -36,7 +36,7 @@ public class Session {
         return this.name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return this.price;
     }
 

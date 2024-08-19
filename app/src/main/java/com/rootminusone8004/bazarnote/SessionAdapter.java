@@ -1,5 +1,7 @@
 package com.rootminusone8004.bazarnote;
 
+import static com.rootminusone8004.bazarnote.Utility.formatDoubleValue;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,7 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
     public void onBindViewHolder(@NonNull SessionHolder holder, int position) {
         Session currentSession = getItem(position);
         holder.textViewSession.setText(currentSession.getName());
-        holder.textViewSessionSum.setText(String.valueOf(currentSession.getPrice()));
+        holder.textViewSessionSum.setText(formatDoubleValue(currentSession.getPrice()));
     }
 
     public Session getSessionAt(int position) {

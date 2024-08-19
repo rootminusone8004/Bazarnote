@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey;
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int price, sessionId;
-    private float quantity;
-    private float multiple;
+    private int sessionId;
+    private float quantity, price;
+    private double multiple;
     private String item;
 
-    public Note(String item, float quantity, int price) {
+    public Note(String item, float quantity, float price) {
         this.item = item;
         this.quantity = quantity;
         this.price = price;
@@ -26,7 +26,7 @@ public class Note {
         this.id = id;
     }
 
-    public void setMultiple(float multiple) {
+    public void setMultiple(double multiple) {
         this.multiple = multiple;
     }
 
@@ -48,11 +48,11 @@ public class Note {
         return quantity;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public float getMultiple() {
+    public double getMultiple() {
         return multiple;
     }
 

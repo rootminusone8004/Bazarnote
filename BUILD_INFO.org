@@ -1,103 +1,102 @@
 * Build Information
 
 ** Project Information
-- Project Name: Bazarnote
-- Package Name: com.rootminusone8004.bazarnote
+  - Project Name: Bazarnote
+  - Package Name: com.rootminusone8004.bazarnote
 
 ** Build Environment
-- Android Studio Version: Koala | 2024.1.1
-- Gradle Version: 8.7
-- Java Version: 11
+  - Android Studio Version: Koala | 2024.1.1
+  - Gradle Version: 8.7
+  - Java Version: 11
 
 ** SDK and tools
-- compileSdkVersion: 34
-- buildToolsVersion: 34
-- minSdkVersion: 24
-- targetSdkVersion: 34
+  - compileSdkVersion: 34
+  - buildToolsVersion: 34
+  - minSdkVersion: 24
+  - targetSdkVersion: 34
 
 ** Gradle
-- agp = "8.5.2"
+  - agp = "8.5.2"
 
 ** Dependencies
-- androidx.cardview:cardview:1.0.0
-- androidx.lifecycle:lifecycle-livedata:2.8.3
-- androidx.lifecycle:lifecycle-viewmodel:2.8.3
-- androidx.room:room-runtime:2.6.1
-- com.opencsv:opencsv:5.5.2
-- com.google.code.gson:gson:2.10.1
+  - androidx.cardview:cardview:1.0.0
+  - androidx.lifecycle:lifecycle-livedata:2.8.3
+  - androidx.lifecycle:lifecycle-viewmodel:2.8.3
+  - androidx.room:room-runtime:2.6.1
+  - com.opencsv:opencsv:5.5.2
+  - com.google.code.gson:gson:2.10.1
 
 ** Build Status
-- Success: Yes
+  - Success: Yes
 
 ** Build Instructions
 
 *** Common steps
 **** 1. Clone the repository
-- Make sure [[https://git-scm.com][git]] is installed.
+    - Make sure [[https://git-scm.com][git]] is installed.
 #+begin_src bash
   sudo pacman -S git
 #+end_src
-- Open a terminal and clone the project repository:
-  #+begin_src bash
+    - Open a terminal and clone the project repository:
+#+begin_src bash
  $ git clone "https://codeberg.org/rootminusone8004/Bazarnote"
  $ cd Bazarnote
 #+end_src
-
 *** Android Studio
 **** 1. Install prerequisites
 
-_Notice_: The commands given apply for *Arch Linux and its derivatives*.
+     _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 
-- Ensure you have the following packages installed:
-  - [[https://developer.android.com/studio/install][Android Studio]]: In Arch Linux, it is available in [[https://aur.archlinux.org/packages/android-studio][AUR]].
-    #+begin_src bash
+     - Ensure you have the following packages installed:
+      - [[https://developer.android.com/studio/install][Android Studio]]: In Arch Linux, it is available in [[https://aur.archlinux.org/packages/android-studio][AUR]].
+#+begin_src bash
   paru -S android-studio
-    #+end_src
-  - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used.
-    #+begin_src bash
+#+end_src
+      - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used.
+#+begin_src bash
   sudo pacman -S jdk11-openjdk
-    #+end_src
-  - [[https://gradle.org/install][Gradle]]: It can be installed via Android Studio.
+#+end_src
+      - [[https://gradle.org/install][Gradle]]: It can be installed via Android Studio.
     
 **** 2. Open the project in Android Studio
-- Launch Android Studio.
-- Select the option of opening an existing project.
-- Navigate to the cloned project repository and select it.
+    - Launch Android Studio.
+    - Select the option of opening an existing project.
+    - Navigate to the cloned project repository and select it.
 
 **** 3. Sync project with gradle files
-- After the project opens, sync it with gradle files.
-- Wait for the sync process to complete.
+    - After the project opens, sync it with gradle files.
+    - Wait for the sync process to complete.
 
 **** 4. Configure build variants (if any)
-- Open the build variants option.
-- Select the desired build variant.
+    - Open the build variants option.
+    - Select the desired build variant.
 
 **** 5. Build the project
-- To build the APK, click on *Build* in the menu bar.
-- Select Build *Bundle(s) / APK(s)* > *Build APK(s)*.
+    - To build the APK, click on *Build* in the menu bar.
+    - Select Build *Bundle(s) / APK(s)* > *Build APK(s)*.
 
 **** 6. Run the app
-- To run the app on the emulator or connected device, click the green play button in the toolbar.
-- Ensure you have an emulator configured or a device connected via USB with developer mode enabled.
+    - To run the app on the emulator or connected device, click the green play button in the toolbar.
+    - Ensure you have an emulator configured or a device connected via USB with developer mode enabled.
 
 *** Terminal
 **** 1. Install prerequisites
 
-_Notice_: The commands given apply for *Arch Linux and its derivatives*.
+     _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 
-- Ensure you have the following packages installed:
-  - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used. Make sure that, it is of version *17*.
-    #+begin_src bash
+     - Ensure you have the following packages installed:
+      - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used. Make sure that, it is of version *17*.
+#+begin_src bash
   sudo pacman -S jdk17-openjdk
-    #+end_src
-  - [[https://gradle.org/install][Gradle]]:
-    #+begin_src bash
+#+end_src
+      - [[https://gradle.org/install][Gradle]]:
+#+begin_src bash
   sudo pacman -S gradle
-    #+end_src
-  - adb:
-    #+begin_src bash
+#+end_src
+      - adb:
+#+begin_src bash
   sudo pacman -S android-tools
-    #+end_src
+#+end_src
 **** 2. Open the project in terminal
 #+begin_src bash
   cd Bazarnote
@@ -107,21 +106,20 @@ _Notice_: The commands given apply for *Arch Linux and its derivatives*.
   gradle wrapper
 #+end_src
 **** 4. Build the project
-To build the APK, run the following command:
+     To build the APK, run the following command:
 #+begin_src bash
   ./gradlew build
 #+end_src
-You will get the apk file in _./app/build/outputs/apk/release_ directory.
+     You will get the apk file in _./app/build/outputs/apk/release_ directory.
 
 **** 5. Install the app
 #+begin_src bash
   adb install app-release-unsigned.apk
 #+end_src
-
 * Download
 
 You can get the app from here:
-1. [[https://codeberg.org/rootminusone8004/Bazarnote/releases][Codeberg]]
-2. [[https://apt.izzysoft.de/fdroid/index/apk/com.rootminusone8004.bazarnote][F-Droid]]
+  1. [[https://codeberg.org/rootminusone8004/Bazarnote/releases][Codeberg]]
+  2. [[https://apt.izzysoft.de/fdroid/index/apk/com.rootminusone8004.bazarnote][F-Droid]]
 
 *Notice*: [[https://f-droid.org][F-Droid]] is recommended for downloading the app. But for that you must add [[https://apt.izzysoft.de][IzzyOnDroid]] repo. You can add it from [[https://apt.izzysoft.de/fdroid/index.php][here]].

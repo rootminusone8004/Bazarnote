@@ -21,7 +21,7 @@ Here, you can do the following tasks:
   - The three dots at the right side of headbar show three options.
     - The first option deletes all the existing sessions.
     - The second option shows total prize.
-    - The third option saves all the sessions and their total cost in a CSV file. It creates a folder called *Bazarnote* in the phone storage. Creates a folder with a timestamp as its name and inside that folder, it saves the CSV file as *Summary.csv*. This feature requires write permission.
+    - The third option saves all the sessions alongside their respective information and their total cost in a CSV file. A dialog box will appear asking for giving a name for the CSV file. It creates a folder called *Bazarnote* in the phone storage. It also creates a folder with a timestamp as its name and inside that folder, it saves the CSV file as the name you gave. If duplicate names appear in that timestamp folder then unique numbers will be added at the end of the file name. This feature requires write permission.
   
 *** Note Page
 After tapping any session card, you will be navigated to its correspond event page. There you can save your related notes. Following tasks can be performed here:
@@ -37,10 +37,9 @@ After tapping any session card, you will be navigated to its correspond event pa
   - Multiple notes cannot have same names.
   - To edit an existing note, tap on the note card.
   - The left arrow at the left side of headbar in events page takes you back to the session page.
-  - The three dots at the right side of headbar show three options.
+  - The three dots at the right side of headbar show two options.
     - The first option deletes all the existing notes of a specific session.
     - The second option shows total cost spent in a particular session.
-    - The third option saves all the notes and their total cost in a CSV file. It creates a folder called *Bazarnote* in the phone storage. Creates a folder with a timestamp as its name and inside that folder, it saves the CSV file as *<session_name>.csv*. This feature requires write permission.
 
 ** Getting Help or Any Issue
   - If you have any issues or need clarification, feel free to drop them in the [[https://codeberg.org/rootminusone8004/Bazarnote/issues][Issues]] section.

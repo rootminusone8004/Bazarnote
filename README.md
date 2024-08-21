@@ -30,6 +30,10 @@ See the [USAGE.org](USAGE.org) file for details.
   - Add features by making a <a href="https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/" target="_blank">pull request</a>.
   - Help to translate to your language by making a <a href="https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/" target="_blank">pull request</a>.
 
+## github
+
+This project has a <a href="https://github.com/rootminusone8004/Bazarnote" target="_blank">mirrored repository</a> in GitHub as well. You can create pull requests and write issues there. But if you can do those things here, please try to avoid the mirrored GitHub repo.
+
 ## license
 
 Bazarnote - simple offline shopping list app<br>

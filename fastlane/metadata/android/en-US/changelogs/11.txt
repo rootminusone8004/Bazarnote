@@ -1,0 +1,2 @@
+Fixed
+  - disabled the back button in note taking session

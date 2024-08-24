@@ -31,6 +31,7 @@
     <string name="toast_unsaved_note">未保存</string>
     <string name="toast_file_name_empty">文件名不能为空</string>
     <string name="toast_something_wrong">出了点问题</string>
+    <string name="toast_no_backpress">请按头杆中的left arrow图标返回</string>
 
     <string name="permission_alertbox_title">需要许可</string>
     <string name="permission_alertbox_csv_write_message">

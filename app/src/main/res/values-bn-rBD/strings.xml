@@ -30,6 +30,7 @@
     <string name="toast_unsaved_note">নোট সংরক্ষণ করা হয়নি</string>
     <string name="toast_file_name_empty">ফাইলের নাম খালি রাখা যাবে না</string>
     <string name="toast_something_wrong">কিছু একটা সমস্যা হয়েছে</string>
+    <string name="toast_no_backpress">দয়া করে উপরের left arrow বাটনটি চেপে পিছনে যান</string>
 
     <string name="permission_alertbox_title">অনুমতি প্রয়োজন</string>
     <string name="permission_alertbox_csv_write_message">

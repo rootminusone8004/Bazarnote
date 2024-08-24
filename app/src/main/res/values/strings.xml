@@ -32,6 +32,7 @@
     <string name="toast_unsaved_note">Note not saved</string>
     <string name="toast_file_name_empty">File name cannot be empty</string>
     <string name="toast_something_wrong">Something went wrong</string>
+    <string name="toast_no_backpress">Press the left arrow button to go back</string>
 
     <string name="permission_alertbox_title">Permission Needed</string>
     <string name="permission_alertbox_csv_write_message">

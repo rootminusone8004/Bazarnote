@@ -1,5 +1,6 @@
 package com.rootminusone8004.bazarnote;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -141,6 +142,12 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(MainActivity.this, R.string.toast_no_backpress, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -7,6 +7,7 @@
   - [X] calculate all the items' prices
   - [X] calculate all the sessions' prices
   - [X] release everything as a csv file
+  - [ ] csv file for specific selected sessions
 
 ** release works
   - [X] set up the splash screen

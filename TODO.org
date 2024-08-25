@@ -8,6 +8,8 @@
   - [X] calculate all the sessions' prices
   - [X] release everything as a csv file
   - [ ] csv file for specific selected sessions
+  - [ ] import csv file
+  - [ ] implement a settings page
 
 ** release works
   - [X] set up the splash screen
@@ -16,8 +18,6 @@
 
 ** bug fixes
   - [ ] toast_message.org
-  - [ ] checkbox/first_appearance.org
-  - [ ] checkbox/return.org
 
 ** enhancements
   - [ ] use databinding

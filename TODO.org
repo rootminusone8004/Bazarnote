@@ -10,6 +10,7 @@
   - [X] csv file for specific selected sessions
   - [ ] import csv file
   - [ ] implement a settings page
+  - [ ] add a user guide tour
 
 ** release works
   - [X] set up the splash screen

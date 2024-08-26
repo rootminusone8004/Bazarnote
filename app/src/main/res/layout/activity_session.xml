@@ -11,7 +11,7 @@
         android:id="@+id/session_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/session_item"/>
+        tools:listitem="@layout/session_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         app:shapeAppearanceOverlay="@style/fab_square"
@@ -20,6 +20,13 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"/>
+        android:layout_margin="32dp" />
 
+    <Button
+        android:id="@+id/card_checkbox_show_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:text="@string/button_save"
+        android:layout_margin="32dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

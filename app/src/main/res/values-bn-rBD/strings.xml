@@ -42,4 +42,6 @@
     <string name="file_save_alertbox_title">সংরক্ষণ করুন</string>
     <string name="file_save_alertbox_positive_button">সংরক্ষণ করুন</string>
     <string name="file_save_alertbox_negative_button">বাতিল</string>
+
+    <string name="button_save">ঠিক আছে</string>
 </resources>

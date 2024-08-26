@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,12 +46,17 @@ public class SessionActivity extends AppCompatActivity {
     public static final int NOTE_TRANSFER_REQUEST = 5;
 
     private SessionViewModel sessionViewModel;
+    private SessionAdapter adapter;
+    private Button checkboxShowButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
+
+        checkboxShowButton = findViewById(R.id.card_checkbox_show_btn);
+        checkboxShowButton.setVisibility(View.GONE);
 
         FloatingActionButton buttonAddSession = findViewById(R.id.button_add_session);
         buttonAddSession.setOnClickListener(v -> {
@@ -62,8 +68,19 @@ public class SessionActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        SessionAdapter adapter = new SessionAdapter();
+        adapter = new SessionAdapter();
         recyclerView.setAdapter(adapter);
+
+        checkboxShowButton.setOnClickListener(v -> {
+            Permission permission = new Permission(this, this, this::showSaveAsDialog);
+            try {
+                permission.checkPermissionAndWriteToCSV(null);
+            } catch (Exception e) {
+                Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
+            }
+            adapter.hideAllCheckboxesWithTick();
+            checkboxShowButton.setVisibility(View.GONE);
+        });
 
         sessionViewModel = new ViewModelProvider(this).get(SessionViewModel.class);
         sessionViewModel.getAllSessions().observe(this, sessions -> adapter.submitList(sessions));
@@ -146,12 +163,8 @@ public class SessionActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
-            Permission permission = new Permission(this, this, this::showSaveAsDialog);
-            try {
-                permission.checkPermissionAndWriteToCSV(null);
-            } catch (Exception e) {
-                Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
-            }
+            adapter.showAllCheckboxesWithTick();
+            checkboxShowButton.setVisibility(View.VISIBLE);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -178,10 +191,13 @@ public class SessionActivity extends AppCompatActivity {
 
                 JsonObject jsonObject = new JsonObject();
                 for (Session session : sessions) {
-                    jsonObject.add(
-                            session.getName(),
-                            JsonParser.parseString(session.getJsonInfo()).getAsJsonArray()
-                    );
+                    int sessionPosition = sessions.indexOf(session);
+                    if (adapter.isCheckboxChecked(sessionPosition)) {
+                        jsonObject.add(
+                                session.getName(),
+                                JsonParser.parseString(session.getJsonInfo()).getAsJsonArray()
+                        );
+                    }
                 }
 
                 double totalSum = 0.0;

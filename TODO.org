@@ -7,7 +7,7 @@
   - [X] calculate all the items' prices
   - [X] calculate all the sessions' prices
   - [X] release everything as a csv file
-  - [ ] csv file for specific selected sessions
+  - [X] csv file for specific selected sessions
   - [ ] import csv file
   - [ ] implement a settings page
 

@@ -43,4 +43,6 @@
     <string name="file_save_alertbox_title">另存为</string>
     <string name="file_save_alertbox_positive_button">救</string>
     <string name="file_save_alertbox_negative_button">取消</string>
+
+    <string name="button_save">完毕</string>
 </resources>

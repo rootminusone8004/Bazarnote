@@ -44,4 +44,6 @@
     <string name="file_save_alertbox_title">Save As</string>
     <string name="file_save_alertbox_positive_button">Save</string>
     <string name="file_save_alertbox_negative_button">Cancel</string>
+
+    <string name="button_save">done</string>
 </resources>

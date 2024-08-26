@@ -45,4 +45,6 @@
     <string name="file_save_alertbox_negative_button">取消</string>
 
     <string name="button_save">完毕</string>
+
+    <string name="textview_guide">选择您想要的会议。 然后按中间的按钮。</string>
 </resources>

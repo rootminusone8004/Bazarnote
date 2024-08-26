@@ -46,4 +46,6 @@
     <string name="file_save_alertbox_negative_button">Cancel</string>
 
     <string name="button_save">done</string>
+
+    <string name="textview_guide">Select the sessions you want. Then press the button at the middle.</string>
 </resources>

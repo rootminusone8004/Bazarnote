@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,9 @@ public class SessionActivity extends AppCompatActivity {
 
     private SessionViewModel sessionViewModel;
     private SessionAdapter adapter;
-    private Button checkboxShowButton;
+    private FloatingActionButton checkboxShowButton;
+    private TextView guideMessage;
+    private boolean areCheckboxesVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +58,8 @@ public class SessionActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
 
+        guideMessage = findViewById(R.id.guiding_message);
         checkboxShowButton = findViewById(R.id.card_checkbox_show_btn);
-        checkboxShowButton.setVisibility(View.GONE);
 
         FloatingActionButton buttonAddSession = findViewById(R.id.button_add_session);
         buttonAddSession.setOnClickListener(v -> {
@@ -80,6 +83,9 @@ public class SessionActivity extends AppCompatActivity {
             }
             adapter.hideAllCheckboxesWithTick();
             checkboxShowButton.setVisibility(View.GONE);
+            guideMessage.setVisibility(View.GONE);
+            areCheckboxesVisible = false;
+            invalidateOptionsMenu();
         });
 
         sessionViewModel = new ViewModelProvider(this).get(SessionViewModel.class);
@@ -165,10 +171,22 @@ public class SessionActivity extends AppCompatActivity {
         } else if (itemId == R.id.session_save_csv_file) {
             adapter.showAllCheckboxesWithTick();
             checkboxShowButton.setVisibility(View.VISIBLE);
+            guideMessage.setVisibility(View.VISIBLE);
+            areCheckboxesVisible = true;
+            invalidateOptionsMenu();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            item.setVisible(!areCheckboxesVisible);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void writeDataToCSV(String fileName) {

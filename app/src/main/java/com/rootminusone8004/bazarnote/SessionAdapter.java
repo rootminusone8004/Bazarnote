@@ -47,7 +47,6 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
         Session currentSession = getItem(position);
         holder.textViewSession.setText(currentSession.getName());
         holder.textViewSessionSum.setText(formatDoubleValue(currentSession.getPrice()));
-//        holder.checkBox.setVisibility(View.GONE);
 
         if (currentSession.isCheckboxVisible()) {
             holder.checkBox.setVisibility(View.VISIBLE);

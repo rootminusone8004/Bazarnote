@@ -44,4 +44,6 @@
     <string name="file_save_alertbox_negative_button">বাতিল</string>
 
     <string name="button_save">ঠিক আছে</string>
+
+    <string name="textview_guide">আপনার পছন্দের সেশানগুলো নির্বাচন করুন। তারপর মধ্যের বাটনটি চাপুন।</string>
 </resources>

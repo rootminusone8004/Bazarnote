@@ -2,15 +2,21 @@ package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import com.rootminusone8004.bazarnote.Utilities.TapAddSessionActivity;
+
+import java.util.Objects;
 
 public class AddSessionActivity extends AppCompatActivity {
     public static final String EXTRA_SESSION = "com.rootminusone8004.bazarnote.EXTRA_SESSION";
@@ -48,6 +54,14 @@ public class AddSessionActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_note_menu, menu);
+
+        new Handler().post(() -> {
+            View saveNote = findViewById(R.id.save_note);
+            if (saveNote != null) {
+                TapAddSessionActivity tapAddSessionActivity = new TapAddSessionActivity(this);
+                tapAddSessionActivity.startGuide();
+            }
+        });
         return true;
     }
 

@@ -7,11 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".SessionActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/session_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/session_item"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/guiding_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_guide"
+            android:textSize="16sp"
+            android:textColor="@color/customOrange"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_alignParentTop="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/session_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/guiding_message"
+            tools:listitem="@layout/session_item" />
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         app:shapeAppearanceOverlay="@style/fab_square"
@@ -20,6 +39,15 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"/>
+        android:layout_margin="32dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:shapeAppearanceOverlay="@style/fab_square"
+        android:id="@+id/card_checkbox_show_btn"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="32dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

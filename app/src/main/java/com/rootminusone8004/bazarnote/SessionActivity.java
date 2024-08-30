@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.opencsv.CSVWriter;
+import com.rootminusone8004.bazarnote.Utilities.TapSessionActivity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -45,12 +47,22 @@ public class SessionActivity extends AppCompatActivity {
     public static final int NOTE_TRANSFER_REQUEST = 5;
 
     private SessionViewModel sessionViewModel;
+    private SessionAdapter adapter;
+    private FloatingActionButton checkboxShowButton;
+    private TextView guideMessage;
+    private boolean areCheckboxesVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
+
+        TapSessionActivity tapSessionActivity = new TapSessionActivity(this);
+        tapSessionActivity.startGuide();
+
+        guideMessage = findViewById(R.id.guiding_message);
+        checkboxShowButton = findViewById(R.id.card_checkbox_show_btn);
 
         FloatingActionButton buttonAddSession = findViewById(R.id.button_add_session);
         buttonAddSession.setOnClickListener(v -> {
@@ -62,8 +74,22 @@ public class SessionActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        SessionAdapter adapter = new SessionAdapter();
+        adapter = new SessionAdapter();
         recyclerView.setAdapter(adapter);
+
+        checkboxShowButton.setOnClickListener(v -> {
+            Permission permission = new Permission(this, this, this::showSaveAsDialog);
+            try {
+                permission.checkPermissionAndWriteToCSV(null);
+            } catch (Exception e) {
+                Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
+            }
+            adapter.hideAllCheckboxesWithTick();
+            checkboxShowButton.setVisibility(View.GONE);
+            guideMessage.setVisibility(View.GONE);
+            areCheckboxesVisible = false;
+            invalidateOptionsMenu();
+        });
 
         sessionViewModel = new ViewModelProvider(this).get(SessionViewModel.class);
         sessionViewModel.getAllSessions().observe(this, sessions -> adapter.submitList(sessions));
@@ -146,16 +172,24 @@ public class SessionActivity extends AppCompatActivity {
             });
             return true;
         } else if (itemId == R.id.session_save_csv_file) {
-            Permission permission = new Permission(this, this, this::showSaveAsDialog);
-            try {
-                permission.checkPermissionAndWriteToCSV(null);
-            } catch (Exception e) {
-                Toast.makeText(SessionActivity.this, R.string.toast_something_wrong, Toast.LENGTH_SHORT).show();
-            }
+            adapter.showAllCheckboxesWithTick();
+            checkboxShowButton.setVisibility(View.VISIBLE);
+            guideMessage.setVisibility(View.VISIBLE);
+            areCheckboxesVisible = true;
+            invalidateOptionsMenu();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            item.setVisible(!areCheckboxesVisible);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void writeDataToCSV(String fileName) {
@@ -178,10 +212,13 @@ public class SessionActivity extends AppCompatActivity {
 
                 JsonObject jsonObject = new JsonObject();
                 for (Session session : sessions) {
-                    jsonObject.add(
-                            session.getName(),
-                            JsonParser.parseString(session.getJsonInfo()).getAsJsonArray()
-                    );
+                    int sessionPosition = sessions.indexOf(session);
+                    if (adapter.isCheckboxChecked(sessionPosition)) {
+                        jsonObject.add(
+                                session.getName(),
+                                JsonParser.parseString(session.getJsonInfo()).getAsJsonArray()
+                        );
+                    }
                 }
 
                 double totalSum = 0.0;

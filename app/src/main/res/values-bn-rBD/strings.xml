@@ -42,4 +42,29 @@
     <string name="file_save_alertbox_title">সংরক্ষণ করুন</string>
     <string name="file_save_alertbox_positive_button">সংরক্ষণ করুন</string>
     <string name="file_save_alertbox_negative_button">বাতিল</string>
+
+    <string name="tap_target_save_note_title">নোট সংরক্ষণ করুন</string>
+    <string name="tap_target_save_note_description">একটি আইটেমের সঠিক নাম ও তার পরিমাণ দেওয়ার পর এখানে চাপুন</string>
+    <string name="tap_target_save_price_title">আইটেমের দাম সংরক্ষণ করুন</string>
+    <string name="tap_target_save_price_description">একক পরিমাণ জিনিসের দাম লিখার পর সংরক্ষণের জন্য এখানে চাপুন</string>
+    <string name="tap_target_save_session_title">সেশান সংরক্ষণ করুন</string>
+    <string name="tap_target_save_session_description">সেশানের নাম লিখার পর সংরক্ষণের জন্য এখানে চাপুন</string>
+    <string name="tap_target_add_note_title">নোট যোগ করুন</string>
+    <string name="tap_target_add_note_description">নতুন নোট বানানোর জন্য এখানে চাপুন</string>
+    <string name="tap_target_note_card_title">নোট কার্ড</string>
+    <string name="tap_target_note_card_description">এটি আপনার নতুন নোট কার্ড।\n\nএখানে যথাক্রমে চারটি জিনিস দেখানো হয়েছেঃ আইটেমের নাম, পরিমাণ, একক পরিমাণ জিনিসের দাম ও আসল দাম।\n\nযদি আইটেমটির নাম কিংবা পরিমাণ পরিবর্তন করতে চান তাহলে এখানে চাপুন।</string>
+    <string name="tap_target_note_card_button_title">দাম লিখুন</string>
+    <string name="tap_target_note_card_button_description">দাম লিখতে এই ডিস্ক স্বরূপ বাটনটি চাপুন। যখনই কোন জিনিস কেনা হয়ে যাবে, বাটনটি চেপে দাম সংরক্ষণ করে নিন। চাইলে পরবর্তীতে বাটনটি চেপে দাম পরিবর্তনও করতে পারবেন।</string>
+    <string name="tap_target_add_session_title">সেশান যোগ করুন</string>
+    <string name="tap_target_add_session_description">নতুন সেশান যোগ করতে এখানে চাপুন</string>
+    <string name="tap_target_csv_button_title">CSV তে সেশান</string>
+    <string name="tap_target_csv_button_description">যদি CSV তে আপনার সেশানগুলোর তথ্য সংরক্ষণ করতে চান, এই বাটনটি এক সময় চলে আসবে তখন এটি চাপবেন।</string>
+    <string name="tap_target_session_card_title">সেশান কার্ড</string>
+    <string name="tap_target_session_card_description">এটি আপনার নতুন সেশান কার্ড।\n\nসেশানটিতে প্রবেশ করতে এটিকে চাপুন।</string>
+    <string name="tap_target_session_card_price_title">মোট খরচ</string>
+    <string name="tap_target_session_card_price_description">কার্ডের এই অংশ আপনাকে সেশানটিতে হওয়া মোট খরচ দেখাবে।</string>
+
+    <string name="button_save">ঠিক আছে</string>
+
+    <string name="textview_guide">আপনার পছন্দের সেশানগুলো নির্বাচন করুন। তারপর মধ্যের বাটনটি চাপুন।</string>
 </resources>

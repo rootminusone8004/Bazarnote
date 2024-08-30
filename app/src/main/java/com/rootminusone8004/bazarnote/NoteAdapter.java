@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Locale;
+import com.rootminusone8004.bazarnote.Utilities.TapNoteAdapter;
+import com.rootminusone8004.bazarnote.Utilities.TapSessionAdapter;
 
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     private OnItemClickListener listener;
@@ -53,13 +54,18 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
         holder.textViewQuantity.setText(formatFloatValue(currentNote.getQuantity()));
         holder.textViewPrice.setText(formatFloatValue(currentNote.getPrice()));
         holder.textViewMultiple.setText(formatDoubleValue(currentNote.getMultiple()));
+
+        if (position == 0) {
+            TapNoteAdapter tapNoteAdapter = new TapNoteAdapter(holder);
+            tapNoteAdapter.startGuide();
+        }
     }
 
     public Note getNoteAt(int position) {
         return getItem(position);
     }
 
-    class NoteHolder extends RecyclerView.ViewHolder {
+    public class NoteHolder extends RecyclerView.ViewHolder {
         private TextView textViewItem;
         private TextView textViewQuantity;
         private TextView textViewPrice;

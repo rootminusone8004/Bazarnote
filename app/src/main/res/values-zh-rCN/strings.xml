@@ -43,4 +43,29 @@
     <string name="file_save_alertbox_title">另存为</string>
     <string name="file_save_alertbox_positive_button">救</string>
     <string name="file_save_alertbox_negative_button">取消</string>
+
+    <string name="tap_target_save_note_title">保存笔记</string>
+    <string name="tap_target_save_note_description">给出正确的名称和物品的数量后，请在此处按此处</string>
+    <string name="tap_target_save_price_title">节省物品的价格</string>
+    <string name="tap_target_save_price_description">在写单一数量的价格后，请在此处节省此处</string>
+    <string name="tap_target_save_session_title">保存会话</string>
+    <string name="tap_target_save_session_description">在编写会话的名称之后按此处保存</string>
+    <string name="tap_target_add_note_title">添加笔记</string>
+    <string name="tap_target_add_note_description">按此处做新笔记</string>
+    <string name="tap_target_note_card_title">注意卡</string>
+    <string name="tap_target_note_card_description">这是您的新笔记卡。\n\n这是显示的四件事：物品的名称，金额，单个金额的价格和原始价格。\n\n如果要更改项目的名称或数量，请在此处按此处。</string>
+    <string name="tap_target_note_card_button_title">输入价格</string>
+    <string name="tap_target_note_card_button_description">按下此磁盘按钮写价。 每当购买东西时，按下按钮并节省价格。 如果需要，还可以通过以后按按钮来更改价格。</string>
+    <string name="tap_target_add_session_title">添加会话</string>
+    <string name="tap_target_add_session_description">按此处添加新会议</string>
+    <string name="tap_target_csv_button_title">在CSV上的会议</string>
+    <string name="tap_target_csv_button_description">如果要保存在CSV上的会话信息，则此按钮再次按下。</string>
+    <string name="tap_target_session_card_title">会话卡</string>
+    <string name="tap_target_session_card_description">这是您的新会话卡。\n\n按它输入会话。</string>
+    <string name="tap_target_session_card_price_title">成本</string>
+    <string name="tap_target_session_card_price_description">卡的这一部分将显示您在会话中的总费用</string>
+
+    <string name="button_save">完毕</string>
+
+    <string name="textview_guide">选择您想要的会议。 然后按中间的按钮。</string>
 </resources>

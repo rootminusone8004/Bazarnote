@@ -17,8 +17,8 @@ android {
         applicationId "com.rootminusone8004.bazarnote"
         minSdk 24
         targetSdk 34
-        versionCode 11
-        versionName "0.7.1"
+        versionCode 12
+        versionName "0.8.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,4 +65,7 @@ dependencies {
 
     // csv
     implementation 'com.opencsv:opencsv:5.5.2'
+
+    // user guide tour
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 }

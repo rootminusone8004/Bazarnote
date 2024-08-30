@@ -107,3 +107,9 @@ All notable changes to this project are documented in this file.
 
 *** Fixed
    - disabled the back button in note taking session
+
+** [0.8.0] - 30-08-2024
+
+*** Added
+   - added user guide
+   - CSV files for specifically selected sessions

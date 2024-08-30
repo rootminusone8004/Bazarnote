@@ -44,4 +44,29 @@
     <string name="file_save_alertbox_title">Save As</string>
     <string name="file_save_alertbox_positive_button">Save</string>
     <string name="file_save_alertbox_negative_button">Cancel</string>
+
+    <string name="tap_target_save_note_title">Save your Notes</string>
+    <string name="tap_target_save_note_description">After giving a proper item name and its quantity, tap here to save it</string>
+    <string name="tap_target_save_price_title">Save the item price</string>
+    <string name="tap_target_save_price_description">After writing the unit price, tap here to save it</string>
+    <string name="tap_target_save_session_title">Save your Session</string>
+    <string name="tap_target_save_session_description">After giving a proper session name, tap here to save it</string>
+    <string name="tap_target_add_note_title">Add Note</string>
+    <string name="tap_target_add_note_description">If you want to create a new note, tap here</string>
+    <string name="tap_target_note_card_title">Note Card</string>
+    <string name="tap_target_note_card_description">This is your newly created note card.\n\nHere four things have been shown respectively: Item name, Item quantity, Unit price and Actual price.\n\nTap here if you want to update the item\'s name or quantity.</string>
+    <string name="tap_target_note_card_button_title">Input the price</string>
+    <string name="tap_target_note_card_button_description">Press on this disk shaped button to enter the price. When you will go the shop to buy your items, tap on this button to store the price. You can also tap on this button later to update the price as well.</string>
+    <string name="tap_target_add_session_title">Add Session</string>
+    <string name="tap_target_add_session_description">If you want to create a new session, tap here</string>
+    <string name="tap_target_csv_button_title">sessions to CSV</string>
+    <string name="tap_target_csv_button_description">If you choose to save your sessions in a csv file, this button will eventually appear and then tap this button.</string>
+    <string name="tap_target_session_card_title">Session Card</string>
+    <string name="tap_target_session_card_description">This is your newly current session card.\n\nTap here to enter this session.</string>
+    <string name="tap_target_session_card_price_title">Total Cost</string>
+    <string name="tap_target_session_card_price_description">This portion of card will show you the total amount spent in this specific session.</string>
+
+    <string name="button_save">done</string>
+
+    <string name="textview_guide">Select the sessions you want. Then press the button at the middle.</string>
 </resources>

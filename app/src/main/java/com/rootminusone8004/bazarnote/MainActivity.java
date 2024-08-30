@@ -21,6 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rootminusone8004.bazarnote.Utilities.TapMainActivity;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 6;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
         Intent sessionIntent = getIntent();
+
+        TapMainActivity tapMainActivity = new TapMainActivity(this);
+        tapMainActivity.startGuide();
 
         String title = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
         setTitle(title);

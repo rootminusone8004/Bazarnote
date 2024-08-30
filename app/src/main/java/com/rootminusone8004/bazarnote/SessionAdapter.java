@@ -2,17 +2,21 @@ package com.rootminusone8004.bazarnote;
 
 import static com.rootminusone8004.bazarnote.Utility.formatDoubleValue;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.getkeepsafe.taptargetview.TapTargetView;
+import com.rootminusone8004.bazarnote.Utilities.TapSessionAdapter;
+import com.rootminusone8004.bazarnote.Utilities.TapTargetUtil;
 
 public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionHolder> {
     private OnItemClickListener listener;
@@ -30,7 +34,7 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
         @Override
         public boolean areContentsTheSame(@NonNull Session oldItem, @NonNull Session newItem) {
             return oldItem.getName().equals(newItem.getName()) &&
-                    oldItem.getPrice() == newItem.getPrice();
+                oldItem.getPrice() == newItem.getPrice();
         }
     };
 
@@ -38,7 +42,7 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
     @Override
     public SessionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View sessionItemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.session_item, parent, false);
+            .inflate(R.layout.session_item, parent, false);
         return new SessionHolder(sessionItemView);
     }
 
@@ -55,6 +59,11 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
             holder.checkBox.setVisibility(View.GONE);
         }
 
+        if (position == 0) {
+            TapSessionAdapter tapSessionAdapter = new TapSessionAdapter(holder);
+            tapSessionAdapter.startGuide();
+        }
+
         // Update session state when checkbox is clicked
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> currentSession.setCheckboxChecked(isChecked));
     }
@@ -63,7 +72,7 @@ public class SessionAdapter extends ListAdapter<Session, SessionAdapter.SessionH
         return getItem(position);
     }
 
-    class SessionHolder extends RecyclerView.ViewHolder {
+    public class SessionHolder extends RecyclerView.ViewHolder {
         private TextView textViewSession;
         private TextView textViewSessionSum;
         private CheckBox checkBox;

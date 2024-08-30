@@ -65,4 +65,7 @@ dependencies {
 
     // csv
     implementation 'com.opencsv:opencsv:5.5.2'
+
+    // user guide tour
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 }

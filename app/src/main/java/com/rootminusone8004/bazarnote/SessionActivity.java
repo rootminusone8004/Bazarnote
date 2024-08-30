@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.opencsv.CSVWriter;
+import com.rootminusone8004.bazarnote.Utilities.TapSessionActivity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -57,6 +57,9 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_session);
+
+        TapSessionActivity tapSessionActivity = new TapSessionActivity(this);
+        tapSessionActivity.startGuide();
 
         guideMessage = findViewById(R.id.guiding_message);
         checkboxShowButton = findViewById(R.id.card_checkbox_show_btn);

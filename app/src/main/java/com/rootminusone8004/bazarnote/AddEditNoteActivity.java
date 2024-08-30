@@ -2,6 +2,7 @@ package com.rootminusone8004.bazarnote;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import com.rootminusone8004.bazarnote.Utilities.TapAddEditNoteActivity;
 
 public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "com.rootminusone8004.bazarnote.EXTRA_ID";
@@ -119,6 +122,19 @@ public class AddEditNoteActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_note_menu, menu);
+        Intent look = getIntent();
+
+        new Handler().post(() -> {
+            View saveNote = findViewById(R.id.save_note);
+            TapAddEditNoteActivity tapAddEditNoteActivity = new TapAddEditNoteActivity(this);
+            if (saveNote != null) {
+                if (look.hasExtra(EXTRA_PRICE_CHECK)) {
+                    tapAddEditNoteActivity.startGuideInPrice();
+                } else {
+                    tapAddEditNoteActivity.startGuide();
+                }
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -130,15 +146,13 @@ public class AddEditNoteActivity extends AppCompatActivity {
             if (look.hasExtra(EXTRA_ID)) {
                 if (look.hasExtra(EXTRA_PRICE_CHECK)) {
                     savePrice(look.getStringExtra(EXTRA_TITLE), look.getFloatExtra(AddEditNoteActivity.EXTRA_QUANTITY, 0));
-                    return true;
                 } else {
                     saveNote(true);
-                    return true;
                 }
             } else {
                 saveNote(false);
-                return true;
             }
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }

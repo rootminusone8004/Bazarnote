@@ -4,12 +4,15 @@
   - [X] set the base
   - [X] add the items objects
   - [X] separate events or notes
-  - [X] calculate all the items' prices
-  - [X] calculate all the sessions' prices
+  - [-] calculate all the selected items' prices
+  - [-] calculate all the selected sessions' prices
   - [X] release everything as a csv file
   - [X] csv file for specific selected sessions
   - [ ] import csv file
   - [ ] implement a settings page
+  - [ ] change the session name
+  - [ ] delete the csv files after a certain period
+  - [ ] implement a date card
   - [-] add a user guide tour
 
 ** release works

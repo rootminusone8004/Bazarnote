@@ -10,6 +10,7 @@
     <string name="menu_show_summation">মোট মূল্য দেখান</string>
     <string name="menu_save_in_csv_file">CSV ফাইলে সংরক্ষণ করুন</string>
 
+    <string name="menu_import_csv">CSV ফাইল থেকে নির্বাচন করুন</string>
     <string name="header_add_session">সেশন যোগ করুন</string>
     <string name="header_add_note">নোট যোগ করুন</string>
     <string name="header_edit_note">নোট পরিবর্তন করুন</string>

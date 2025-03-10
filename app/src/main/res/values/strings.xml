@@ -11,6 +11,7 @@
     <string name="menu_del_all_notes">Delete All Notes</string>
     <string name="menu_show_summation">Show Total Price</string>
     <string name="menu_save_in_csv_file">Save in CSV File</string>
+    <string name="menu_import_csv">Import notes from a CSV file</string>
 
     <string name="header_add_session">Add Session</string>
     <string name="header_add_note">Add Note</string>

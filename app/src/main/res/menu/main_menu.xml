@@ -10,4 +10,9 @@
         android:id="@+id/show_summation"
         android:title="@string/menu_show_summation"
         app:showAsAction="never"/>
+
+    <item
+            android:id="@+id/import_notes"
+            android:title="@string/menu_import_csv"
+            app:showAsAction="never"/>
 </menu>

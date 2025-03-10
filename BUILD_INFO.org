@@ -5,7 +5,7 @@
   - Package Name: com.rootminusone8004.bazarnote
 
 ** Build Environment
-  - Android Studio Version: Koala | 2024.1.1
+  - IntelliJ IDEA (Community Edition): 2024.3.4
   - Gradle Version: 8.7
   - Java Version: 11
 
@@ -42,21 +42,23 @@
  $ git clone -b devel "git@codeberg:rootminusone8004/Bazarnote"
  $ cd Bazarnote
 #+end_src
-*** Android Studio
+*** IntelliJ IDEA
 **** 1. Install prerequisites
 
      _Notice_: The commands given apply for *Arch Linux and its derivatives*.
 
      - Ensure you have the following packages installed:
-      - [[https://developer.android.com/studio/install][Android Studio]]: In Arch Linux, it is available in [[https://aur.archlinux.org/packages/android-studio][AUR]].
+      - [[https://www.jetbrains.com/idea][]]: In Arch Linux, the community version is available in the *extra* repository.
 #+begin_src bash
-  paru -S android-studio
+  sudo pacman -S intellij-idea-community-edition
 #+end_src
+_Note_: Make sure your IDE is set properly for android development.
+
       - Java Development Kit (JDK): Here, [[https://openjdk.org][openjdk]] is used.
 #+begin_src bash
   sudo pacman -S jdk11-openjdk
 #+end_src
-      - [[https://gradle.org/install][Gradle]]: It can be installed via Android Studio.
+      - [[https://gradle.org/install][Gradle]]: It can be installed via IntelliJ IDEA.
     
 **** 2. Open the project in Android Studio
     - Launch Android Studio.

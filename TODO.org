@@ -8,7 +8,7 @@
   - [-] calculate all the selected sessions' prices
   - [X] release everything as a csv file
   - [X] csv file for specific selected sessions
-  - [ ] import csv file
+  - [X] import csv file
   - [ ] implement a settings page
   - [ ] change the session name
   - [ ] delete the csv files after a certain period

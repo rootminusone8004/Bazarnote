@@ -2,6 +2,7 @@ package com.rootminusone8004.bazarnote;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +22,20 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.opencsv.CSVReader;
 import com.rootminusone8004.bazarnote.Utilities.TapMainActivity;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 6;
     public static final int EDIT_NOTE_REQUEST = 2;
     public static final int ADD_PRICE_REQUEST = 3;
+    private static final int PICK_CSV_FILE = 7;
 
     public static final String EXTRA_SESSION_ID = "com.rootminusone8004.bazarnote.EXTRA_SESSION_ID";
     public static final String EXTRA_SESSION_NAME = "com.rootminusone8004.bazarnote.EXTRA_SESSION_NAME";
@@ -34,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_SESSION_JSON = "com.rootminusone8004.bazarnote.EXTRA_SESSION_JSON";
 
     private NoteViewModel noteViewModel;
+    private Intent sessionIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Intent sessionIntent = getIntent();
+        sessionIntent = getIntent();
 
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String item = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
@@ -138,6 +148,12 @@ public class MainActivity extends AppCompatActivity {
             note.setId(id);
             note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
             noteViewModel.update(note, MainActivity.this);
+        } else if(requestCode == PICK_CSV_FILE && resultCode == RESULT_OK && data != null) {
+            if (data.getData() != null) {
+                Uri fileUri = data.getData();
+                List<Note> notes = extractInfoFromCSV(fileUri);
+                saveNotesToDatabase(notes);
+            }
         }
     }
 
@@ -175,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             return true;
+        } else if (itemId == R.id.import_notes) {
+            pickCSVFile();
+            return true;
         } else if (itemId == android.R.id.home) {
             int id = sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1);
             String name = sessionIntent.getStringExtra(EXTRA_SESSION_NAME);
@@ -205,6 +224,76 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else {
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void pickCSVFile() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("text/csv");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intent, "Select CSV"), PICK_CSV_FILE);
+    }
+
+    private void readCSV(Uri uri) {
+        StringBuilder result = new StringBuilder();
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line).append("\n");
+            }
+            Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private List<Note> extractInfoFromCSV(Uri fileUri) {
+        List<Note> notes = new ArrayList<>();
+
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            CSVReader reader = new CSVReader(inputStreamReader);
+
+            String[] nextLine;
+            boolean dataStarted = false;
+
+            while ((nextLine = reader.readNext()) != null) {
+                if (nextLine.length >= 2) {
+                    if (!dataStarted) {
+                        if (nextLine[0].equalsIgnoreCase("Item") && nextLine[1].equalsIgnoreCase("Quantity")) {
+                            dataStarted = true; // Skip Header
+                        }
+                        continue;
+                    }
+
+                    String item = nextLine[0];
+                    float quantity;
+
+                    try {
+                        quantity = Float.parseFloat(nextLine[1]);
+                    } catch (NumberFormatException e) {
+                        continue;
+                    }
+
+                    notes.add(new Note(item, quantity, 0));
+                }
+            }
+
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return notes;
+    }
+
+    private void saveNotesToDatabase(List<Note> notes) {
+        for (Note note : notes) {
+            note.setSessionId(sessionIntent.getIntExtra(EXTRA_SESSION_ID, 1));
+            noteViewModel.insert(note, this);
         }
     }
 }

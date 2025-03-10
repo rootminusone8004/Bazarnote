@@ -11,6 +11,7 @@
     <string name="menu_show_summation">显示总价</string>
     <string name="menu_save_in_csv_file">另存为CSV文件</string>
 
+    <string name="menu_import_csv">从CSV文件导入注释</string>
     <string name="header_add_session">添加会话</string>
     <string name="header_add_note">添加备注</string>
     <string name="header_edit_note">编辑注释</string>

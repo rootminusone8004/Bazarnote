@@ -2,83 +2,34 @@
 
 All notable changes to this project are documented in this file.
 
-** [0.0.0] - 02-07-2024
-
-  - initialized the repository
-
-** [0.1.0] - 13-07-2024
+** [0.9.0] - 11-03-2025
 
 *** Added
-   - notes have been added
-   - three columns: item, quantity ad price
-   - total prize calculation is finished
+   - CSV files can be imported into notes
 
-** [0.2.0] - 16-07-2024
+** [0.8.0] - 30-08-2024
 
 *** Added
-   - sessions have been implemented
-   - total price of sessions can be calculated
-   - fixed the orientation
+   - added user guide
+   - CSV files for specifically selected sessions
+
+** [0.7.1] - 24-08-2024
 
 *** Fixed
-   - buttons instead of checkboxes
+   - disabled the back button in note taking session
 
-** [0.2.1] - 16-07-2024
+** [0.7.0] - 18-08-2024
 
 *** Added
-   - "delete all sessions" implemented
+   - added file name changing option
+   - csv file creating at note taking page is omitted
+   - every session and their respective information can be saved as csv file in the session page
+   - two digit decimal number is introduced in price
 
-*** Fixed
-   - long text problem solved
-   - diffutil implemented
-
-** [0.2.2] - 17-07-2024
-
-*** Fixed
-   - "delete all notes" bug removed
-
-** [0.3.0] - 18-07-2024
+** [0.6.0] - 15-08-2024
 
 *** Added
-   - records can be exported via csv files
-
-** [0.4.0] - 26-07-2024
-
-*** Added
-   - dark theme implemented
-   - dark orange is chosen as app color
-
-** [0.4.1] - 27-07-2024
-
-*** Added
-   - build instructions for gradle via terminal
-   - fastlane added
-   - id in manifest added
-   - distributionsum in gradle wrapper added
-
-** [0.4.2] - 28-07-2024
-
-*** Fixed
-   - completed the requirements mentioned by IzzyOnDroid
-
-** [0.5.0] - 08-08-2024
-
-*** Added
-   - splash screen implemented
-
-*** Fixed
-   - bright mode issue solved
-   - duplicate card bug solved
-
-** [0.5.1] - 10-08-2024
-
-*** Fixed
-   - bright mode in splash screen issue solved
-
-** [0.5.2] - 12-08-2024
-
-*** Fixed
-   - blank quantity field bug solved
+   - changed button with an image button
 
 ** [0.5.3] - 13-08-2024
 
@@ -90,31 +41,80 @@ All notable changes to this project are documented in this file.
    - read permission removed
    - permission is asked when the feature is chosen
 
-** [0.6.0] - 15-08-2024
-
-*** Added
-   - changed button with an image button
-
-** [0.7.0] - 18-08-2024
-
-*** Added
-   - added file name changing option
-   - csv file creating at note taking page is omitted
-   - every session and their respective information can be saved as csv file in the session page
-   - two digit decimal number is introduced in price
-
-** [0.7.1] - 24-08-2024
+** [0.5.2] - 12-08-2024
 
 *** Fixed
-   - disabled the back button in note taking session
+   - blank quantity field bug solved
 
-** [0.8.0] - 30-08-2024
+** [0.5.1] - 10-08-2024
+
+*** Fixed
+   - bright mode in splash screen issue solved
+
+** [0.5.0] - 08-08-2024
 
 *** Added
-   - added user guide
-   - CSV files for specifically selected sessions
+   - splash screen implemented
 
-** [0.9.0] - 11-03-2025
+*** Fixed
+   - bright mode issue solved
+   - duplicate card bug solved
+
+** [0.4.2] - 28-07-2024
+
+*** Fixed
+   - completed the requirements mentioned by IzzyOnDroid
+
+** [0.4.1] - 27-07-2024
 
 *** Added
-   - CSV files can be imported into notes
+   - build instructions for gradle via terminal
+   - fastlane added
+   - id in manifest added
+   - distributionsum in gradle wrapper added
+
+** [0.4.0] - 26-07-2024
+
+*** Added
+   - dark theme implemented
+   - dark orange is chosen as app color
+
+** [0.3.0] - 18-07-2024
+
+*** Added
+   - records can be exported via csv files
+
+** [0.2.2] - 17-07-2024
+
+*** Fixed
+   - "delete all notes" bug removed
+
+** [0.2.1] - 16-07-2024
+
+*** Added
+   - "delete all sessions" implemented
+
+*** Fixed
+   - long text problem solved
+   - diffutil implemented
+
+** [0.2.0] - 16-07-2024
+
+*** Added
+   - sessions have been implemented
+   - total price of sessions can be calculated
+   - fixed the orientation
+
+*** Fixed
+   - buttons instead of checkboxes
+
+** [0.1.0] - 13-07-2024
+
+*** Added
+   - notes have been added
+   - three columns: item, quantity and price
+   - total prize calculation is finished
+
+** [0.0.0] - 02-07-2024
+
+  - initialized the repository

@@ -1,0 +1,66 @@
+name: Android Release Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build Android Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Decode Keystore to app directory
+        run: |
+          mkdir -p app
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/bazarnote.jks
+
+      - name: Create keystore.properties inside app directory
+        run: |
+          echo storeFile=bazarnote.jks > keystore.properties
+          echo storePassword=${KEYSTORE_PASSWORD} >> keystore.properties
+          echo keyAlias=${KEY_ALIAS} >> keystore.properties
+          echo keyPassword=${KEY_PASSWORD} >> keystore.properties
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build release APK
+        run: ./gradlew assembleRelease
+
+      - name: Get versionCode from build.gradle
+        id: version
+        run: |
+          VERSION_CODE=$(grep versionCode app/build.gradle | head -n 1 | grep -o '[0-9]*')
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: Rename APK with versionCode
+        run: |
+          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/bazarnote_${{ env.VERSION_CODE }}.apk
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release v${{ env.VERSION_CODE }}
+          tag_name: v${{ env.VERSION_CODE }}
+          files: app/build/outputs/apk/release/bazarnote_${{ env.VERSION_CODE }}.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

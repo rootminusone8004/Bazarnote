@@ -39,7 +39,7 @@
 #+end_src
     - Open a terminal and clone the project repository:
 #+begin_src bash
- $ git clone "https://codeberg.org/rootminusone8004/Bazarnote"
+ $ git clone "https://github.com/rootminusone8004/Bazarnote"
  $ cd Bazarnote
 #+end_src
 *** IntelliJ IDEA
@@ -121,7 +121,7 @@ _Note_: Make sure your IDE is set properly for android development.
 * Download
 
 You can get the app from here:
-  1. [[https://codeberg.org/rootminusone8004/Bazarnote/releases][Codeberg]]
+  1. [[https://github.com/rootminusone8004/Bazarnote/releases][Github]]
   2. [[https://apt.izzysoft.de/fdroid/index/apk/com.rootminusone8004.bazarnote][F-Droid]]
 
 *Notice*: [[https://f-droid.org][F-Droid]] is recommended for downloading the app. But for that you must add [[https://apt.izzysoft.de][IzzyOnDroid]] repo. You can add it from [[https://apt.izzysoft.de/fdroid/index.php][here]].

@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+** [0.9.1] - 29-05-2025
+
+*** Notice
+   - code migration
+
 ** [0.9.0] - 11-03-2025
 
 *** Added

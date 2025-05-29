@@ -67,4 +67,4 @@ jobs:
           body: |
             See [CHANGELOG.org](CHANGELOG.org) file for details.
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}

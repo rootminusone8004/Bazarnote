@@ -13,6 +13,7 @@
   - [ ] change the session name
   - [ ] delete the csv files after a certain period
   - [ ] implement a date card
+  - [ ] introduce the calender to implement the total buying sessions
   - [-] add a user guide tour
 
 ** release works

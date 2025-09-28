@@ -1,6 +1,6 @@
-* todo list
+# todo list
 
-** features
+## features
   - [X] set the base
   - [X] add the items objects
   - [X] separate events or notes
@@ -15,19 +15,20 @@
   - [ ] implement a date card
   - [ ] introduce the calender to implement the total buying sessions
   - [-] add a user guide tour
+  - [ ] unselect the items if needed
 
-** release works
+## release works
   - [X] set up the splash screen
   - [X] set up the icon
   - [X] release apk
 
-** bug fixes
+## bug fixes
   - [ ] toast_message.org
 
-** enhancements
+## enhancements
   - [ ] use databinding
   - [ ] use state reserved checkbox
   - [X] use dark and orange color
 
-** miscellaneous
+## miscellaneous
   - [ ] code documentation

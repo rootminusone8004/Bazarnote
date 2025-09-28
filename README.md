@@ -1,13 +1,13 @@
-* warning
+# warning
 
 This is just a development branch. It is not guaranteed that the work of this branch will work. Cloning this branch is highly discouraged.
 
-** what it is
+## what it is
 
 Bazarnote is actually a simple note taking app. It only keeps very minimal information of items being bought in offline marketing. When going to a shop or a bazaar, we need to buy many items. Sometimes it is difficult to track all the items. There Bazarnote may come in handy.
 
 It is a simple application. You don't need to be online for the app being functional. Just open the app, give your necessary information, keep track of your products and that's all.
 
-** build the app
+## build the app
 
-See [[file:BUILD_INFO.org][BUILD_INFO.org]] file for details.
+See [BUILD_INFO.md](BUILD_INFO.md) file for details.

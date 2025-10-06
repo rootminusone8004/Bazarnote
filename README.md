@@ -22,12 +22,10 @@ With Bazarnote, you can quickly jot down items, keep track of your products and 
 
 ## 📱 Screenshots
 
-<table>
-  <tr>
-    <td><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="Screenshot 1"/></td>
-    <td><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="Screenshot 2"/></td>
-  </tr>
-</table>
+<div style="display: flex; gap: 15px;">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="Screenshot 1"/>
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="Screenshot 2"/>
+</div>
 
 ## 📥 Download
 
@@ -44,11 +42,11 @@ Or download the latest APK from the [Releases](https://github.com/rootminusone80
 
 ## 🧰 Build the app from Source
 
-Want to build Bazarnote yourself? See the [BUILD\_INFO.org](BUILD_INFO.org) file for full instructions.
+Want to build Bazarnote yourself? See the [BUILD\_INFO.md](BUILD_INFO.md) file for full instructions.
 
 ## 📖 How to Use
 
-New to Bazarnote? Check out the [USAGE.org](USAGE.org) file for a quick guide.
+New to Bazarnote? Check out the [USAGE.md](USAGE.md) file for a quick guide.
 
 ## 🤝 Contribute
 

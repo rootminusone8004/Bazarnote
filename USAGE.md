@@ -1,14 +1,15 @@
-* App Usage Techniques
+# App Usage Techniques
 
-** How to Start the App
+## How to Start the App
   1. Locate the app icon on your android.
   2. Double click the icon to open the app.
 
-** Navigating the App
-*** Splash Screen
+## Navigating the App
+
+### Splash Screen
 This is the first screen you see when you open the app. It is just a splash screen that runs for 2 seconds.
   
-*** Session Page
+### Session Page
 Here, you can do the following tasks:
   - You can add a new session by tapping the floating button located in the right bottom corner.
   - Type your session name in the text field. Save it by tapping on the diskette button located in the right side of head bar.
@@ -21,12 +22,12 @@ Here, you can do the following tasks:
   - The three dots at the right side of headbar show three options.
     - The first option deletes all the existing sessions.
     - The second option shows total prize.
-    - The third option saves all the sessions alongside their respective information and their total cost in a CSV file. A dialog box will appear asking for giving a name for the CSV file. It creates a folder called *Bazarnote* in the phone storage. It also creates a folder with a timestamp as its name and inside that folder, it saves the CSV file as the name you gave. If duplicate names appear in that timestamp folder then unique numbers will be added at the end of the file name. This feature requires write permission.
+    - The third option saves all the sessions alongside their respective information and their total cost in a CSV file. A dialog box will appear asking for giving a name for the CSV file. It creates a folder called **Bazarnote** in the phone storage. It also creates a folder with a timestamp as its name and inside that folder, it saves the CSV file as the name you gave. If duplicate names appear in that timestamp folder then unique numbers will be added at the end of the file name. This feature requires write permission.
   
-*** Note Page
+### Note Page
 After tapping any session card, you will be navigated to its correspond event page. There you can save your related notes. Following tasks can be performed here:
   - You can add a new note by tapping the floating button located in the right bottom corner.
-  _Note_: Each note card has four components. They are item name, quantity, price and total price of that item.
+>  _Note_: Each note card has four components. They are item name, quantity, price and total price of that item.
   - Give your item name and its quantity. Save it by tapping on the diskette button located in the right side of head bar. Initially the price and the total price will be 0. 
   - Once your item is bought, tap on the disk button of that corresponding note. It is located at the right most side of the note card.
   - Type the price in the text field. Save it by tapping on the diskette button located in the right side of head bar.
@@ -41,5 +42,5 @@ After tapping any session card, you will be navigated to its correspond event pa
     - The first option deletes all the existing notes of a specific session.
     - The second option shows total cost spent in a particular session.
 
-** Getting Help or Any Issue
-  - If you have any issues or need clarification, feel free to drop them in the [[https://codeberg.org/rootminusone8004/Bazarnote/issues][Issues]] section.
+## Getting Help or Any Issue
+  - If you have any issues or need clarification, feel free to drop them in the [issues](https://github.com/rootminusone8004/Bazarnote/issues) section.

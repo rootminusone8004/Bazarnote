@@ -22,7 +22,7 @@ With Bazarnote, you can quickly jot down items, keep track of your products and 
 
 ## 📱 Screenshots
 
-<div style="display: flex; gap: 15px;">
+<div style="display: flex; gap: 20px;">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="Screenshot 1"/>
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="Screenshot 2"/>
 </div>
@@ -54,6 +54,10 @@ We welcome your contributions! You can:
 - ✨ Add features or fix bugs via a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request" target="_blank">pull request</a>.
 - 🌍 Help translate Bazarnote into your language.
 - 💡 Suggest ideas or improvements.
+
+## 🔒 Security
+
+If you find a security vulnerability or have a security concern, please see our [SECURITY.md](SECURITY.md) for guidance on how to report it responsibly.
 
 ## ⚖️ License
 

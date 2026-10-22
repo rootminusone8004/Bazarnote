@@ -2,8 +2,48 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+def computeVersionCode(String name) {
+    try {
+        def parts = name.tokenize('.')
+        int major = parts.size() > 0 ? parts[0].toInteger() : 0
+        int minor = parts.size() > 1 ? parts[1].toInteger() : 0
+        int patch = parts.size() > 2 ? parts[2].toInteger() : 0
+        return major * 10000 + minor * 100 + patch
+    } catch (Exception e) {
+        return 901
+    }
+}
+
+def resolveVersionName = { ->
+    if (project.hasProperty('versionName')) {
+        return project.property('versionName').toString()
+    }
+    try {
+        def gitTag = 'git describe --tags --exact-match'.execute().text.trim()
+        if (gitTag.startsWith('v')) {
+            return gitTag.substring(1)
+        }
+    } catch (Exception ignored) {}
+    def changelog = rootProject.file('CHANGELOG.md')
+    if (changelog.exists()) {
+        def match = changelog.text =~ /##\s*\[([0-9]+(?:\.[0-9]+)*)\]/
+        if (match.find()) {
+            return match.group(1)
+        }
+    }
+    return "0.9.1"
+}
+
+def appVersionName = resolveVersionName()
+def appVersionCode = project.hasProperty('versionCode') ? 
+    project.property('versionCode').toInteger() : 
+    computeVersionCode(appVersionName)
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(rootProject.file("keystore.properties")))
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
     namespace 'com.rootminusone8004.bazarnote'
@@ -20,27 +60,71 @@ android {
         applicationId "com.rootminusone8004.bazarnote"
         minSdk 24
         targetSdk 34
-        versionCode 14
-        versionName "0.9.1"
+        versionCode appVersionCode
+        versionName appVersionName
+
+        resourceConfigurations += ['en', 'bn-rBD', 'zh-rCN']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
+            def ksFile = null
+            if (keystoreProperties.containsKey('storeFile') && file(keystoreProperties['storeFile']).exists()) {
+                ksFile = file(keystoreProperties['storeFile'])
+            } else if (file('release.jks').exists()) {
+                ksFile = file('release.jks')
+            } else if (file('bazarnote.jks').exists()) {
+                ksFile = file('bazarnote.jks')
+            }
+
+            def storePwd = keystoreProperties['storePassword'] ?: System.getenv("KEYSTORE_PASSWORD") ?: System.getenv("RELEASE_KEYSTORE_PASSWORD")
+            def keyAliasVal = keystoreProperties['keyAlias'] ?: System.getenv("KEY_ALIAS") ?: System.getenv("RELEASE_KEY_ALIAS")
+            def keyPwd = keystoreProperties['keyPassword'] ?: System.getenv("KEY_PASSWORD") ?: System.getenv("RELEASE_KEY_PASSWORD")
+
+            if (ksFile != null && ksFile.exists() && storePwd) {
+                storeFile ksFile
+                storePassword storePwd
+                keyAlias keyAliasVal ?: 'key0'
+                keyPassword keyPwd ?: storePwd
+            }
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            if (signingConfigs.release.storeFile != null && signingConfigs.release.storeFile.exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/*.version',
+                'META-INF/DEPENDENCIES',
+                'META-INF/LICENSE',
+                'META-INF/LICENSE.txt',
+                'META-INF/license.txt',
+                'META-INF/NOTICE',
+                'META-INF/NOTICE.txt',
+                'META-INF/notice.txt',
+                'META-INF/ASL2.0',
+                'META-INF/LGPL2.1',
+                'META-INF/INDEX.LIST'
+            ]
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     compileOptions {

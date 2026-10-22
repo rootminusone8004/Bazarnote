@@ -1,0 +1,105 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - tmp
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: Build & Publish Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎️ Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: ☕ Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 🔑 Set up Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 || secrets.KEYSTORE_BASE64 }}
+        run: |
+          python3 -c "
+          import base64, os, re, sys
+          raw = os.environ.get('KEYSTORE_BASE64', '').strip()
+          if not raw:
+              print('::notice::RELEASE_KEYSTORE_BASE64 / KEYSTORE_BASE64 secret is not configured; using debug keystore fallback.')
+              sys.exit(0)
+          cleaned = re.sub(r'[^A-Za-z0-9+/=]', '', raw)
+          missing_padding = len(cleaned) % 4
+          if missing_padding:
+              cleaned += '=' * (4 - missing_padding)
+          try:
+              decoded = base64.b64decode(cleaned)
+              if len(decoded) == 0:
+                  raise ValueError('Decoded keystore file is empty')
+              with open('app/release.jks', 'wb') as f:
+                  f.write(decoded)
+              print(f'Keystore decoded successfully ({len(decoded)} bytes)')
+          except Exception as e:
+              print(f'::warning::Failed to decode keystore: {e}, falling back to debug keystore.', file=sys.stderr)
+          "
+
+      - name: 🔧 Grant Execute Permissions for Gradlew
+        run: chmod +x gradlew
+
+      - name: 🏷️ Determine Version & Generate Release Notes
+        id: release_info
+        run: python3 .github/scripts/generate_release_notes.py
+
+      - name: 🧪 Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+      - name: 📦 Build Signed Release APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease -PversionName=${{ steps.release_info.outputs.version }} -PversionCode=${{ steps.release_info.outputs.version_code }}
+
+      - name: 📂 Prepare Release Artifacts
+        run: |
+          mkdir -p artifacts
+          cp app/build/outputs/apk/release/app-release.apk artifacts/Bazarnote-${{ steps.release_info.outputs.tag_name }}.apk
+          cp app/build/outputs/apk/release/app-release.apk artifacts/Bazarnote-latest.apk
+
+      - name: 📤 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bazarnote-APK
+          path: artifacts/*.apk
+
+      - name: 🚀 Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.release_info.outputs.tag_name }}
+          name: ${{ steps.release_info.outputs.release_title }}
+          body_path: release_body.md
+          draft: false
+          prerelease: false
+          make_latest: true
+          files: |
+            artifacts/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📊 Generate Tabular Build Summary
+        if: always()
+        run: python3 .github/scripts/generate_summary.py

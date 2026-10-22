@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.rootminusone8004.bazarnote">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -9,6 +8,7 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".BazarnoteApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,7 +19,7 @@
         android:theme="@style/Theme.Bazarnote"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true"
             android:screenOrientation="portrait" >
@@ -30,27 +30,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddSessionActivity"
+            android:name=".ui.AddSessionActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".SessionActivity"
+            android:parentActivityName=".ui.SessionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".SessionActivity"
+            android:parentActivityName=".ui.SessionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddEditNoteActivity"
+            android:name=".ui.AddEditNoteActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SessionActivity"
+            android:name=".ui.SessionActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:parentActivityName=".SplashActivity"
+            android:parentActivityName=".ui.SplashActivity"
             android:screenOrientation="portrait" />
     </application>
 

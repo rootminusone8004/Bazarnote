@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.10.0] - 22-10-2026
+
+Sorry for being late and not getting update for a long time!
+
+### Added
+- added checkbox to include or exclude items without removing their details addressing [this issue](https://github.com/rootminusone8004/Bazarnote/issues/1)
+
+### Fixed
+- minimized the apk size
+- solved CSV detection problem and improve export/import compatibility addressing [this issue](https://github.com/rootminusone8004/Bazarnote/issues/2)
+
 ## [0.9.1] - 29-05-2025
 
 ### Notice

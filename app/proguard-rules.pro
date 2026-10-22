@@ -1,21 +1,33 @@
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Room Database & Entities
+-keep class com.rootminusone8004.bazarnote.data.** { *; }
+-dontwarn androidx.room.paging.**
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Gson
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn sun.misc.**
+-keep class com.google.gson.** { *; }
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# OpenCSV
+-keep class com.opencsv.** { *; }
+-dontwarn com.opencsv.**
+-dontwarn org.apache.commons.beanutils.**
+-dontwarn org.apache.commons.collections.**
+-dontwarn org.apache.commons.collections4.**
+-dontwarn org.apache.commons.logging.**
+
+# TapTargetView
+-keep class com.getkeepsafe.taptargetview.** { *; }
+
+# ViewBinding
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+    public static * inflate(...);
+    public static * bind(...);
+}

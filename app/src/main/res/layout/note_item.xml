@@ -12,13 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="8dp">
+
+        <CheckBox
+            android:id="@+id/checkbox_include"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:layout_gravity="center_vertical"
+            android:buttonTint="@color/customOrange"
+            android:layout_marginEnd="6dp" />
 
         <TextView
             android:id="@+id/text_view_item"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.32"
             android:textSize="16sp"
             android:ellipsize="end"
             android:maxLines="1"
@@ -29,39 +40,40 @@
         <TextView
             android:id="@+id/text_view_quantity"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.18"
             android:textSize="16sp"
             android:textColor="@android:color/white"
             android:text="quantity"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
 
         <TextView
             android:id="@+id/text_view_price"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.22"
             android:textSize="16sp"
             android:textColor="@android:color/white"
             android:text="price"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
 
         <TextView
             android:id="@+id/text_view_multiple"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.28"
             android:textSize="16sp"
             android:textColor="@color/customOrange"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp" />
 
         <ImageButton
             android:id="@+id/price_btn"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
             android:gravity="center"
             android:background="@color/customCard"
             android:src="@drawable/radio_button_checked_24"/>
